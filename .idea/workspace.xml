@@ -22,8 +22,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="763d96d1-705f-4c1d-b0c1-2d5543add4d7" name="Default Changelist" comment="refactor moduletype">
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/tech/stonks/kvizard/utils/swing.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/tech/stonks/kvizard/utils/swing.kt" afterDir="false" />
+    <list default="true" id="763d96d1-705f-4c1d-b0c1-2d5543add4d7" name="Default Changelist" comment="fix listening to text change">
+      <change afterPath="$PROJECT_DIR$/.idea/cuba-project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +49,17 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="kvision-project-wizard" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="kvision-project-wizard" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="kvision-project-wizard" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="intellij" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -84,6 +97,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/fileTemplates/internal" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
@@ -106,7 +120,7 @@
       <recent name="C:\Users\jakub\Workspace\plugin\kvision-project-wizard\src\main\resources\fileTemplates\internal\frontend\web" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.Plugin">
+  <component name="RunManager" selected="Gradle.kvision-project-wizard [buildPlugin]">
     <configuration name="C:/Users/jakub/Workspace/plugin/kvision-project-wizard" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -143,8 +157,28 @@
       <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="kvision-project-wizard [buildPlugin]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="buildPlugin" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.kvision-project-wizard [buildPlugin]" />
         <item itemvalue="Gradle.C:/Users/jakub/Workspace/plugin/kvision-project-wizard" />
       </list>
     </recent_temporary>
@@ -207,7 +241,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603552502839</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="fix listening to text change">
+      <created>1603552932440</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1603552932440</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -230,7 +271,8 @@
     <MESSAGE value="replacing fields in templates with attributes" />
     <MESSAGE value="add generating all the source files" />
     <MESSAGE value="refactor moduletype" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor moduletype" />
+    <MESSAGE value="fix listening to text change" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix listening to text change" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1054" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603542984913">
@@ -249,58 +291,66 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1059" y="299" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603529693303" />
+    <state x="1060" y="261" key="FileChooserDialogImpl" timestamp="1603553196883">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="1060" y="261" key="FileChooserDialogImpl/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603553196883" />
     <state x="913" y="350" key="GradleDaemons" timestamp="1603548542328">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="913" y="350" key="GradleDaemons/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603548542328" />
-    <state width="2517" height="488" key="GridCell.Tab.0.bottom" timestamp="1603552681571">
+    <state width="2517" height="348" key="GridCell.Tab.0.bottom" timestamp="1603553205214">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2517" height="488" key="GridCell.Tab.0.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552681571" />
-    <state width="2517" height="488" key="GridCell.Tab.0.center" timestamp="1603552681571">
+    <state width="2517" height="348" key="GridCell.Tab.0.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603553205214" />
+    <state width="2517" height="348" key="GridCell.Tab.0.center" timestamp="1603553205214">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2517" height="488" key="GridCell.Tab.0.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552681571" />
-    <state width="2517" height="488" key="GridCell.Tab.0.left" timestamp="1603552681571">
+    <state width="2517" height="348" key="GridCell.Tab.0.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603553205214" />
+    <state width="2517" height="348" key="GridCell.Tab.0.left" timestamp="1603553205214">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2517" height="488" key="GridCell.Tab.0.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552681571" />
-    <state width="2517" height="488" key="GridCell.Tab.0.right" timestamp="1603552681571">
+    <state width="2517" height="348" key="GridCell.Tab.0.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603553205214" />
+    <state width="2517" height="348" key="GridCell.Tab.0.right" timestamp="1603553205214">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2517" height="488" key="GridCell.Tab.0.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552681571" />
-    <state width="2517" height="348" key="GridCell.Tab.1.bottom" timestamp="1603552636046">
+    <state width="2517" height="348" key="GridCell.Tab.0.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603553205214" />
+    <state width="2517" height="348" key="GridCell.Tab.1.bottom" timestamp="1603553205214">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2517" height="348" key="GridCell.Tab.1.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552636046" />
-    <state width="2517" height="348" key="GridCell.Tab.1.center" timestamp="1603552636046">
+    <state width="2517" height="348" key="GridCell.Tab.1.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603553205214" />
+    <state width="2517" height="348" key="GridCell.Tab.1.center" timestamp="1603553205214">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2517" height="348" key="GridCell.Tab.1.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552636046" />
-    <state width="2517" height="348" key="GridCell.Tab.1.left" timestamp="1603552636046">
+    <state width="2517" height="348" key="GridCell.Tab.1.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603553205214" />
+    <state width="2517" height="348" key="GridCell.Tab.1.left" timestamp="1603553205214">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2517" height="348" key="GridCell.Tab.1.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552636046" />
-    <state width="2517" height="348" key="GridCell.Tab.1.right" timestamp="1603552636046">
+    <state width="2517" height="348" key="GridCell.Tab.1.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603553205214" />
+    <state width="2517" height="348" key="GridCell.Tab.1.right" timestamp="1603553205214">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2517" height="348" key="GridCell.Tab.1.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552636046" />
-    <state x="781" y="165" key="SettingsEditor" timestamp="1603529578763">
+    <state width="2517" height="348" key="GridCell.Tab.1.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603553205214" />
+    <state x="781" y="165" key="SettingsEditor" timestamp="1603553159776">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="781" y="165" key="SettingsEditor/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603529578763" />
-    <state x="872" y="240" key="Vcs.Push.Dialog.v2" timestamp="1603552504524">
+    <state x="781" y="165" key="SettingsEditor/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603553159776" />
+    <state x="872" y="240" key="Vcs.Push.Dialog.v2" timestamp="1603552933988">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="872" y="240" key="Vcs.Push.Dialog.v2/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552504524" />
+    <state x="872" y="240" key="Vcs.Push.Dialog.v2/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552933988" />
+    <state x="866" y="130" key="new project wizard" timestamp="1603553203565">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="866" y="130" key="new project wizard/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603553203565" />
     <state x="936" y="240" key="run.anything.popup" timestamp="1603545735870">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="936" y="240" key="run.anything.popup/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603545735870" />
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1603549086727">
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1603553042645">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603549086727" />
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603553042645" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
