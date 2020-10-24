@@ -5,13 +5,14 @@ import com.intellij.ide.util.projectWizard.ModuleWizardStep
 import com.intellij.ide.util.projectWizard.WizardContext
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.module.ModuleType
+import com.intellij.openapi.util.IconLoader
 import tech.stonks.kvizard.step.library_choice.LibraryChoiceStep
 import javax.swing.Icon
 import javax.swing.ImageIcon
 
 public class KVisionModuleType: ModuleType<KVisionModuleBuilder>("KVISION_WIZARD") {
 
-    private val _icon: Icon by lazy { ImageIcon("https://raw.githubusercontent.com/rjaros/kvision/master/graphics/kvision-logo.png") }
+    private val _icon: Icon by lazy { IconLoader.getIcon("/images/logo16.png") }
 
     override fun createModuleBuilder(): KVisionModuleBuilder {
         return KVisionModuleBuilder()
@@ -36,7 +37,7 @@ public class KVisionModuleType: ModuleType<KVisionModuleBuilder>("KVISION_WIZARD
 
 class KVisionModuleBuilder: ModuleBuilder() {
 
-    var backendLibrary: KVisionBackendLibrary? = null
+    var backendLibrary: KVisionBackendLibrary = KVisionBackendLibrary.KTOR
     var groupId: String = "com.example"
     var artifactId: String = "project"
 

@@ -2,35 +2,52 @@ package tech.stonks.kvizard.step.library_choice
 
 import com.intellij.openapi.ui.ComboBox
 import tech.stonks.kvizard.KVisionBackendLibrary
+import tech.stonks.kvizard.utils.setOnTextChangedListener
 import java.awt.FlowLayout
-import java.awt.GridLayout
 import javax.swing.*
 
-class LibraryChoiceView : JComponent() {
-    var backendLibrary: KVisionBackendLibrary? = null
-        private set
+class LibraryChoiceView(
+    var backendLibrary: KVisionBackendLibrary,
+    var groupId: String,
+    var artifactId: String
+) : JPanel() {
 
-    var onSubmit: () -> Unit = {}
+    var onChanged: () -> Unit = {}
 
     init {
-        layout = GridLayout(3, 1)
-        add(JLabel("Choose your backend library"))
-        add(
-            ComboBox<KVisionBackendLibrary>(KVisionBackendLibrary.values()).apply {
-            addItemListener { event: java.awt.event.ItemEvent ->
-                if(event.stateChange == java.awt.event.ItemEvent.SELECTED) {
-                    backendLibrary = event.item as KVisionBackendLibrary
+        layout = FlowLayout(FlowLayout.LEFT)
+        alignmentX = JComponent.LEFT_ALIGNMENT
+        val panel = JPanel().apply {
+            layout = BoxLayout(this, BoxLayout.Y_AXIS)
+            alignmentX = JComponent.LEFT_ALIGNMENT
+            add(JLabel("Choose your backend library").apply { alignmentX = LEFT_ALIGNMENT })
+            add(ComboBox<KVisionBackendLibrary>(KVisionBackendLibrary.values()).apply {
+                alignmentX = LEFT_ALIGNMENT
+                prototypeDisplayValue = backendLibrary
+                addItemListener { event: java.awt.event.ItemEvent ->
+                    if (event.stateChange == java.awt.event.ItemEvent.SELECTED) {
+                        backendLibrary = event.item as KVisionBackendLibrary
+                        onChanged()
+                    }
                 }
-            }
+            })
+            add(JLabel("GroupId").apply { alignmentX = LEFT_ALIGNMENT })
+            add(JTextField(groupId).apply {
+                alignmentX = LEFT_ALIGNMENT
+                setOnTextChangedListener {
+                    groupId = it
+                    onChanged()
+                }
+            })
+            add(JLabel("ArtifactId").apply { alignmentX = LEFT_ALIGNMENT })
+            add(JTextField(artifactId).apply {
+                alignmentX = LEFT_ALIGNMENT
+                setOnTextChangedListener {
+                    artifactId = it
+                    onChanged()
+                }
+            })
         }
-        )
-        add(
-            JPanel(FlowLayout()).apply {
-                add(JButton("Cancel"))
-                add(JButton("Submit").apply {
-                    this.addActionListener { onSubmit() }
-                })
-            }
-        )
+        add(panel)
     }
 }
