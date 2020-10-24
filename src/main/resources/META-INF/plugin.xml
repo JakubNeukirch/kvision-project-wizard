@@ -10,7 +10,8 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-
+        <moduleType id="KVISION_WIZARD" implementationClass="tech.stonks.kvizard.KVisionModuleType" />
+        <moduleBuilder builderClass="tech.stonks.kvizard.KVisionModuleBuilder"/>
     </extensions>
 
     <actions>
