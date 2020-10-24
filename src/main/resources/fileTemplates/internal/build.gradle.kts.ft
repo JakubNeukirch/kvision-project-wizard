@@ -11,7 +11,8 @@ plugins {
 }
 
 version = "1.0.0-SNAPSHOT"
-group = "com.example"
+group = "${GROUP_ID}"
+artifact = "${ARTIFACT_ID}"
 
 repositories {
     mavenCentral()

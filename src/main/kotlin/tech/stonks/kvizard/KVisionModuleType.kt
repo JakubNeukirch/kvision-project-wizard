@@ -111,7 +111,14 @@ class KVisionModuleBuilder : ModuleBuilder() {
                         //todo add webpack files
                     }
 
-                    file("build.gradle.kts", "build.gradle.kts")
+                    file(
+                        "build.gradle.kts",
+                        "build.gradle.kts",
+                        mapOf(
+                            TemplateAttributes.ARTIFACT_ID to artifactId,
+                            TemplateAttributes.GROUP_ID to groupId,
+                        )
+                    )
                     //todo add root files
                 }
                 root.refresh(false, true)
