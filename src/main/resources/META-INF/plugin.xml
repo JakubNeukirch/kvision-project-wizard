@@ -1,0 +1,19 @@
+<idea-plugin>
+    <id>tech.stonks.kvision-project-wizard</id>
+    <name>KVision Project Wizard</name>
+    <vendor email="jakub.neukirch@stonks.tech" url="https://stonks.tech">Stonks.tech</vendor>
+
+    <description>Simple project wizard for KVision based projects.</description>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+</idea-plugin>
