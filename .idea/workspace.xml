@@ -22,11 +22,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="763d96d1-705f-4c1d-b0c1-2d5543add4d7" name="Default Changelist" comment="add generating all the source files">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/fileTemplates/internal/idea_gradle.xml.ft" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/tech/stonks/kvizard/KVisionModuleType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/tech/stonks/kvizard/KVisionModuleType.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fileTemplates/internal/build.gradle.kts.ft" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fileTemplates/internal/build.gradle.kts.ft" afterDir="false" />
+    <list default="true" id="763d96d1-705f-4c1d-b0c1-2d5543add4d7" name="Default Changelist" comment="refactor moduletype">
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/tech/stonks/kvizard/utils/swing.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/tech/stonks/kvizard/utils/swing.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,7 +200,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603548095978</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="refactor moduletype">
+      <created>1603552502839</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1603552502839</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -225,7 +229,8 @@
     <MESSAGE value="add building directory hierarchy" />
     <MESSAGE value="replacing fields in templates with attributes" />
     <MESSAGE value="add generating all the source files" />
-    <option name="LAST_COMMIT_MESSAGE" value="add generating all the source files" />
+    <MESSAGE value="refactor moduletype" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor moduletype" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1054" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603542984913">
@@ -248,46 +253,46 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="913" y="350" key="GradleDaemons/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603548542328" />
-    <state width="2517" height="488" key="GridCell.Tab.0.bottom" timestamp="1603552160625">
+    <state width="2517" height="488" key="GridCell.Tab.0.bottom" timestamp="1603552681571">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2517" height="488" key="GridCell.Tab.0.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552160625" />
-    <state width="2517" height="488" key="GridCell.Tab.0.center" timestamp="1603552160625">
+    <state width="2517" height="488" key="GridCell.Tab.0.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552681571" />
+    <state width="2517" height="488" key="GridCell.Tab.0.center" timestamp="1603552681571">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2517" height="488" key="GridCell.Tab.0.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552160625" />
-    <state width="2517" height="488" key="GridCell.Tab.0.left" timestamp="1603552160625">
+    <state width="2517" height="488" key="GridCell.Tab.0.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552681571" />
+    <state width="2517" height="488" key="GridCell.Tab.0.left" timestamp="1603552681571">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2517" height="488" key="GridCell.Tab.0.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552160625" />
-    <state width="2517" height="488" key="GridCell.Tab.0.right" timestamp="1603552160625">
+    <state width="2517" height="488" key="GridCell.Tab.0.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552681571" />
+    <state width="2517" height="488" key="GridCell.Tab.0.right" timestamp="1603552681571">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2517" height="488" key="GridCell.Tab.0.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552160625" />
-    <state width="2517" height="348" key="GridCell.Tab.1.bottom" timestamp="1603543390010">
+    <state width="2517" height="488" key="GridCell.Tab.0.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552681571" />
+    <state width="2517" height="348" key="GridCell.Tab.1.bottom" timestamp="1603552636046">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2517" height="348" key="GridCell.Tab.1.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603543390010" />
-    <state width="2517" height="348" key="GridCell.Tab.1.center" timestamp="1603543390009">
+    <state width="2517" height="348" key="GridCell.Tab.1.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552636046" />
+    <state width="2517" height="348" key="GridCell.Tab.1.center" timestamp="1603552636046">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2517" height="348" key="GridCell.Tab.1.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603543390009" />
-    <state width="2517" height="348" key="GridCell.Tab.1.left" timestamp="1603543390009">
+    <state width="2517" height="348" key="GridCell.Tab.1.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552636046" />
+    <state width="2517" height="348" key="GridCell.Tab.1.left" timestamp="1603552636046">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2517" height="348" key="GridCell.Tab.1.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603543390009" />
-    <state width="2517" height="348" key="GridCell.Tab.1.right" timestamp="1603543390009">
+    <state width="2517" height="348" key="GridCell.Tab.1.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552636046" />
+    <state width="2517" height="348" key="GridCell.Tab.1.right" timestamp="1603552636046">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2517" height="348" key="GridCell.Tab.1.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603543390009" />
+    <state width="2517" height="348" key="GridCell.Tab.1.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552636046" />
     <state x="781" y="165" key="SettingsEditor" timestamp="1603529578763">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="781" y="165" key="SettingsEditor/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603529578763" />
-    <state x="872" y="240" key="Vcs.Push.Dialog.v2" timestamp="1603548097603">
+    <state x="872" y="240" key="Vcs.Push.Dialog.v2" timestamp="1603552504524">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="872" y="240" key="Vcs.Push.Dialog.v2/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603548097603" />
+    <state x="872" y="240" key="Vcs.Push.Dialog.v2/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552504524" />
     <state x="936" y="240" key="run.anything.popup" timestamp="1603545735870">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
@@ -307,7 +312,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/tech/stonks/kvizard/KVisionModuleType.kt</url>
-          <line>199</line>
+          <line>30</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
@@ -316,9 +321,14 @@
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/tech/stonks/kvizard/KVisionModuleType.kt</url>
-          <line>127</line>
-          <option name="timeStamp" value="12" />
+          <url>file://$PROJECT_DIR$/src/main/kotlin/tech/stonks/kvizard/step/library_choice/LibraryChoiceView.kt</url>
+          <line>28</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/tech/stonks/kvizard/step/library_choice/LibraryChoiceView.kt</url>
+          <line>37</line>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
