@@ -17,4 +17,4 @@ pluginManagement {
         }
     }
 }
-rootProject.name = "template-fullstack-ktor"
+rootProject.name = "${ARTIFACT_ID}"

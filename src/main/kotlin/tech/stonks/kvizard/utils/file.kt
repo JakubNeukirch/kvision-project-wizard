@@ -52,4 +52,5 @@ fun Project.getRootFile(): VirtualFile? {
 object TemplateAttributes {
     const val GROUP_ID = "GROUP_ID"
     const val ARTIFACT_ID = "ARTIFACT_ID"
+    const val PACKAGE_NAME = "PACKAGE_NAME"
 }

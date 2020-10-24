@@ -6,6 +6,7 @@ import com.intellij.ide.util.projectWizard.WizardContext
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.module.ModuleType
+import com.intellij.openapi.project.getProjectCacheFileName
 import com.intellij.openapi.roots.ModifiableRootModel
 import com.intellij.openapi.util.IconLoader
 import com.intellij.openapi.util.io.FileUtil
@@ -18,7 +19,7 @@ import tech.stonks.kvizard.utils.*
 import java.io.File
 import javax.swing.Icon
 
-public class KVisionModuleType : ModuleType<KVisionModuleBuilder>("KVISION_WIZARD") {
+class KVisionModuleType : ModuleType<KVisionModuleBuilder>("KVISION_WIZARD") {
 
     private val _icon: Icon by lazy { IconLoader.getIcon("/images/logo16.png") }
 
@@ -49,6 +50,57 @@ class KVisionModuleBuilder : ModuleBuilder() {
     var groupId: String = "com.example"
     var artifactId: String = "project"
 
+    companion object {
+        private val rootFiles = arrayOf(
+            "build.gradle.kts",
+            "settings.gradle.kts",
+            ".gettext.json",
+            ".gitignore",
+            "app.json",
+            "gradle.properties",
+            "system.properties",
+            "gradlew.bat",
+            "gradlew",
+            "Procfile"
+        )
+        private val webpackFiles = arrayOf(
+            "bootstrap.js",
+            "css.js",
+            "file.js",
+            "handlebars.js",
+            "jquery.js",
+            "minify.js",
+            "moment.js",
+            "webpack.js"
+        )
+        private val backendResourcesFiles = arrayOf(
+            "application.conf",
+            "logback.xml"
+        )
+        private val backendFiles = arrayOf(
+            "Main.kt",
+            "Service.kt"
+        )
+        private val commonFiles = arrayOf(
+            "Service.kt"
+        )
+        private val frontendSourceFiles = arrayOf(
+            "App.kt",
+            "Model.kt"
+        )
+        private val frontendWebFiles = arrayOf(
+            "index.html"
+        )
+        private val frontendResourcesFiles = arrayOf(
+            "messages.pot",
+            "messages-en.po",
+            "messages-pl.po"
+        )
+        private val frontendTestFiles = arrayOf(
+            "AppSpec.kt"
+        )
+    }
+
     override fun setupRootModel(modifiableRootModel: ModifiableRootModel) {
         val packageSegments = groupId
             .split(".")
@@ -57,7 +109,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
             .toList()
         val root = createAndGetRoot() ?: return
         modifiableRootModel.addContentEntry(root)
-        try{
+        try {
             ApplicationManager.getApplication().runWriteAction {
                 val manager = PsiManager.getInstance(modifiableRootModel.project)
                 manager.findFile(root)?.add(
@@ -65,39 +117,58 @@ class KVisionModuleBuilder : ModuleBuilder() {
                         .createDirectory(root.createChildDirectory(null, "webpack"))
                 )
             }
-        } catch (ex:java.lang.Exception) {
+        } catch (ex: java.lang.Exception) {
             ex.printStackTrace()
         }
         modifiableRootModel.project.backgroundTask("Setting up project") {
             try {
+                val attrs = generateAttributes()
                 root.build {
                     dir("src") {
                         dir("backendMain") {
                             dir("kotlin") {
                                 packages(packageSegments) {
-                                    //todo add backend files
+                                    backendFiles.forEach { fileName -> file(fileName, "backend_source_$fileName", attrs) }
                                 }
                             }
                             dir("resources") {
-                                //todo add conf and logback.conf
+                                backendResourcesFiles.forEach { fileName ->
+                                    file(
+                                        fileName,
+                                        "backend_resources_$fileName",
+                                        attrs
+                                    )
+                                }
                             }
                         }
                         dir("commonMain") {
                             dir("kotlin") {
-                                packages(packageSegments)
+                                packages(packageSegments) {
+                                    commonFiles.forEach { fileName -> file(fileName, "common_$fileName", attrs) }
+                                }
                             }
                         }
                         dir("frontendMain") {
                             dir("kotlin") {
                                 packages(packageSegments) {
-                                    //todo add some hello world files
+                                    frontendSourceFiles.forEach { fileName -> file(fileName, "frontend_source_$fileName", attrs) }
+                                }
+                            }
+                            dir("web") {
+                                frontendWebFiles.forEach { fileName -> file(fileName, "frontend_web_$fileName", attrs) }
+                            }
+                            dir("resources") {
+                                dir("i18n") {
+                                    frontendResourcesFiles.forEach { fileName -> file(fileName, "frontend_resources_$fileName", attrs) }
                                 }
                             }
                         }
                         dir("frontendTest") {
                             dir("kotlin") {
                                 dir("test") {
-                                    packages(packageSegments)
+                                    packages(packageSegments) {
+                                        frontendTestFiles.forEach { fileName -> file(fileName, "frontend_test_$fileName", attrs) }
+                                    }
                                 }
                             }
                         }
@@ -108,18 +179,9 @@ class KVisionModuleBuilder : ModuleBuilder() {
                         }
                     }
                     dir("webpack.config.d") {
-                        //todo add webpack files
+                        webpackFiles.forEach { fileName -> file(fileName, "webpack_${fileName}", attrs) }
                     }
-
-                    file(
-                        "build.gradle.kts",
-                        "build.gradle.kts",
-                        mapOf(
-                            TemplateAttributes.ARTIFACT_ID to artifactId,
-                            TemplateAttributes.GROUP_ID to groupId,
-                        )
-                    )
-                    //todo add root files
+                    rootFiles.forEach { fileName -> file(fileName, "root_$fileName", attrs) }
                 }
                 root.refresh(false, true)
             } catch (ex: Exception) {
@@ -128,6 +190,14 @@ class KVisionModuleBuilder : ModuleBuilder() {
             }
 
         }
+    }
+
+    private fun generateAttributes(): Map<String, String> {
+        return mapOf(
+            TemplateAttributes.ARTIFACT_ID to artifactId,
+            TemplateAttributes.GROUP_ID to groupId,
+            TemplateAttributes.PACKAGE_NAME to "${groupId}.${artifactId}",
+        )
     }
 
     private fun createAndGetRoot(): VirtualFile? {
