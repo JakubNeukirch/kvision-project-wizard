@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="763d96d1-705f-4c1d-b0c1-2d5543add4d7" name="Default Changelist" comment="add generating all the source files">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/fileTemplates/internal/idea_gradle.xml.ft" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/tech/stonks/kvizard/KVisionModuleType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/tech/stonks/kvizard/KVisionModuleType.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fileTemplates/internal/build.gradle.kts.ft" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fileTemplates/internal/build.gradle.kts.ft" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="kvision-project-wizard" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="kvision-project-wizard" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Class" />
+        <option value="Kotlin File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="C:\Users\jakub\AppData\Local\JetBrains\Toolbox\apps\IDEA-C\ch-0\202.6948.69\plugins\maven\lib\maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1jJTWVb6uhbcFoUune0sO6LyO8b" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/fileTemplates/internal" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jakub\Workspace\plugin\kvision-project-wizard\src\main\resources\fileTemplates\internal" />
+      <recent name="C:\Users\jakub\Workspace\plugin\kvision-project-wizard\src\main\resources\fileTemplates\internal\backend\resources" />
+      <recent name="C:\Users\jakub\Workspace\plugin\kvision-project-wizard\src\main\resources\fileTemplates\internal\backend\source" />
+      <recent name="C:\Users\jakub\Workspace\plugin\kvision-project-wizard\src\main\resources\fileTemplates\internal\root" />
+      <recent name="C:\Users\jakub\Workspace\plugin\kvision-project-wizard\src\main\resources" />
+    </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="tech.stonks.kvizard.step.librarychoice" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jakub\Workspace\plugin\kvision-project-wizard\src\main\resources\fileTemplates\internal" />
+      <recent name="C:\Users\jakub\Workspace\plugin\kvision-project-wizard\src\main\resources\fileTemplates\internal\backend" />
+      <recent name="C:\Users\jakub\Workspace\plugin\kvision-project-wizard\src\main\resources\fileTemplates\internal\frontend_test" />
+      <recent name="C:\Users\jakub\Workspace\plugin\kvision-project-wizard\src\main\resources\fileTemplates\internal\frontend\resources" />
+      <recent name="C:\Users\jakub\Workspace\plugin\kvision-project-wizard\src\main\resources\fileTemplates\internal\frontend\web" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.Plugin">
+    <configuration name="C:/Users/jakub/Workspace/plugin/kvision-project-wizard" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="Plugin" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":runIde" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.C:/Users/jakub/Workspace/plugin/kvision-project-wizard" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="763d96d1-705f-4c1d-b0c1-2d5543add4d7" name="Default Changelist" comment="" />
+      <created>1603521229149</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1603521229149</updated>
+    </task>
+    <task id="LOCAL-00001" summary="init">
+      <created>1603521683814</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1603521683814</updated>
+    </task>
+    <task id="LOCAL-00002" summary="add choosing backend library step">
+      <created>1603531472789</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1603531472789</updated>
+    </task>
+    <task id="LOCAL-00003" summary="finished wizard layouts">
+      <created>1603535392859</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1603535392859</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add building directory hierarchy">
+      <created>1603543241119</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1603543241119</updated>
+    </task>
+    <task id="LOCAL-00005" summary="replacing fields in templates with attributes">
+      <created>1603544400654</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1603544400654</updated>
+    </task>
+    <task id="LOCAL-00006" summary="add generating all the source files">
+      <created>1603548095978</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1603548095978</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="init" />
+    <MESSAGE value="add choosing backend library step" />
+    <MESSAGE value="finished wizard layouts" />
+    <MESSAGE value="add building directory hierarchy" />
+    <MESSAGE value="replacing fields in templates with attributes" />
+    <MESSAGE value="add generating all the source files" />
+    <option name="LAST_COMMIT_MESSAGE" value="add generating all the source files" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1054" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603542984913">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="1054" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603542984913" />
+    <state x="1071" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1603539222211">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="1071" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603539222211" />
+    <state x="1010" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1603542861452">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="1010" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603542861452" />
+    <state x="1059" y="299" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog" timestamp="1603529693303">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="1059" y="299" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603529693303" />
+    <state x="913" y="350" key="GradleDaemons" timestamp="1603548542328">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="913" y="350" key="GradleDaemons/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603548542328" />
+    <state width="2517" height="488" key="GridCell.Tab.0.bottom" timestamp="1603552160625">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="488" key="GridCell.Tab.0.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552160625" />
+    <state width="2517" height="488" key="GridCell.Tab.0.center" timestamp="1603552160625">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="488" key="GridCell.Tab.0.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552160625" />
+    <state width="2517" height="488" key="GridCell.Tab.0.left" timestamp="1603552160625">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="488" key="GridCell.Tab.0.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552160625" />
+    <state width="2517" height="488" key="GridCell.Tab.0.right" timestamp="1603552160625">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="488" key="GridCell.Tab.0.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603552160625" />
+    <state width="2517" height="348" key="GridCell.Tab.1.bottom" timestamp="1603543390010">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="348" key="GridCell.Tab.1.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603543390010" />
+    <state width="2517" height="348" key="GridCell.Tab.1.center" timestamp="1603543390009">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="348" key="GridCell.Tab.1.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603543390009" />
+    <state width="2517" height="348" key="GridCell.Tab.1.left" timestamp="1603543390009">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="348" key="GridCell.Tab.1.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603543390009" />
+    <state width="2517" height="348" key="GridCell.Tab.1.right" timestamp="1603543390009">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="348" key="GridCell.Tab.1.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603543390009" />
+    <state x="781" y="165" key="SettingsEditor" timestamp="1603529578763">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="781" y="165" key="SettingsEditor/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603529578763" />
+    <state x="872" y="240" key="Vcs.Push.Dialog.v2" timestamp="1603548097603">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="872" y="240" key="Vcs.Push.Dialog.v2/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603548097603" />
+    <state x="936" y="240" key="run.anything.popup" timestamp="1603545735870">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="936" y="240" key="run.anything.popup/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603545735870" />
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1603549086727">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603549086727" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/tech/stonks/kvizard/utils/file.kt</url>
+          <line>48</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/tech/stonks/kvizard/KVisionModuleType.kt</url>
+          <line>199</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/tech/stonks/kvizard/utils/file.kt</url>
+          <line>33</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/tech/stonks/kvizard/KVisionModuleType.kt</url>
+          <line>127</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
