@@ -1,10 +1,10 @@
 javaVersion=1.8
 #Plugins
-systemProp.kotlinVersion=1.4.10
-serializationVersion=1.0.1
+systemProp.kotlinVersion=${kotlin_version}
+serializationVersion=${serialization_version}
 #Dependencies
-systemProp.kvisionVersion=3.16.3
-ktorVersion=1.4.2
+systemProp.kvisionVersion=${kvision_version}
+ktorVersion=${ktor_version}
 hikariVersion=3.2.0
 commonsCodecVersion=1.10
 jdbcNamedParametersVersion=1.1

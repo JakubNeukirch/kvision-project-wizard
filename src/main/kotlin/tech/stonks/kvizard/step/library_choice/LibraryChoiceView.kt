@@ -2,6 +2,7 @@ package tech.stonks.kvizard.step.library_choice
 
 import com.intellij.openapi.ui.ComboBox
 import tech.stonks.kvizard.KVisionBackendLibrary
+import tech.stonks.kvizard.KVisionModuleBuilder
 import tech.stonks.kvizard.utils.setOnTextChangedListener
 import java.awt.FlowLayout
 import javax.swing.*
@@ -21,7 +22,7 @@ class LibraryChoiceView(
             layout = BoxLayout(this, BoxLayout.Y_AXIS)
             alignmentX = JComponent.LEFT_ALIGNMENT
             add(JLabel("Choose your backend library").apply { alignmentX = LEFT_ALIGNMENT })
-            add(ComboBox<KVisionBackendLibrary>(KVisionBackendLibrary.values()).apply {
+            add(ComboBox<KVisionBackendLibrary>(KVisionModuleBuilder.supportedBackendLibraries).apply {
                 alignmentX = LEFT_ALIGNMENT
                 prototypeDisplayValue = backendLibrary
                 addItemListener { event: java.awt.event.ItemEvent ->
