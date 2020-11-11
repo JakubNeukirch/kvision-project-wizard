@@ -30,5 +30,5 @@ class KVisionModuleType : ModuleType<KVisionModuleBuilder>("KVISION_WIZARD") {
 }
 
 enum class KVisionBackendLibrary {
-    KTOR, JAVALIN, JOOBY, MICRONAUT, SPRING_BOOT, VERTX;
+    KTOR, FRONTEND_ONLY, JAVALIN, JOOBY, MICRONAUT, SPRING_BOOT, VERTX;
 }
