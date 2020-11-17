@@ -12,6 +12,7 @@ import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.util.IconLoader
 import com.intellij.util.IconUtil
 import tech.stonks.kvizard.action.NewsAction
+import tech.stonks.kvizard.action.NotShowAction
 import tech.stonks.kvizard.settings.AppSettingsState
 
 object KVisionDialogUtil {
@@ -27,10 +28,11 @@ object KVisionDialogUtil {
                                 NotificationType.INFORMATION
                         ).apply {
                             icon = IconLoader.getIcon("/images/email-black-18dp.svg")
-                            this.addAction(ActionManager.getInstance().getAction("tech.stonks.kvizard.action.NewsAction"))
-                            this.addAction(ActionManager.getInstance().getAction("tech.stonks.kvizard.action.NotShowAction"))
+                            this.addAction(NewsAction("Join Kotlin.News"))
+                            this.addAction(NotShowAction("Do not show again"))
                         }
                 )
+                appSettings.state?.lastDisplayed = System.currentTimeMillis()
             }
         }
     }

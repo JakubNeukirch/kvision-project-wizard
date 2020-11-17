@@ -1,5 +1,6 @@
 package tech.stonks.kvizard.settings
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.*
 import com.intellij.serviceContainer.ComponentManagerImpl
 
