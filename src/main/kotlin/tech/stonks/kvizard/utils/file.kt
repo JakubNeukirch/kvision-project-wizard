@@ -1,8 +1,10 @@
 package tech.stonks.kvizard.utils
 
+import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.ide.fileTemplates.FileTemplateManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
+import org.jetbrains.plugins.gradle.action.GradleExecuteTaskAction
 import java.io.File
 
 fun File.dir(name: String, body: File.() -> Unit = {}) {
@@ -43,6 +45,10 @@ private fun getTemplateData(templateName: String, attributes: Map<String, String
     } else {
         template.getText(attributes)
     }
+}
+
+fun Project.runGradle(command: String) {
+    GradleExecuteTaskAction.runGradle(this, DefaultRunExecutor.getRunExecutorInstance(), this.basePath!!, command)
 }
 
 fun Project.getRootFile(): VirtualFile? {
