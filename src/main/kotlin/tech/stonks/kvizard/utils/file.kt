@@ -1,6 +1,7 @@
 package tech.stonks.kvizard.utils
 
 import com.intellij.ide.fileTemplates.FileTemplateManager
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import java.io.File
@@ -36,8 +37,8 @@ fun File.file(name: String, templateName: String, attributes: Map<String, String
 
 private fun getTemplateData(templateName: String, attributes: Map<String, String> = emptyMap()): String {
     val template = FileTemplateManager
-        .getDefaultInstance()
-        .getInternalTemplate(templateName)
+            .getDefaultInstance()
+            .getInternalTemplate(templateName)
     return if (attributes.isEmpty()) {
         template.text
     } else {

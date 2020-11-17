@@ -13,13 +13,13 @@ interface VersionApi {
     fun getVersionData(): Single<VersionData>
 
     companion object {
-        fun create() : VersionApi {
+        fun create(): VersionApi {
             return Retrofit.Builder()
-                .baseUrl("https://raw.githubusercontent.com/rjaros/kvision/master/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-                .build()
-                .create(VersionApi::class.java)
+                    .baseUrl("https://raw.githubusercontent.com/rjaros/kvision/master/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                    .build()
+                    .create(VersionApi::class.java)
         }
     }
 }

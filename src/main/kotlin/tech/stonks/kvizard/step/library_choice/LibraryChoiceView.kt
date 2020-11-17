@@ -1,5 +1,6 @@
 package tech.stonks.kvizard.step.library_choice
 
+import com.intellij.ide.BrowserUtil
 import com.intellij.openapi.ui.ComboBox
 import tech.stonks.kvizard.KVisionBackendLibrary
 import tech.stonks.kvizard.KVisionModuleBuilder
@@ -46,6 +47,11 @@ class LibraryChoiceView(
                 setOnTextChangedListener {
                     artifactId = it
                     onChanged()
+                }
+            })
+            add(JButton("Check Kotlin.News").apply {
+                this.addActionListener {
+                    BrowserUtil.browse("https://kotlin.news")
                 }
             })
         }
