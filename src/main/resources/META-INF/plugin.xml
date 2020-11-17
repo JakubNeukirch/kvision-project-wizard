@@ -13,8 +13,20 @@
         <moduleType id="KVISION_WIZARD" implementationClass="tech.stonks.kvizard.KVisionModuleType" />
         <moduleBuilder builderClass="tech.stonks.kvizard.KVisionModuleBuilder"/>
     </extensions>
-
+    <application-components>
+        <component>
+            <implementation-class>tech.stonks.kvizard.settings.AppSettingsState</implementation-class>
+        </component>
+    </application-components>
+    <project-components>
+        <component>
+            <implementation-class>tech.stonks.kvizard.action.StartupAction</implementation-class>
+        </component>
+    </project-components>
     <actions>
-        <!-- Add your actions here -->
+        <action id="tech.stonks.kvizard.action.NewsAction" class="tech.stonks.kvizard.action.NewsAction"
+                text="Open Kotlin.News"/>
+        <action id="tech.stonks.kvizard.action.NotShowAction" class="tech.stonks.kvizard.action.NotShowAction"
+                text="Do not show again"/>
     </actions>
 </idea-plugin>

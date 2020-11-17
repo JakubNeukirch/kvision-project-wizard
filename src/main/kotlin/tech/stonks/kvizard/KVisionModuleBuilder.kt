@@ -54,6 +54,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
         val generator: TreeGenerator = createGenerator()
         modifiableRootModel.project.backgroundTask("Setting up project") {
             generator.generate(root, artifactId, groupId)
+            KVisionDialogUtil.showNewsDialog()
         }
     }
 
