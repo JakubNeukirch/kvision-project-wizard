@@ -20,6 +20,7 @@ import tech.stonks.kvizard.generator.KtorTreeGenerator
 import tech.stonks.kvizard.generator.TreeGenerator
 import tech.stonks.kvizard.step.library_choice.LibraryChoiceStep
 import tech.stonks.kvizard.utils.backgroundTask
+import tech.stonks.kvizard.utils.runGradle
 import java.io.File
 
 class KVisionModuleBuilder : ModuleBuilder() {
@@ -64,7 +65,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
     }
 
     private fun runGradleTasks(project: Project) {
-        GradleExecuteTaskAction.runGradle(project, DefaultRunExecutor.getRunExecutorInstance(), project.basePath!!, "compileKotlinMetadata")
+        project.runGradle("compileKotlinMetadata")
     }
 
     private fun createGenerator(): TreeGenerator {
