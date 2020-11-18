@@ -8,6 +8,7 @@
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.gradle</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <moduleType id="KVISION_WIZARD" implementationClass="tech.stonks.kvizard.KVisionModuleType" />
