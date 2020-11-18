@@ -5,6 +5,7 @@ import com.intellij.openapi.ui.ComboBox
 import tech.stonks.kvizard.KVisionBackendLibrary
 import tech.stonks.kvizard.KVisionModuleBuilder
 import tech.stonks.kvizard.utils.setOnTextChangedListener
+import java.awt.Color
 import java.awt.FlowLayout
 import javax.swing.*
 
@@ -50,6 +51,8 @@ class LibraryChoiceView(
                 }
             })
             add(JButton("Check Kotlin.News").apply {
+                background = Color(0xffe017)
+
                 this.addActionListener {
                     BrowserUtil.browse("https://kotlin.news")
                 }

@@ -16,6 +16,7 @@ import tech.stonks.kvizard.data.VersionApi
 import tech.stonks.kvizard.data.model.*
 import tech.stonks.kvizard.generator.FrontendTreeGenerator
 import tech.stonks.kvizard.generator.KtorTreeGenerator
+import tech.stonks.kvizard.generator.SpringTreeGenerator
 import tech.stonks.kvizard.generator.TreeGenerator
 import tech.stonks.kvizard.step.library_choice.LibraryChoiceStep
 import tech.stonks.kvizard.utils.*
@@ -29,6 +30,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
          */
         val supportedBackendLibraries = arrayOf(
             KVisionBackendLibrary.KTOR,
+            KVisionBackendLibrary.SPRING_BOOT,
             KVisionBackendLibrary.FRONTEND_ONLY
         )
     }
@@ -62,6 +64,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
         return when(backendLibrary) {
             KVisionBackendLibrary.KTOR -> KtorTreeGenerator()
             KVisionBackendLibrary.FRONTEND_ONLY -> FrontendTreeGenerator()
+            KVisionBackendLibrary.SPRING_BOOT -> SpringTreeGenerator()
             else -> throw IllegalStateException("${backendLibrary.name} is not supported yet.")
         }
     }
