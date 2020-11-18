@@ -12,6 +12,7 @@
     <extensions defaultExtensionNs="com.intellij">
         <moduleType id="KVISION_WIZARD" implementationClass="tech.stonks.kvizard.KVisionModuleType" />
         <moduleBuilder builderClass="tech.stonks.kvizard.KVisionModuleBuilder"/>
+        <configurationType implementation=""/>
     </extensions>
     <application-components>
         <component>
