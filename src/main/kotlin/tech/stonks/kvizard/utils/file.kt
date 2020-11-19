@@ -56,6 +56,20 @@ fun Project.getRootFile(): VirtualFile? {
     return projectFile?.parent?.parent
 }
 
+fun String.insertAfter(after: Regex, insert: String): String {
+    val last = after.find(this)?.range?.last
+    return if(last != null) {
+        buildString {
+            append(this.substring(0, last+1))
+            appendln(insert)
+            appendln(this.substring(last+1))
+        }
+    }else {
+        this
+    }
+
+}
+
 object TemplateAttributes {
     const val GROUP_ID = "GROUP_ID"
     const val ARTIFACT_ID = "ARTIFACT_ID"
