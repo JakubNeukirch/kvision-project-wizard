@@ -2,6 +2,7 @@ package tech.stonks.kvizard.utils
 
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.ide.fileTemplates.FileTemplateManager
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.plugins.gradle.action.GradleExecuteTaskAction
@@ -38,8 +39,8 @@ fun File.file(name: String, templateName: String, attributes: Map<String, String
 
 private fun getTemplateData(templateName: String, attributes: Map<String, String> = emptyMap()): String {
     val template = FileTemplateManager
-        .getDefaultInstance()
-        .getInternalTemplate(templateName)
+            .getDefaultInstance()
+            .getInternalTemplate(templateName)
     return if (attributes.isEmpty()) {
         template.text
     } else {
@@ -53,6 +54,20 @@ fun Project.runGradle(command: String) {
 
 fun Project.getRootFile(): VirtualFile? {
     return projectFile?.parent?.parent
+}
+
+fun String.insertAfter(after: Regex, insert: String): String {
+    val last = after.find(this)?.range?.last
+    return if(last != null) {
+        buildString {
+            append(this.substring(0, last+1))
+            appendln(insert)
+            appendln(this.substring(last+1))
+        }
+    }else {
+        this
+    }
+
 }
 
 object TemplateAttributes {

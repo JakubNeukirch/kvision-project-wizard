@@ -14,8 +14,14 @@
         <moduleType id="KVISION_WIZARD" implementationClass="tech.stonks.kvizard.KVisionModuleType" />
         <moduleBuilder builderClass="tech.stonks.kvizard.KVisionModuleBuilder"/>
     </extensions>
-
-    <actions>
-        <!-- Add your actions here -->
-    </actions>
+    <application-components>
+        <component>
+            <implementation-class>tech.stonks.kvizard.settings.AppSettingsState</implementation-class>
+        </component>
+    </application-components>
+    <project-components>
+        <component>
+            <implementation-class>tech.stonks.kvizard.action.StartupAction</implementation-class>
+        </component>
+    </project-components>
 </idea-plugin>

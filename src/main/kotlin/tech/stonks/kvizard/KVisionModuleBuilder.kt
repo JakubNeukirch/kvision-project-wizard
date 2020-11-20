@@ -1,6 +1,6 @@
 package tech.stonks.kvizard
 
-import com.intellij.execution.executors.DefaultRunExecutor
+import com.intellij.ide.fileTemplates.FileTemplateManager
 import com.intellij.ide.util.projectWizard.ModuleBuilder
 import com.intellij.ide.util.projectWizard.ModuleWizardStep
 import com.intellij.ide.util.projectWizard.WizardContext
@@ -14,13 +14,12 @@ import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiManager
 import com.intellij.psi.impl.file.PsiDirectoryFactory
-import org.jetbrains.plugins.gradle.action.GradleExecuteTaskAction
 import tech.stonks.kvizard.generator.FrontendTreeGenerator
 import tech.stonks.kvizard.generator.KtorTreeGenerator
+import tech.stonks.kvizard.generator.SpringTreeGenerator
 import tech.stonks.kvizard.generator.TreeGenerator
 import tech.stonks.kvizard.step.library_choice.LibraryChoiceStep
-import tech.stonks.kvizard.utils.backgroundTask
-import tech.stonks.kvizard.utils.runGradle
+import tech.stonks.kvizard.utils.*
 import java.io.File
 
 class KVisionModuleBuilder : ModuleBuilder() {
@@ -30,8 +29,9 @@ class KVisionModuleBuilder : ModuleBuilder() {
          * Here add libraries that were newly supported
          */
         val supportedBackendLibraries = arrayOf(
-                KVisionBackendLibrary.KTOR,
-                KVisionBackendLibrary.FRONTEND_ONLY
+            KVisionBackendLibrary.KTOR,
+            KVisionBackendLibrary.SPRING_BOOT,
+            KVisionBackendLibrary.FRONTEND_ONLY
         )
     }
 
@@ -46,8 +46,8 @@ class KVisionModuleBuilder : ModuleBuilder() {
             ApplicationManager.getApplication().runWriteAction {
                 val manager = PsiManager.getInstance(modifiableRootModel.project)
                 manager.findFile(root)?.add(
-                        PsiDirectoryFactory.getInstance(manager.project)
-                                .createDirectory(root.createChildDirectory(null, "webpack"))
+                    PsiDirectoryFactory.getInstance(manager.project)
+                        .createDirectory(root.createChildDirectory(null, "webpack"))
                 )
             }
         } catch (ex: java.lang.Exception) {
@@ -61,6 +61,8 @@ class KVisionModuleBuilder : ModuleBuilder() {
 
             }
             runGradleTasks(modifiableRootModel.project)
+            RunConfigurationUtil.createConfiguration(modifiableRootModel.project)
+            KVisionDialogUtil.showNewsDialog()
         }
     }
 
@@ -72,6 +74,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
         return when (backendLibrary) {
             KVisionBackendLibrary.KTOR -> KtorTreeGenerator()
             KVisionBackendLibrary.FRONTEND_ONLY -> FrontendTreeGenerator()
+            KVisionBackendLibrary.SPRING_BOOT -> SpringTreeGenerator()
             else -> throw IllegalStateException("${backendLibrary.name} is not supported yet.")
         }
     }
@@ -88,4 +91,6 @@ class KVisionModuleBuilder : ModuleBuilder() {
     override fun getCustomOptionsStep(context: WizardContext?, parentDisposable: Disposable?): ModuleWizardStep? {
         return LibraryChoiceStep(this)
     }
+
+
 }
