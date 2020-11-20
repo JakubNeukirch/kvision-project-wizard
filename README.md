@@ -1,4 +1,12 @@
 # kvision-project-wizard
-Plugin with project creation wizard. For now it is very early version and supports only fullstack project with Ktor.
-However, other project types will be added in future. Feel free to contribute,
- but some unified/easier way to support different types will be added in future.
+KVision plugin for project creation.
+Supported project types:
+ * Fullstack KTOR
+ * Fullstack Spring-Boot
+ * Frontend-only
+ 
+ ## Contribution
+If you want to contribute, You can add support for other backend frameworks like javalin, jooby, vertx and others. To do so You must:
+* inherit by `TreeGenerator`
+* add case to KVisionModuleBuilder.createGenerator()
+* add enum to KVisionModuleBuilder.supportedBackendLibraries
