@@ -2,6 +2,7 @@ package tech.stonks.kvizard.settings
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.*
+import com.intellij.openapi.project.ProjectManager
 import com.intellij.serviceContainer.ComponentManagerImpl
 
 @State(
@@ -16,7 +17,7 @@ class AppSettingsState : PersistentStateComponent<AppSettingsState.State> {
 
     companion object {
         fun getInstance(): AppSettingsState? {
-            return ServiceManager.getService(AppSettingsState::class.java)
+            return ApplicationManager.getApplication().getComponent(AppSettingsState::class.java)
         }
     }
 
