@@ -4,8 +4,8 @@ plugins {
     id 'idea'
 }
 
-group 'org.example'
-version '0.2.0'
+group 'tech.stonks'
+version '0.2.1'
 
 repositories {
     mavenCentral()
@@ -27,7 +27,4 @@ intellij {
     plugins = ['gradle', 'java', 'org.jetbrains.kotlin']
 }
 patchPluginXml {
-    changeNotes """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>"""
 }

@@ -1,7 +1,16 @@
 <idea-plugin>
-    <id>tech.stonks.kvision-project-wizard</id>
+    <id>tech.stonks.kvizard</id>
     <name>KVision Project Wizard</name>
     <vendor email="jakub.neukirch@stonks.tech" url="https://stonks.tech">Stonks.tech</vendor>
+    <change-notes>
+        version 0.2.1:
+         * Add icon and description
+        version 0.2.0:
+         * Added spring support
+         * Added run configurations for backendRun and frontendRun
+        version 0.1.0:
+         * added support for ktor
+    </change-notes>
 
     <description>Simple project wizard for KVision based projects.</description>
 
