@@ -3,6 +3,8 @@
     <name>KVision Project Wizard</name>
     <vendor email="jakub.neukirch@stonks.tech" url="https://stonks.tech">Stonks.tech</vendor>
     <change-notes>
+        version 0.2.2:
+         * Add more detailed description
         version 0.2.1:
          * Add icon and description
         version 0.2.0:
