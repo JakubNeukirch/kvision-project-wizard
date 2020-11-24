@@ -12,7 +12,9 @@
          * added support for ktor
     </change-notes>
 
-    <description>Simple project wizard for KVision based projects.</description>
+    <description>Simple project wizard for KVision based projects. It allows You to create KVision projects based on Spring and Ktor (more supported backend frameworks in future).
+    To use it, click File -> New -> Project. In left panel choose KVision and then choose Your preferred backend framework or just simple frontend project. To run project choose "Frontend Run" and/or "Backend Run".
+    </description>
 
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
