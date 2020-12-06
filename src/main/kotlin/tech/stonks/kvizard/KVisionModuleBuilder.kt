@@ -15,6 +15,7 @@ import com.intellij.psi.PsiManager
 import com.intellij.psi.impl.file.PsiDirectoryFactory
 import tech.stonks.kvizard.generator.FrontendTreeGenerator
 import tech.stonks.kvizard.generator.JavalinTreeGenerator
+import tech.stonks.kvizard.generator.JoobyTreeGenerator
 import tech.stonks.kvizard.generator.KtorTreeGenerator
 import tech.stonks.kvizard.generator.SpringTreeGenerator
 import tech.stonks.kvizard.generator.TreeGenerator
@@ -35,7 +36,8 @@ class KVisionModuleBuilder : ModuleBuilder() {
             KVisionProjectType.FRONTEND_ONLY,
             KVisionProjectType.KTOR,
             KVisionProjectType.SPRING_BOOT,
-            KVisionProjectType.JAVALIN
+            KVisionProjectType.JAVALIN,
+            KVisionProjectType.JOOBY
         )
     }
 
@@ -88,6 +90,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
             KVisionProjectType.KTOR -> KtorTreeGenerator()
             KVisionProjectType.SPRING_BOOT -> SpringTreeGenerator()
             KVisionProjectType.JAVALIN -> JavalinTreeGenerator()
+            KVisionProjectType.JOOBY -> JoobyTreeGenerator()
             else -> throw IllegalStateException("${projectType.name} is not supported yet.")
         }
     }
