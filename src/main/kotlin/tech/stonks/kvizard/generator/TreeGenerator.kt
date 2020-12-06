@@ -229,7 +229,7 @@ abstract class TreeGenerator(
             "spring_datar2dbc_version" to versionData.templateSpring.springDataR2dbc,
             "r2dbc_postgres_version" to versionData.templateSpring.r2dbcPostgres,
             "r2dbc_h2_version" to versionData.templateSpring.r2dbcH2,
-            "vertx_version" to versionData.templateVertx.vertxPlugin
+            "vertx_plugin_version" to versionData.templateVertx.vertxPlugin
         )
     }
 
@@ -251,7 +251,7 @@ abstract class TreeGenerator(
                     r2dbcPostgres = "0.8.6.RELEASE",
                     r2dbcH2 = "0.8.4.RELEASE"
                 ),
-                templateVertx = TemplateVertx("1.1.3")
+                templateVertx = TemplateVertx(vertxPlugin = "1.1.3")
             )
         }
     }

@@ -20,6 +20,7 @@ import tech.stonks.kvizard.generator.KtorTreeGenerator
 import tech.stonks.kvizard.generator.MicronautTreeGenerator
 import tech.stonks.kvizard.generator.SpringTreeGenerator
 import tech.stonks.kvizard.generator.TreeGenerator
+import tech.stonks.kvizard.generator.VertxTreeGenerator
 import tech.stonks.kvizard.step.library_choice.LibraryChoiceStep
 import tech.stonks.kvizard.utils.KVisionDialogUtil
 import tech.stonks.kvizard.utils.RunConfigurationUtil
@@ -30,16 +31,14 @@ import java.io.File
 class KVisionModuleBuilder : ModuleBuilder() {
 
     companion object {
-        /**
-         * Here add libraries that were newly supported
-         */
         val supportedProjectTypes = arrayOf(
             KVisionProjectType.FRONTEND_ONLY,
             KVisionProjectType.KTOR,
             KVisionProjectType.SPRING_BOOT,
             KVisionProjectType.JAVALIN,
             KVisionProjectType.JOOBY,
-            KVisionProjectType.MICRONAUT
+            KVisionProjectType.MICRONAUT,
+            KVisionProjectType.VERTX
         )
     }
 
@@ -94,7 +93,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
             KVisionProjectType.JAVALIN -> JavalinTreeGenerator()
             KVisionProjectType.JOOBY -> JoobyTreeGenerator()
             KVisionProjectType.MICRONAUT -> MicronautTreeGenerator()
-            else -> throw IllegalStateException("${projectType.name} is not supported yet.")
+            KVisionProjectType.VERTX -> VertxTreeGenerator()
         }
     }
 
