@@ -5,23 +5,24 @@
     <change-notes>
         &lt;i&gt;Version 0.2.2:&lt;/i&gt;
         &lt;ul&gt;
-         &lt;li&gt;Add more detailed description&lt;/li&gt;
+            &lt;li&gt;Add support for all project types&lt;/li&gt;
+            &lt;li&gt;Add an option to choose compiler backend&lt;/li&gt;
         &lt;/ul&gt;
 
         &lt;i&gt;Version 0.2.1:&lt;/i&gt;
         &lt;ul&gt;
-         &lt;li&gt;Add icon and description&lt;/li&gt;
+            &lt;li&gt;Add icon and description&lt;/li&gt;
         &lt;/ul&gt;
 
         &lt;i&gt;Version 0.2.0:&lt;/i&gt;
         &lt;ul&gt;
-         &lt;li&gt;Added spring support&lt;/li&gt;
-         &lt;li&gt;Added run configurations for backendRun and frontendRun&lt;/li&gt;
+            &lt;li&gt;Added spring support&lt;/li&gt;
+            &lt;li&gt;Added run configurations for backendRun and frontendRun&lt;/li&gt;
         &lt;/ul&gt;
 
         &lt;i&gt;Version 0.1.0:&lt;/i&gt;
         &lt;ul&gt;
-         &lt;li&gt;Added support for Ktor&lt;/li&gt;
+            &lt;li&gt;Added support for Ktor&lt;/li&gt;
         &lt;/ul&gt;
     </change-notes>
 

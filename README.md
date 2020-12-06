@@ -1,10 +1,13 @@
 # KVision Project Wizard
 KVision IntellJ IDEA plugin for new project creation.
 Supported project types:
-* Frontend template
+* Frontend project
 * Ktor fullstack project
 * Spring Boot fullstack project
 * Javalin fullstack project
+* Jooby fullstack project
+* Micronaut fullstack project
+* Vert.x fullstack project
  
  ## Contribution
 You can contribute new project types:
