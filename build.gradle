@@ -1,6 +1,6 @@
 plugins {
-    id 'org.jetbrains.intellij' version '0.5.0'
-    id 'org.jetbrains.kotlin.jvm' version '1.4.10'
+    id 'org.jetbrains.intellij' version '0.6.5'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.20'
     id 'idea'
 }
 
@@ -23,7 +23,7 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version '2020.2.1'
+    version '2020.3'
     plugins = ['gradle', 'java', 'org.jetbrains.kotlin']
 }
 patchPluginXml {

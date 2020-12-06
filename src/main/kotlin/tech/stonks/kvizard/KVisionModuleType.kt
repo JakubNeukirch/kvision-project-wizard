@@ -6,18 +6,18 @@ import javax.swing.Icon
 
 class KVisionModuleType : ModuleType<KVisionModuleBuilder>("KVISION_WIZARD") {
 
-    private val _icon: Icon by lazy { IconLoader.getIcon("/images/logo16.png") }
+    private val _icon: Icon by lazy { IconLoader.getIcon("/images/logo16.png", KVisionModuleType::class.java) }
 
     override fun createModuleBuilder(): KVisionModuleBuilder {
         return KVisionModuleBuilder()
     }
 
     override fun getName(): String {
-        return "KVision Project"
+        return "KVision"
     }
 
     override fun getDescription(): String {
-        return "KVision Project wizard. It is a fullstack kotlin framework"
+        return "A new project with KVision - an object oriented web framework for Kotlin/JS"
     }
 
     override fun getNodeIcon(isOpened: Boolean): Icon {
@@ -29,6 +29,12 @@ class KVisionModuleType : ModuleType<KVisionModuleBuilder>("KVISION_WIZARD") {
     }
 }
 
-enum class KVisionBackendLibrary {
-    KTOR, FRONTEND_ONLY, JAVALIN, JOOBY, MICRONAUT, SPRING_BOOT, VERTX;
+enum class KVisionProjectType(val displayName: String) {
+    FRONTEND_ONLY("Frontend template"),
+    KTOR("Ktor fullstack project"),
+    SPRING_BOOT("Spring Boot fullstack project"),
+    JAVALIN("Javalin fullstack project"),
+    JOOBY("Jooby fullstack project"),
+    MICRONAUT("Micronaut fullstack project"),
+    VERTX("Vert.x fullstack project");
 }

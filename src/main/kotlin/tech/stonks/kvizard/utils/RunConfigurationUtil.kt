@@ -27,7 +27,7 @@ class KVisionConfigurationFactory(val task: String, private val args: String = "
 
     override fun getName(): String = "Run $task"
 
-    override fun getIcon(): Icon = IconLoader.getIcon("/images/logo16.png")
+    override fun getIcon(): Icon = IconLoader.getIcon("/images/logo16.png", KVisionConfigurationFactory::class.java)
 }
 
 class RunnerComparator : Comparator<RunnerAndConfigurationSettings> {
@@ -41,7 +41,19 @@ class RunnerComparator : Comparator<RunnerAndConfigurationSettings> {
 }
 
 object RunConfigurationUtil {
-    fun createConfiguration(project: Project) {
+    fun createFrontendConfiguration(project: Project) {
+        val runManager = RunManagerImpl.getInstanceImpl(project)
+        runManager.addConfiguration(
+            RunnerAndConfigurationSettingsImpl(
+                RunManagerImpl.getInstanceImpl(project),
+                KVisionConfigurationFactory("run", "-t").createTemplateConfiguration(project)
+            )
+        )
+        runManager.setOrder(RunnerComparator())
+        runManager.requestSort()
+    }
+
+    fun createFullstackConfiguration(project: Project) {
         val runManager = RunManagerImpl.getInstanceImpl(project)
         runManager.addConfiguration(
             RunnerAndConfigurationSettingsImpl(

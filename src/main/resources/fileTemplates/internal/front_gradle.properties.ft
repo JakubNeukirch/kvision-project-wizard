@@ -4,3 +4,4 @@ systemProp.kotlinVersion=${kotlin_version}
 serializationVersion=${serialization_version}
 #Dependencies
 systemProp.kvisionVersion=${kvision_version}
+kotlin.js.compiler=legacy

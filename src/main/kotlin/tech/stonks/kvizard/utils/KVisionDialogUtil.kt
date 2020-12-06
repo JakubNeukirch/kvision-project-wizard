@@ -20,7 +20,7 @@ object KVisionDialogUtil {
                     "You have got invitation to join our community! Join Kotlin.News and become ninja developer in Kotlin.",
                     NotificationType.INFORMATION
                 ).apply {
-                    icon = IconLoader.getIcon("/images/email-black-18dp.svg")
+                    icon = IconLoader.getIcon("/images/email-black-18dp.svg", KVisionDialogUtil::class.java)
                     this.addAction(NewsAction("Join Kotlin.News"))
                     this.addAction(NotShowAction("Do not show again"))
                 }

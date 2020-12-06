@@ -2,15 +2,23 @@ package tech.stonks.kvizard.step.library_choice
 
 import com.intellij.ide.BrowserUtil
 import com.intellij.openapi.ui.ComboBox
-import tech.stonks.kvizard.KVisionBackendLibrary
+import tech.stonks.kvizard.KVisionProjectType
 import tech.stonks.kvizard.KVisionModuleBuilder
 import tech.stonks.kvizard.utils.setOnTextChangedListener
 import java.awt.Color
 import java.awt.FlowLayout
-import javax.swing.*
+import javax.swing.BoxLayout
+import javax.swing.JButton
+import javax.swing.JComponent
+import javax.swing.JLabel
+import javax.swing.JPanel
+import javax.swing.JTextField
+import java.awt.Dimension
+import javax.swing.Box
+
 
 class LibraryChoiceView(
-    var backendLibrary: KVisionBackendLibrary,
+    var projectType: KVisionProjectType,
     var groupId: String,
     var artifactId: String
 ) : JPanel() {
@@ -23,18 +31,18 @@ class LibraryChoiceView(
         val panel = JPanel().apply {
             layout = BoxLayout(this, BoxLayout.Y_AXIS)
             alignmentX = JComponent.LEFT_ALIGNMENT
-            add(JLabel("Choose your backend library").apply { alignmentX = LEFT_ALIGNMENT })
-            add(ComboBox<KVisionBackendLibrary>(KVisionModuleBuilder.supportedBackendLibraries).apply {
+            add(JLabel("Project type:").apply { alignmentX = LEFT_ALIGNMENT })
+            add(ComboBox(KVisionModuleBuilder.supportedProjectTypes.map { it.displayName }.toTypedArray()).apply {
                 alignmentX = LEFT_ALIGNMENT
-                prototypeDisplayValue = backendLibrary
+                setMinimumAndPreferredWidth(250)
                 addItemListener { event: java.awt.event.ItemEvent ->
                     if (event.stateChange == java.awt.event.ItemEvent.SELECTED) {
-                        backendLibrary = event.item as KVisionBackendLibrary
+                        projectType = KVisionProjectType.values().find { it.displayName == event.item }!!
                         onChanged()
                     }
                 }
             })
-            add(JLabel("GroupId").apply { alignmentX = LEFT_ALIGNMENT })
+            add(JLabel("GroupId:").apply { alignmentX = LEFT_ALIGNMENT })
             add(JTextField(groupId).apply {
                 alignmentX = LEFT_ALIGNMENT
                 setOnTextChangedListener {
@@ -42,7 +50,7 @@ class LibraryChoiceView(
                     onChanged()
                 }
             })
-            add(JLabel("ArtifactId").apply { alignmentX = LEFT_ALIGNMENT })
+            add(JLabel("ArtifactId:").apply { alignmentX = LEFT_ALIGNMENT })
             add(JTextField(artifactId).apply {
                 alignmentX = LEFT_ALIGNMENT
                 setOnTextChangedListener {
@@ -50,6 +58,7 @@ class LibraryChoiceView(
                     onChanged()
                 }
             })
+            add(Box.createRigidArea(Dimension(0, 20)))
             add(JButton("Check Kotlin.News").apply {
                 background = Color(0xffe017)
 

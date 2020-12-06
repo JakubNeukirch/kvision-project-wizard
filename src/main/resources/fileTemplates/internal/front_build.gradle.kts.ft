@@ -9,7 +9,7 @@ plugins {
 }
 
 version = "1.0.0-SNAPSHOT"
-group = "com.example"
+group = "${GROUP_ID}"
 
 repositories {
     mavenCentral()
