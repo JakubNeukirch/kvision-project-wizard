@@ -45,6 +45,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
     var projectType: KVisionProjectType = KVisionProjectType.FRONTEND_ONLY
     var groupId: String = "com.example"
     var artifactId: String = "project"
+    var compilerBackend: CompilerBackend = CompilerBackend.LEGACY
 
     override fun setupRootModel(modifiableRootModel: ModifiableRootModel) {
         val root = createAndGetRoot() ?: return
@@ -63,7 +64,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
         val generator: TreeGenerator = createGenerator()
         modifiableRootModel.project.backgroundTask("Setting up project") {
             try {
-                generator.generate(root, artifactId, groupId)
+                generator.generate(root, artifactId, groupId, compilerBackend)
             } catch (ex: Exception) {
             }
             installGradleWrapper(modifiableRootModel.project)

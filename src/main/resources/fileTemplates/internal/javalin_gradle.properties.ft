@@ -7,5 +7,5 @@ systemProp.kvisionVersion=${kvision_version}
 slf4jVersion=1.7.28
 
 kotlin.mpp.stability.nowarn=true
-kotlin.js.compiler=legacy
+kotlin.js.compiler=${compiler_backend}
 org.gradle.jvmargs=-Xmx2g

@@ -30,11 +30,16 @@ class KVisionModuleType : ModuleType<KVisionModuleBuilder>("KVISION_WIZARD") {
 }
 
 enum class KVisionProjectType(val displayName: String) {
-    FRONTEND_ONLY("Frontend template"),
+    FRONTEND_ONLY("Frontend project"),
     KTOR("Ktor fullstack project"),
     SPRING_BOOT("Spring Boot fullstack project"),
     JAVALIN("Javalin fullstack project"),
     JOOBY("Jooby fullstack project"),
     MICRONAUT("Micronaut fullstack project"),
     VERTX("Vert.x fullstack project");
+}
+
+enum class CompilerBackend(val displayName: String) {
+    LEGACY("Legacy"),
+    IR("IR (experimental)")
 }

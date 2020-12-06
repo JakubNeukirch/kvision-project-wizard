@@ -9,5 +9,5 @@ systemProp.kvisionVersion=${kvision_version}
 coroutinesVersion=${coroutines_version}
 
 kotlin.mpp.stability.nowarn=true
-kotlin.js.compiler=legacy
+kotlin.js.compiler=${compiler_backend}
 org.gradle.jvmargs=-Xmx2g

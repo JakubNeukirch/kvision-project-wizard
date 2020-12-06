@@ -1,6 +1,7 @@
 package tech.stonks.kvizard.generator
 
 import com.intellij.openapi.vfs.VirtualFile
+import tech.stonks.kvizard.CompilerBackend
 import tech.stonks.kvizard.data.VersionApi
 import tech.stonks.kvizard.data.model.TemplateJooby
 import tech.stonks.kvizard.data.model.TemplateKtor
@@ -79,14 +80,14 @@ abstract class TreeGenerator(
     private val frontendTestFiles: Array<String> = arrayOf("AppSpec.kt"),
     private val ideaFiles: Array<String> = arrayOf("gradle.xml"),
 ) {
-    fun generate(root: VirtualFile, artifactId: String, groupId: String) {
+    fun generate(root: VirtualFile, artifactId: String, groupId: String, compilerBackend: CompilerBackend) {
         try {
             val packageSegments = groupId
                 .split(".")
                 .toMutableList()
                 .apply { add(artifactId) }
                 .toList()
-            val attrs = generateAttributes(artifactId, groupId)
+            val attrs = generateAttributes(artifactId, groupId, compilerBackend)
             root.build {
                 dir("src") {
                     if (!isFrontendOnly) {
@@ -212,7 +213,11 @@ abstract class TreeGenerator(
         }
     }
 
-    private fun generateAttributes(artifactId: String, groupId: String): Map<String, String> {
+    private fun generateAttributes(
+        artifactId: String,
+        groupId: String,
+        compilerBackend: CompilerBackend
+    ): Map<String, String> {
         val versionData = getVersionData()
         return mapOf(
             TemplateAttributes.ARTIFACT_ID to artifactId,
@@ -229,7 +234,8 @@ abstract class TreeGenerator(
             "spring_datar2dbc_version" to versionData.templateSpring.springDataR2dbc,
             "r2dbc_postgres_version" to versionData.templateSpring.r2dbcPostgres,
             "r2dbc_h2_version" to versionData.templateSpring.r2dbcH2,
-            "vertx_plugin_version" to versionData.templateVertx.vertxPlugin
+            "vertx_plugin_version" to versionData.templateVertx.vertxPlugin,
+            "compiler_backend" to compilerBackend.name.toLowerCase()
         )
     }
 
