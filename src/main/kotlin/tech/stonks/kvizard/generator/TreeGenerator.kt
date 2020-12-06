@@ -35,6 +35,7 @@ abstract class TreeGenerator(
     private val templateName: String,
     private val isFrontendOnly: Boolean = false,
     private val backendResourcesFiles: Array<String> = arrayOf(),
+    private val backendResourcesAssetsFiles: Array<String> = arrayOf(),
     private val backendFiles: Array<String> = arrayOf(),
     private val gradleFile: Array<String> = arrayOf(
         "build.gradle.kts",
@@ -108,6 +109,17 @@ abstract class TreeGenerator(
                                         "${templateName}_backend_resources_$fileName",
                                         attrs
                                     )
+                                }
+                                if (backendResourcesAssetsFiles.isNotEmpty()) {
+                                    dir("assets") {
+                                        backendResourcesAssetsFiles.forEach { fileName ->
+                                            file(
+                                                fileName,
+                                                "${templateName}_backend_resources_assets_$fileName",
+                                                attrs
+                                            )
+                                        }
+                                    }
                                 }
                             }
                         }

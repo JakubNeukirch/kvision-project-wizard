@@ -14,6 +14,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiManager
 import com.intellij.psi.impl.file.PsiDirectoryFactory
 import tech.stonks.kvizard.generator.FrontendTreeGenerator
+import tech.stonks.kvizard.generator.JavalinTreeGenerator
 import tech.stonks.kvizard.generator.KtorTreeGenerator
 import tech.stonks.kvizard.generator.SpringTreeGenerator
 import tech.stonks.kvizard.generator.TreeGenerator
@@ -33,7 +34,8 @@ class KVisionModuleBuilder : ModuleBuilder() {
         val supportedProjectTypes = arrayOf(
             KVisionProjectType.FRONTEND_ONLY,
             KVisionProjectType.KTOR,
-            KVisionProjectType.SPRING_BOOT
+            KVisionProjectType.SPRING_BOOT,
+            KVisionProjectType.JAVALIN
         )
     }
 
@@ -82,9 +84,10 @@ class KVisionModuleBuilder : ModuleBuilder() {
 
     private fun createGenerator(): TreeGenerator {
         return when (projectType) {
-            KVisionProjectType.KTOR -> KtorTreeGenerator()
             KVisionProjectType.FRONTEND_ONLY -> FrontendTreeGenerator()
+            KVisionProjectType.KTOR -> KtorTreeGenerator()
             KVisionProjectType.SPRING_BOOT -> SpringTreeGenerator()
+            KVisionProjectType.JAVALIN -> JavalinTreeGenerator()
             else -> throw IllegalStateException("${projectType.name} is not supported yet.")
         }
     }
