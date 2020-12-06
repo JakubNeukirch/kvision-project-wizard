@@ -17,6 +17,7 @@ import tech.stonks.kvizard.generator.FrontendTreeGenerator
 import tech.stonks.kvizard.generator.JavalinTreeGenerator
 import tech.stonks.kvizard.generator.JoobyTreeGenerator
 import tech.stonks.kvizard.generator.KtorTreeGenerator
+import tech.stonks.kvizard.generator.MicronautTreeGenerator
 import tech.stonks.kvizard.generator.SpringTreeGenerator
 import tech.stonks.kvizard.generator.TreeGenerator
 import tech.stonks.kvizard.step.library_choice.LibraryChoiceStep
@@ -37,7 +38,8 @@ class KVisionModuleBuilder : ModuleBuilder() {
             KVisionProjectType.KTOR,
             KVisionProjectType.SPRING_BOOT,
             KVisionProjectType.JAVALIN,
-            KVisionProjectType.JOOBY
+            KVisionProjectType.JOOBY,
+            KVisionProjectType.MICRONAUT
         )
     }
 
@@ -91,6 +93,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
             KVisionProjectType.SPRING_BOOT -> SpringTreeGenerator()
             KVisionProjectType.JAVALIN -> JavalinTreeGenerator()
             KVisionProjectType.JOOBY -> JoobyTreeGenerator()
+            KVisionProjectType.MICRONAUT -> MicronautTreeGenerator()
             else -> throw IllegalStateException("${projectType.name} is not supported yet.")
         }
     }
