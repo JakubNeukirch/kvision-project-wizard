@@ -1,19 +1,16 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
-
-import org.springframework.boot.gradle.tasks.bundling.BootJar
-import org.springframework.boot.gradle.tasks.run.BootRun
 
 plugins {
     val kotlinVersion: String by System.getProperties()
     id("kotlinx-serialization") version kotlinVersion
     kotlin("multiplatform") version kotlinVersion
-    id("io.spring.dependency-management") version System.getProperty("dependencyManagementPluginVersion")
-    id("org.springframework.boot") version System.getProperty("springBootVersion")
-    kotlin("plugin.spring") version kotlinVersion
     val kvisionVersion: String by System.getProperties()
     id("kvision") version kvisionVersion
+    val vertxPluginVersion: String by System.getProperties()
+    id("io.vertx.vertx-plugin") version vertxPluginVersion
 }
 
 version = "1.0.0-SNAPSHOT"
@@ -34,10 +31,9 @@ repositories {
 // Versions
 val kotlinVersion: String by System.getProperties()
 val kvisionVersion: String by System.getProperties()
-val coroutinesVersion: String by project
+val logbackVersion: String by project
 
 val webDir = file("src/frontendMain/web")
-val mainClassName = "${GROUP_ID}.${ARTIFACT_ID}.MainKt"
 
 kotlin {
     jvm("backend") {
@@ -73,12 +69,12 @@ kotlin {
                 }
             }
         }
+        binaries.executable()
     }
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api("pl.treksoft:kvision-server-spring-boot:$kvisionVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+                api("pl.treksoft:kvision-server-vertx:$kvisionVersion")
             }
             kotlin.srcDir("build/generated-src/common")
         }
@@ -92,17 +88,13 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-jdk8"))
                 implementation(kotlin("reflect"))
-                implementation("org.springframework.boot:spring-boot-starter")
-                implementation("org.springframework.boot:spring-boot-devtools")
-                implementation("org.springframework.boot:spring-boot-starter-webflux")
-                implementation("org.springframework.boot:spring-boot-starter-security")
+                implementation("ch.qos.logback:logback-classic:$logbackVersion")
             }
         }
         val backendTest by getting {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
-                implementation("org.springframework.boot:spring-boot-starter-test")
             }
         }
         val frontendMain by getting {
@@ -147,6 +139,11 @@ fun getNodeJsBinaryExecutable(): String {
     return nodeBinDir.resolve(finalCommand).absolutePath
 }
 
+vertx {
+    mainVerticle = "${GROUP_ID}.${ARTIFACT_ID}.MainVerticle"
+    jvmArgs = listOf("-Dvertx.logger-delegate-factory-class-name=io.vertx.core.logging.SLF4JLogDelegateFactory")
+}
+
 tasks {
     create("generatePotFile", Exec::class) {
         dependsOn("compileKotlinFrontend")
@@ -156,6 +153,7 @@ tasks {
         outputs.file("$projectDir/src/frontendMain/resources/i18n/messages.pot")
     }
 }
+
 afterEvaluate {
     tasks {
         getByName("frontendProcessResources", Copy::class) {
@@ -189,7 +187,7 @@ afterEvaluate {
             }
             from(webDir)
             duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-            into("/public")
+            into("/webroot")
             inputs.files(distribution, webDir)
             outputs.file(archiveFile)
             manifest {
@@ -206,27 +204,25 @@ afterEvaluate {
         getByName("backendProcessResources", Copy::class) {
             duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         }
-        getByName("bootJar", BootJar::class) {
-            dependsOn("frontendArchive", "backendMainClasses")
-            classpath = files(
-                kotlin.targets["backend"].compilations["main"].output.allOutputs +
-                        project.configurations["backendRuntimeClasspath"] +
-                        (project.tasks["frontendArchive"] as Jar).archiveFile
-            )
+        create("backendRun") {
+            dependsOn("vertxRun")
+            group = "run"
         }
         getByName("jar", Jar::class).apply {
-            dependsOn("bootJar")
+            dependsOn("shadowJar")
         }
-        getByName("bootRun", BootRun::class) {
-            dependsOn("backendMainClasses")
-            classpath = files(
-                kotlin.targets["backend"].compilations["main"].output.allOutputs +
-                        project.configurations["backendRuntimeClasspath"]
-            )
-        }
-        create("backendRun") {
-            dependsOn("bootRun")
-            group = "run"
+        getByName("backendJar").group = "package"
+        getByName("shadowJar", ShadowJar::class) {
+            archiveClassifier.set(null as String?)
+            dependsOn("frontendArchive", "backendJar")
+            val dependencies = project.configurations["backendRuntimeClasspath"].filter { it.name.endsWith(".jar") } +
+                    project.tasks["backendJar"].outputs.files +
+                    project.tasks["frontendArchive"].outputs.files
+            dependencies.forEach {
+                if (it.isDirectory) from(it) else from(zipTree(it))
+            }
+            exclude("META-INF/*.RSA", "META-INF/*.SF", "META-INF/*.DSA")
+            duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         }
         getByName("compileKotlinBackend") {
             dependsOn("compileKotlinMetadata")

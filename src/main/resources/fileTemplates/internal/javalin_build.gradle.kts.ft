@@ -2,16 +2,10 @@ import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
-import org.springframework.boot.gradle.tasks.bundling.BootJar
-import org.springframework.boot.gradle.tasks.run.BootRun
-
 plugins {
     val kotlinVersion: String by System.getProperties()
     id("kotlinx-serialization") version kotlinVersion
     kotlin("multiplatform") version kotlinVersion
-    id("io.spring.dependency-management") version System.getProperty("dependencyManagementPluginVersion")
-    id("org.springframework.boot") version System.getProperty("springBootVersion")
-    kotlin("plugin.spring") version kotlinVersion
     val kvisionVersion: String by System.getProperties()
     id("kvision") version kvisionVersion
 }
@@ -34,7 +28,7 @@ repositories {
 // Versions
 val kotlinVersion: String by System.getProperties()
 val kvisionVersion: String by System.getProperties()
-val coroutinesVersion: String by project
+val slf4jVersion: String by project
 
 val webDir = file("src/frontendMain/web")
 val mainClassName = "${GROUP_ID}.${ARTIFACT_ID}.MainKt"
@@ -51,8 +45,11 @@ kotlin {
     }
     js("frontend") {
         browser {
-            runTask {
+            commonWebpackConfig {
                 outputFileName = "main.bundle.js"
+                this.showProgress
+            }
+            runTask {
                 sourceMaps = false
                 devServer = KotlinWebpackConfig.DevServer(
                     open = false,
@@ -64,21 +61,18 @@ kotlin {
                     contentBase = listOf("$buildDir/processedResources/frontend/main")
                 )
             }
-            webpackTask {
-                outputFileName = "main.bundle.js"
-            }
             testTask {
                 useKarma {
                     useChromeHeadless()
                 }
             }
         }
+        binaries.executable()
     }
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api("pl.treksoft:kvision-server-spring-boot:$kvisionVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+                api("pl.treksoft:kvision-server-javalin:$kvisionVersion")
             }
             kotlin.srcDir("build/generated-src/common")
         }
@@ -92,17 +86,13 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-jdk8"))
                 implementation(kotlin("reflect"))
-                implementation("org.springframework.boot:spring-boot-starter")
-                implementation("org.springframework.boot:spring-boot-devtools")
-                implementation("org.springframework.boot:spring-boot-starter-webflux")
-                implementation("org.springframework.boot:spring-boot-starter-security")
+                implementation("org.slf4j:slf4j-simple:$slf4jVersion")
             }
         }
         val backendTest by getting {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
-                implementation("org.springframework.boot:spring-boot-starter-test")
             }
         }
         val frontendMain by getting {
@@ -189,7 +179,7 @@ afterEvaluate {
             }
             from(webDir)
             duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-            into("/public")
+            into("/assets")
             inputs.files(distribution, webDir)
             outputs.file(archiveFile)
             manifest {
@@ -206,27 +196,43 @@ afterEvaluate {
         getByName("backendProcessResources", Copy::class) {
             duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         }
-        getByName("bootJar", BootJar::class) {
-            dependsOn("frontendArchive", "backendMainClasses")
-            classpath = files(
-                kotlin.targets["backend"].compilations["main"].output.allOutputs +
-                        project.configurations["backendRuntimeClasspath"] +
-                        (project.tasks["frontendArchive"] as Jar).archiveFile
-            )
+        getByName("backendJar").group = "package"
+        create("shadowJar", Jar::class).apply {
+            dependsOn("frontendArchive", "backendJar")
+            group = "package"
+            manifest {
+                attributes(
+                    mapOf(
+                        "Implementation-Title" to rootProject.name,
+                        "Implementation-Group" to rootProject.group,
+                        "Implementation-Version" to rootProject.version,
+                        "Timestamp" to System.currentTimeMillis(),
+                        "Main-Class" to mainClassName
+                    )
+                )
+            }
+            val dependencies = configurations["backendRuntimeClasspath"].filter { it.name.endsWith(".jar") } +
+                    project.tasks["backendJar"].outputs.files +
+                    project.tasks["frontendArchive"].outputs.files
+            dependencies.forEach {
+                if (it.isDirectory) from(it) else from(zipTree(it))
+            }
+            exclude("META-INF/*.RSA", "META-INF/*.SF", "META-INF/*.DSA")
+            inputs.files(dependencies)
+            outputs.file(archiveFile)
+            duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         }
         getByName("jar", Jar::class).apply {
-            dependsOn("bootJar")
+            dependsOn("shadowJar")
         }
-        getByName("bootRun", BootRun::class) {
-            dependsOn("backendMainClasses")
-            classpath = files(
-                kotlin.targets["backend"].compilations["main"].output.allOutputs +
-                        project.configurations["backendRuntimeClasspath"]
-            )
-        }
-        create("backendRun") {
-            dependsOn("bootRun")
+        create("backendRun", JavaExec::class) {
+            dependsOn("compileKotlinBackend")
             group = "run"
+            main = mainClassName
+            classpath =
+                configurations["backendRuntimeClasspath"] + project.tasks["compileKotlinBackend"].outputs.files +
+                        project.tasks["backendProcessResources"].outputs.files
+            workingDir = buildDir
         }
         getByName("compileKotlinBackend") {
             dependsOn("compileKotlinMetadata")

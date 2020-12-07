@@ -15,3 +15,5 @@ pgsqlVersion=42.2.2
 kweryVersion=0.17
 
 kotlin.mpp.stability.nowarn=true
+kotlin.js.compiler=${compiler_backend}
+org.gradle.jvmargs=-Xmx2g

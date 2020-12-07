@@ -1,9 +1,19 @@
 package tech.stonks.kvizard.generator
 
 import com.intellij.openapi.vfs.VirtualFile
+import tech.stonks.kvizard.CompilerBackend
 import tech.stonks.kvizard.data.VersionApi
-import tech.stonks.kvizard.data.model.*
-import tech.stonks.kvizard.utils.*
+import tech.stonks.kvizard.data.model.TemplateJooby
+import tech.stonks.kvizard.data.model.TemplateKtor
+import tech.stonks.kvizard.data.model.TemplateMicronaut
+import tech.stonks.kvizard.data.model.TemplateSpring
+import tech.stonks.kvizard.data.model.TemplateVertx
+import tech.stonks.kvizard.data.model.VersionData
+import tech.stonks.kvizard.utils.TemplateAttributes
+import tech.stonks.kvizard.utils.build
+import tech.stonks.kvizard.utils.dir
+import tech.stonks.kvizard.utils.file
+import tech.stonks.kvizard.utils.packages
 
 /**
  * Base class for building KVision project.
@@ -26,6 +36,7 @@ abstract class TreeGenerator(
     private val templateName: String,
     private val isFrontendOnly: Boolean = false,
     private val backendResourcesFiles: Array<String> = arrayOf(),
+    private val backendResourcesAssetsFiles: Array<String> = arrayOf(),
     private val backendFiles: Array<String> = arrayOf(),
     private val gradleFile: Array<String> = arrayOf(
         "build.gradle.kts",
@@ -35,11 +46,7 @@ abstract class TreeGenerator(
     private val rootFiles: Array<String> = arrayOf(
         ".gettext.json",
         ".gitignore",
-        "app.json",
-        "system.properties",
-        "gradlew.bat",
-        "gradlew",
-        "Procfile"
+        "system.properties"
     ),
     private val webpackFiles: Array<String> = arrayOf(
         "bootstrap.js",
@@ -47,14 +54,18 @@ abstract class TreeGenerator(
         "file.js",
         "handlebars.js",
         "jquery.js",
-        "minify.js",
-        "moment.js",
+        "moment.js"
+    ),
+    private val webpackCustomFiles: Array<String> = arrayOf(
         "webpack.js"
     ),
     private val commonFiles: Array<String> = arrayOf(
         "Service.kt"
     ),
-    private val frontendSourceFiles: Array<String> = arrayOf(
+    private val frontendSourceFrontendFiles: Array<String> = arrayOf(
+        "App.kt"
+    ),
+    private val frontendSourceFullstackFiles: Array<String> = arrayOf(
         "App.kt",
         "Model.kt"
     ),
@@ -69,14 +80,14 @@ abstract class TreeGenerator(
     private val frontendTestFiles: Array<String> = arrayOf("AppSpec.kt"),
     private val ideaFiles: Array<String> = arrayOf("gradle.xml"),
 ) {
-    fun generate(root: VirtualFile, artifactId: String, groupId: String) {
+    fun generate(root: VirtualFile, artifactId: String, groupId: String, compilerBackend: CompilerBackend) {
         try {
             val packageSegments = groupId
-            .split(".")
-            .toMutableList()
-            .apply { add(artifactId) }
-            .toList()
-            val attrs = generateAttributes(artifactId, groupId)
+                .split(".")
+                .toMutableList()
+                .apply { add(artifactId) }
+                .toList()
+            val attrs = generateAttributes(artifactId, groupId, compilerBackend)
             root.build {
                 dir("src") {
                     if (!isFrontendOnly) {
@@ -100,30 +111,53 @@ abstract class TreeGenerator(
                                         attrs
                                     )
                                 }
+                                if (backendResourcesAssetsFiles.isNotEmpty()) {
+                                    dir("assets") {
+                                        backendResourcesAssetsFiles.forEach { fileName ->
+                                            file(
+                                                fileName,
+                                                "${templateName}_backend_resources_assets_$fileName",
+                                                attrs
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        dir("commonMain") {
+                            dir("kotlin") {
+                                packages(packageSegments) {
+                                    commonFiles.forEach { fileName -> file(fileName, "common_$fileName", attrs) }
+                                }
                             }
                         }
                     }
-                    dir("commonMain") {
+                    val frontendMain = if (isFrontendOnly) "main" else "frontendMain"
+                    dir(frontendMain) {
                         dir("kotlin") {
                             packages(packageSegments) {
-                                commonFiles.forEach { fileName -> file(fileName, "common_$fileName", attrs) }
-                            }
-                        }
-                    }
-                    dir("frontendMain") {
-                        dir("kotlin") {
-                            packages(packageSegments) {
-                                frontendSourceFiles.forEach { fileName ->
-                                    file(
-                                        fileName,
-                                        "frontend_source_$fileName",
-                                        attrs
-                                    )
+                                if (isFrontendOnly) {
+                                    frontendSourceFrontendFiles.forEach { fileName ->
+                                        file(
+                                            fileName,
+                                            "frontend_source_frontend_$fileName",
+                                            attrs
+                                        )
+                                    }
+                                } else {
+                                    frontendSourceFullstackFiles.forEach { fileName ->
+                                        file(
+                                            fileName,
+                                            "frontend_source_fullstack_$fileName",
+                                            attrs
+                                        )
+                                    }
                                 }
                             }
                         }
                         dir("web") {
                             frontendWebFiles.forEach { fileName -> file(fileName, "frontend_web_$fileName", attrs) }
+
                         }
                         dir("resources") {
                             dir("i18n") {
@@ -137,7 +171,8 @@ abstract class TreeGenerator(
                             }
                         }
                     }
-                    dir("frontendTest") {
+                    val frontendTest = if (isFrontendOnly) "test" else "frontendTest"
+                    dir(frontendTest) {
                         dir("kotlin") {
                             dir("test") {
                                 packages(packageSegments) {
@@ -158,11 +193,15 @@ abstract class TreeGenerator(
                     dir("wrapper") {
                     }
                 }
-                dir("idea.") {
+                dir(".idea") {
                     ideaFiles.forEach { fileName -> file(fileName, "idea_${fileName}", attrs) }
                 }
                 dir("webpack.config.d") {
                     webpackFiles.forEach { fileName -> file(fileName, "webpack_${fileName}", attrs) }
+                    val customPrefix = if (isFrontendOnly) "frontend" else "fullstack"
+                    webpackCustomFiles.forEach { fileName ->
+                        file(fileName, "webpack_${customPrefix}_${fileName}", attrs)
+                    }
                 }
                 gradleFile.forEach { fileName -> file(fileName, "${templateName}_${fileName}", attrs) }
                 rootFiles.forEach { fileName -> file(fileName, fileName, attrs) }
@@ -174,7 +213,11 @@ abstract class TreeGenerator(
         }
     }
 
-    private fun generateAttributes(artifactId: String, groupId: String): Map<String, String> {
+    private fun generateAttributes(
+        artifactId: String,
+        groupId: String,
+        compilerBackend: CompilerBackend
+    ): Map<String, String> {
         val versionData = getVersionData()
         return mapOf(
             TemplateAttributes.ARTIFACT_ID to artifactId,
@@ -191,7 +234,8 @@ abstract class TreeGenerator(
             "spring_datar2dbc_version" to versionData.templateSpring.springDataR2dbc,
             "r2dbc_postgres_version" to versionData.templateSpring.r2dbcPostgres,
             "r2dbc_h2_version" to versionData.templateSpring.r2dbcH2,
-            "vertx_version" to versionData.templateVertx.vertxPlugin
+            "vertx_plugin_version" to versionData.templateVertx.vertxPlugin,
+            "compiler_backend" to compilerBackend.name.toLowerCase()
         )
     }
 
@@ -200,20 +244,20 @@ abstract class TreeGenerator(
             VersionApi.create().getVersionData().blockingGet()
         } catch (ex: Exception) {
             VersionData(
-                kVision = "3.16.3",
-                kotlin = "1.4.10",
+                kVision = "3.17.2",
+                kotlin = "1.4.20",
                 serialization = "1.0.1",
-                coroutines = "1.3.9",
-                templateJooby = TemplateJooby("2.9.2"),
-                templateKtor = TemplateKtor("1.4.2"),
-                templateMicronaut = TemplateMicronaut("2.1.3"),
+                coroutines = "1.4.2",
+                templateJooby = TemplateJooby("2.9.4"),
+                templateKtor = TemplateKtor("1.4.1"),
+                templateMicronaut = TemplateMicronaut("2.2.0"),
                 templateSpring = TemplateSpring(
-                    springBoot = "2.3.5.RELEASE",
-                    springDataR2dbc = "1.1.5.RELEASE",
+                    springBoot = "2.4.0",
+                    springDataR2dbc = "1.2.1",
                     r2dbcPostgres = "0.8.6.RELEASE",
                     r2dbcH2 = "0.8.4.RELEASE"
                 ),
-                templateVertx = TemplateVertx("1.1.3")
+                templateVertx = TemplateVertx(vertxPlugin = "1.1.3")
             )
         }
     }

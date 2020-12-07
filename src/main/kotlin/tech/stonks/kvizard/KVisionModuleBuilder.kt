@@ -1,6 +1,5 @@
 package tech.stonks.kvizard
 
-import com.intellij.ide.fileTemplates.FileTemplateManager
 import com.intellij.ide.util.projectWizard.ModuleBuilder
 import com.intellij.ide.util.projectWizard.ModuleWizardStep
 import com.intellij.ide.util.projectWizard.WizardContext
@@ -15,29 +14,38 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiManager
 import com.intellij.psi.impl.file.PsiDirectoryFactory
 import tech.stonks.kvizard.generator.FrontendTreeGenerator
+import tech.stonks.kvizard.generator.JavalinTreeGenerator
+import tech.stonks.kvizard.generator.JoobyTreeGenerator
 import tech.stonks.kvizard.generator.KtorTreeGenerator
+import tech.stonks.kvizard.generator.MicronautTreeGenerator
 import tech.stonks.kvizard.generator.SpringTreeGenerator
 import tech.stonks.kvizard.generator.TreeGenerator
+import tech.stonks.kvizard.generator.VertxTreeGenerator
 import tech.stonks.kvizard.step.library_choice.LibraryChoiceStep
-import tech.stonks.kvizard.utils.*
+import tech.stonks.kvizard.utils.KVisionDialogUtil
+import tech.stonks.kvizard.utils.RunConfigurationUtil
+import tech.stonks.kvizard.utils.backgroundTask
+import tech.stonks.kvizard.utils.runGradle
 import java.io.File
 
 class KVisionModuleBuilder : ModuleBuilder() {
 
     companion object {
-        /**
-         * Here add libraries that were newly supported
-         */
-        val supportedBackendLibraries = arrayOf(
-            KVisionBackendLibrary.KTOR,
-            KVisionBackendLibrary.SPRING_BOOT,
-            KVisionBackendLibrary.FRONTEND_ONLY
+        val supportedProjectTypes = arrayOf(
+            KVisionProjectType.FRONTEND_ONLY,
+            KVisionProjectType.KTOR,
+            KVisionProjectType.SPRING_BOOT,
+            KVisionProjectType.JAVALIN,
+            KVisionProjectType.JOOBY,
+            KVisionProjectType.MICRONAUT,
+            KVisionProjectType.VERTX
         )
     }
 
-    var backendLibrary: KVisionBackendLibrary = KVisionBackendLibrary.KTOR
+    var projectType: KVisionProjectType = KVisionProjectType.FRONTEND_ONLY
     var groupId: String = "com.example"
     var artifactId: String = "project"
+    var compilerBackend: CompilerBackend = CompilerBackend.LEGACY
 
     override fun setupRootModel(modifiableRootModel: ModifiableRootModel) {
         val root = createAndGetRoot() ?: return
@@ -56,26 +64,37 @@ class KVisionModuleBuilder : ModuleBuilder() {
         val generator: TreeGenerator = createGenerator()
         modifiableRootModel.project.backgroundTask("Setting up project") {
             try {
-                generator.generate(root, artifactId, groupId)
+                generator.generate(root, artifactId, groupId, compilerBackend)
             } catch (ex: Exception) {
-
             }
-            runGradleTasks(modifiableRootModel.project)
-            RunConfigurationUtil.createConfiguration(modifiableRootModel.project)
+            installGradleWrapper(modifiableRootModel.project)
+            if (projectType == KVisionProjectType.FRONTEND_ONLY) {
+                RunConfigurationUtil.createFrontendConfiguration(modifiableRootModel.project)
+            } else {
+                runCompileMetadata(modifiableRootModel.project)
+                RunConfigurationUtil.createFullstackConfiguration(modifiableRootModel.project)
+            }
             KVisionDialogUtil.showNewsDialog()
         }
     }
 
-    private fun runGradleTasks(project: Project) {
+    private fun runCompileMetadata(project: Project) {
         project.runGradle("compileKotlinMetadata")
     }
 
+    private fun installGradleWrapper(project: Project) {
+        project.runGradle("wrapper --gradle-version 6.7.1 --distribution-type all")
+    }
+
     private fun createGenerator(): TreeGenerator {
-        return when (backendLibrary) {
-            KVisionBackendLibrary.KTOR -> KtorTreeGenerator()
-            KVisionBackendLibrary.FRONTEND_ONLY -> FrontendTreeGenerator()
-            KVisionBackendLibrary.SPRING_BOOT -> SpringTreeGenerator()
-            else -> throw IllegalStateException("${backendLibrary.name} is not supported yet.")
+        return when (projectType) {
+            KVisionProjectType.FRONTEND_ONLY -> FrontendTreeGenerator()
+            KVisionProjectType.KTOR -> KtorTreeGenerator()
+            KVisionProjectType.SPRING_BOOT -> SpringTreeGenerator()
+            KVisionProjectType.JAVALIN -> JavalinTreeGenerator()
+            KVisionProjectType.JOOBY -> JoobyTreeGenerator()
+            KVisionProjectType.MICRONAUT -> MicronautTreeGenerator()
+            KVisionProjectType.VERTX -> VertxTreeGenerator()
         }
     }
 
@@ -88,9 +107,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
         return KVisionModuleType()
     }
 
-    override fun getCustomOptionsStep(context: WizardContext?, parentDisposable: Disposable?): ModuleWizardStep? {
+    override fun getCustomOptionsStep(context: WizardContext?, parentDisposable: Disposable?): ModuleWizardStep {
         return LibraryChoiceStep(this)
     }
-
-
 }

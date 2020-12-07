@@ -2,11 +2,13 @@ javaVersion=1.8
 #Plugins
 systemProp.kotlinVersion=${kotlin_version}
 serializationVersion=${serialization_version}
-systemProp.dependencyManagementPluginVersion=1.0.9.RELEASE
-systemProp.springBootVersion=${spring_boot_version}
 #Dependencies
 systemProp.kvisionVersion=${kvision_version}
-coroutinesVersion=${coroutines_version}
+systemProp.joobyVersion=${jooby_version}
+h2Version=1.4.197
+pgsqlVersion=42.2.2
+kweryVersion=0.17
+logbackVersion=1.2.3
 
 kotlin.mpp.stability.nowarn=true
 kotlin.js.compiler=${compiler_backend}
