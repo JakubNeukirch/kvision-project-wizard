@@ -45,7 +45,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
     var projectType: KVisionProjectType = KVisionProjectType.FRONTEND_ONLY
     var groupId: String = "com.example"
     var artifactId: String = "project"
-    var compilerBackend: CompilerBackend = CompilerBackend.LEGACY
+    var compilerBackend: CompilerBackend = CompilerBackend.IR
 
     override fun setupRootModel(modifiableRootModel: ModifiableRootModel) {
         val root = createAndGetRoot() ?: return
@@ -83,7 +83,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
     }
 
     private fun installGradleWrapper(project: Project) {
-        project.runGradle("wrapper --gradle-version 6.7.1 --distribution-type all")
+        project.runGradle("wrapper --gradle-version 6.8.1 --distribution-type all")
     }
 
     private fun createGenerator(): TreeGenerator {

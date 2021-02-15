@@ -40,13 +40,7 @@ data class TemplateMicronaut(
 
 data class TemplateSpring(
     @SerializedName("spring-boot")
-    val springBoot: String,
-    @SerializedName("spring-data-r2dbc")
-    val springDataR2dbc: String,
-    @SerializedName("r2dbc-postgresql")
-    val r2dbcPostgres: String,
-    @SerializedName("r2dbc-h2")
-    val r2dbcH2: String
+    val springBoot: String
 )
 
 data class TemplateVertx(
