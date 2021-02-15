@@ -40,6 +40,6 @@ enum class KVisionProjectType(val displayName: String) {
 }
 
 enum class CompilerBackend(val displayName: String) {
-    LEGACY("Legacy"),
-    IR("IR (experimental)")
+    IR("IR"),
+    LEGACY("Legacy")
 }

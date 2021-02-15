@@ -5,14 +5,7 @@ serializationVersion=${serialization_version}
 #Dependencies
 systemProp.kvisionVersion=${kvision_version}
 ktorVersion=${ktor_version}
-hikariVersion=3.2.0
-commonsCodecVersion=1.10
-jdbcNamedParametersVersion=1.1
-exposedVersion=0.12.1
 logbackVersion=1.2.3
-h2Version=1.4.197
-pgsqlVersion=42.2.2
-kweryVersion=0.17
 
 kotlin.mpp.stability.nowarn=true
 kotlin.js.compiler=${compiler_backend}
