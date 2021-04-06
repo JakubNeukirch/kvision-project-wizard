@@ -3,6 +3,12 @@
     <name>KVision Project Wizard</name>
     <vendor email="jakub.neukirch@stonks.tech" url="https://stonks.tech">Stonks.tech</vendor>
     <change-notes>
+        &lt;i&gt;Version 0.2.4:&lt;/i&gt;
+        &lt;ul&gt;
+            &lt;li&gt;Upgrade to KVision 4.3.0&lt;/li&gt;
+            &lt;li&gt;Plugin cleanups for publication&lt;/li&gt;
+        &lt;/ul&gt;
+
         &lt;i&gt;Version 0.2.3:&lt;/i&gt;
         &lt;ul&gt;
             &lt;li&gt;Upgrade to KVision 4.0.0&lt;/li&gt;
@@ -45,14 +51,4 @@
         <moduleType id="KVISION_WIZARD" implementationClass="tech.stonks.kvizard.KVisionModuleType" />
         <moduleBuilder builderClass="tech.stonks.kvizard.KVisionModuleBuilder"/>
     </extensions>
-    <application-components>
-        <component>
-            <implementation-class>tech.stonks.kvizard.settings.AppSettingsState</implementation-class>
-        </component>
-    </application-components>
-    <project-components>
-        <component>
-            <implementation-class>tech.stonks.kvizard.action.StartupAction</implementation-class>
-        </component>
-    </project-components>
 </idea-plugin>

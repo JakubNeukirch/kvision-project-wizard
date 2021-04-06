@@ -6,7 +6,6 @@ import tech.stonks.kvizard.CompilerBackend
 import tech.stonks.kvizard.KVisionModuleBuilder
 import tech.stonks.kvizard.KVisionProjectType
 import tech.stonks.kvizard.utils.setOnTextChangedListener
-import java.awt.Color
 import java.awt.Dimension
 import java.awt.FlowLayout
 import javax.swing.Box
@@ -16,7 +15,6 @@ import javax.swing.JComponent
 import javax.swing.JLabel
 import javax.swing.JPanel
 import javax.swing.JTextField
-
 
 class LibraryChoiceView(
     var projectType: KVisionProjectType,
@@ -73,8 +71,6 @@ class LibraryChoiceView(
             })
             add(Box.createRigidArea(Dimension(0, 20)))
             add(JButton("Check Kotlin.News").apply {
-                background = Color(0xffe017)
-
                 this.addActionListener {
                     BrowserUtil.browse("https://kotlin.news")
                 }

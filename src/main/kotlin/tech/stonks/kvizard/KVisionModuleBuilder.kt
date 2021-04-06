@@ -22,7 +22,6 @@ import tech.stonks.kvizard.generator.SpringTreeGenerator
 import tech.stonks.kvizard.generator.TreeGenerator
 import tech.stonks.kvizard.generator.VertxTreeGenerator
 import tech.stonks.kvizard.step.library_choice.LibraryChoiceStep
-import tech.stonks.kvizard.utils.KVisionDialogUtil
 import tech.stonks.kvizard.utils.RunConfigurationUtil
 import tech.stonks.kvizard.utils.backgroundTask
 import tech.stonks.kvizard.utils.runGradle
@@ -74,7 +73,6 @@ class KVisionModuleBuilder : ModuleBuilder() {
                 runCompileMetadata(modifiableRootModel.project)
                 RunConfigurationUtil.createFullstackConfiguration(modifiableRootModel.project)
             }
-            KVisionDialogUtil.showNewsDialog()
         }
     }
 
@@ -83,7 +81,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
     }
 
     private fun installGradleWrapper(project: Project) {
-        project.runGradle("wrapper --gradle-version 6.8.1 --distribution-type all")
+        project.runGradle("wrapper --gradle-version 6.8.3 --distribution-type all")
     }
 
     private fun createGenerator(): TreeGenerator {
