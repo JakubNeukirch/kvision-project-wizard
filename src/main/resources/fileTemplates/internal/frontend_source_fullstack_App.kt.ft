@@ -4,22 +4,30 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import io.kvision.Application
 import io.kvision.html.Span
+#if ( ${i18n_included} )
 import io.kvision.i18n.DefaultI18nManager
 import io.kvision.i18n.I18n
+#end
 import io.kvision.module
 import io.kvision.panel.root
+#if ( ${i18n_included} )
+import io.kvision.require
+#end
 import io.kvision.startApplication
 
 class App : Application() {
 
     override fun start(state: Map<String, Any>) {
+#if ( ${i18n_included} )
         I18n.manager =
             DefaultI18nManager(
                 mapOf(
-                    "en" to io.kvision.require("i18n/messages-en.json"),
-                    "pl" to io.kvision.require("i18n/messages-pl.json")
+                    "en" to require("i18n/messages-en.json"),
+                    "pl" to require("i18n/messages-pl.json")
                 )
             )
+
+#end
         val root = root("kvapp") {
         }
         GlobalScope.launch {

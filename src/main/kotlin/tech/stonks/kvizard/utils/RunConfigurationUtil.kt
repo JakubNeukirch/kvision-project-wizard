@@ -27,7 +27,7 @@ class KVisionConfigurationFactory(val task: String, private val args: String = "
 
     override fun getName(): String = "Run $task"
 
-    override fun getIcon(): Icon = IconLoader.getIcon("/images/logo16.png", KVisionConfigurationFactory::class.java)
+    override fun getIcon(): Icon = IconLoader.getIcon("/images/kvision.png", KVisionConfigurationFactory::class.java)
 }
 
 class RunnerComparator : Comparator<RunnerAndConfigurationSettings> {

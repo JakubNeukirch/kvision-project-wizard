@@ -1,10 +1,17 @@
 <idea-plugin>
-    <id>tech.stonks.kvizard</id>
+    <idea-version since-build="203.5981"/>
+    <id>kvision.project.wizard</id>
     <name>KVision Project Wizard</name>
     <vendor email="jakub.neukirch@stonks.tech" url="https://stonks.tech">Stonks.tech</vendor>
     <change-notes>
+        &lt;i&gt;Version 0.2.5:&lt;/i&gt;
+        &lt;ul&gt;
+            &lt;li&gt;Plugin cleanups for publication&lt;/li&gt;
+        &lt;/ul&gt;
+
         &lt;i&gt;Version 0.2.4:&lt;/i&gt;
         &lt;ul&gt;
+            &lt;li&gt;Upgrade to IntelliJ IDEA 2021.1&lt;/li&gt;
             &lt;li&gt;Upgrade to KVision 4.3.0&lt;/li&gt;
             &lt;li&gt;Plugin cleanups for publication&lt;/li&gt;
         &lt;/ul&gt;
@@ -44,7 +51,8 @@
 
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
-    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
+    <depends>org.jetbrains.kotlin</depends>
     <depends>com.intellij.gradle</depends>
 
     <extensions defaultExtensionNs="com.intellij">

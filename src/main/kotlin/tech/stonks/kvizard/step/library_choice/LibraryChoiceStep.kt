@@ -7,7 +7,12 @@ import javax.swing.JComponent
 class LibraryChoiceStep(private val _builder: KVisionModuleBuilder) : ModuleWizardStep() {
     private val _view: LibraryChoiceView by lazy {
         LibraryChoiceView(
-            _builder.projectType, _builder.groupId, _builder.artifactId, _builder.compilerBackend
+            _builder.projectType,
+            _builder.groupId,
+            _builder.artifactId,
+            _builder.compilerBackend,
+            _builder.selectedModules,
+            _builder.versionData.modules
         ).apply {
             onChanged = {
                 updateDataModel()
@@ -24,5 +29,6 @@ class LibraryChoiceStep(private val _builder: KVisionModuleBuilder) : ModuleWiza
         _builder.groupId = _view.groupId
         _builder.artifactId = _view.artifactId
         _builder.compilerBackend = _view.compilerBackend
+        _builder.selectedModules = _view.selectedModules
     }
 }

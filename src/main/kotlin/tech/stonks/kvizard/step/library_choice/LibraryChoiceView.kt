@@ -2,9 +2,12 @@ package tech.stonks.kvizard.step.library_choice
 
 import com.intellij.ide.BrowserUtil
 import com.intellij.openapi.ui.ComboBox
+import com.intellij.ui.CheckBoxList
+import com.intellij.ui.components.JBScrollPane
 import tech.stonks.kvizard.CompilerBackend
 import tech.stonks.kvizard.KVisionModuleBuilder
 import tech.stonks.kvizard.KVisionProjectType
+import tech.stonks.kvizard.data.model.Module
 import tech.stonks.kvizard.utils.setOnTextChangedListener
 import java.awt.Dimension
 import java.awt.FlowLayout
@@ -15,12 +18,16 @@ import javax.swing.JComponent
 import javax.swing.JLabel
 import javax.swing.JPanel
 import javax.swing.JTextField
+import javax.swing.ListSelectionModel
+
 
 class LibraryChoiceView(
     var projectType: KVisionProjectType,
     var groupId: String,
     var artifactId: String,
-    var compilerBackend: CompilerBackend
+    var compilerBackend: CompilerBackend,
+    var selectedModules: List<String>,
+    val modules: List<Module>
 ) : JPanel() {
 
     var onChanged: () -> Unit = {}
@@ -68,6 +75,34 @@ class LibraryChoiceView(
                         onChanged()
                     }
                 }
+            })
+            add(JLabel("Optional modules:").apply { alignmentX = LEFT_ALIGNMENT })
+            val list = CheckBoxList<Module>().apply {
+                alignmentX = LEFT_ALIGNMENT
+                selectionMode = ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
+                setItems(modules) {
+                    "${it.description} (${it.name})"
+                }
+                selectedModules.forEach { name ->
+                    modules.find { it.name == name }?.let {
+                        setItemSelected(it, true)
+                    }
+                }
+                setCheckBoxListListener { index, value ->
+                    if (value) {
+                        modules[index].excludes?.mapNotNull { name ->
+                            modules.find { it.name == name }
+                        }?.forEach {
+                            setItemSelected(it, false)
+                        }
+                    }
+                    selectedModules = modules.filter { isItemSelected(it) }.map { it.name }
+                    onChanged()
+                }
+            }
+            add(JBScrollPane(list).apply {
+                alignmentX = LEFT_ALIGNMENT
+                preferredSize = Dimension(570, 400)
             })
             add(Box.createRigidArea(Dimension(0, 20)))
             add(JButton("Check Kotlin.News").apply {

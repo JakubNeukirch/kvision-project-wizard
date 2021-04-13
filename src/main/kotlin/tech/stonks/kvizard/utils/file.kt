@@ -2,7 +2,6 @@ package tech.stonks.kvizard.utils
 
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.ide.fileTemplates.FileTemplateManager
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.plugins.gradle.action.GradleExecuteTaskAction
@@ -28,7 +27,7 @@ fun VirtualFile.build(body: File.() -> Unit = {}) {
     File(this.path).body()
 }
 
-fun File.file(name: String, templateName: String, attributes: Map<String, String> = emptyMap()) {
+fun File.file(name: String, templateName: String, attributes: Map<String, Any> = emptyMap()) {
     val file = File(this, name)
     if (!file.exists()) {
         file.createNewFile()
@@ -37,10 +36,10 @@ fun File.file(name: String, templateName: String, attributes: Map<String, String
     file.writeText(data)
 }
 
-private fun getTemplateData(templateName: String, attributes: Map<String, String> = emptyMap()): String {
+private fun getTemplateData(templateName: String, attributes: Map<String, Any> = emptyMap()): String {
     val template = FileTemplateManager
-            .getDefaultInstance()
-            .getInternalTemplate(templateName)
+        .getDefaultInstance()
+        .getInternalTemplate(templateName)
     return if (attributes.isEmpty()) {
         template.text
     } else {
@@ -58,13 +57,13 @@ fun Project.getRootFile(): VirtualFile? {
 
 fun String.insertAfter(after: Regex, insert: String): String {
     val last = after.find(this)?.range?.last
-    return if(last != null) {
+    return if (last != null) {
         buildString {
-            append(this.substring(0, last+1))
+            append(this.substring(0, last + 1))
             appendLine(insert)
-            appendLine(this.substring(last+1))
+            appendLine(this.substring(last + 1))
         }
-    }else {
+    } else {
         this
     }
 

@@ -6,7 +6,7 @@ import javax.swing.Icon
 
 class KVisionModuleType : ModuleType<KVisionModuleBuilder>("KVISION_WIZARD") {
 
-    private val _icon: Icon by lazy { IconLoader.getIcon("/images/logo16.png", KVisionModuleType::class.java) }
+    private val _icon: Icon by lazy { IconLoader.getIcon("/images/kvision.png", KVisionModuleType::class.java) }
 
     override fun createModuleBuilder(): KVisionModuleBuilder {
         return KVisionModuleBuilder()

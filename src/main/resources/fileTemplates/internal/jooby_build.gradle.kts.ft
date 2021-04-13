@@ -98,9 +98,9 @@ kotlin {
             resources.srcDir(webDir)
             dependencies {
                 implementation("io.kvision:kvision:$kvisionVersion")
-                implementation("io.kvision:kvision-bootstrap:$kvisionVersion")
-                implementation("io.kvision:kvision-bootstrap-css:$kvisionVersion")
-                implementation("io.kvision:kvision-i18n:$kvisionVersion")
+#foreach( ${module} in ${selected_modules} )
+                implementation("io.kvision:${module}:$kvisionVersion")
+#end
             }
             kotlin.srcDir("build/generated-src/frontend")
         }
