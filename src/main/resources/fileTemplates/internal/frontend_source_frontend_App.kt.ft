@@ -2,16 +2,21 @@ package ${PACKAGE_NAME}
 
 import io.kvision.Application
 import io.kvision.html.div
+#if ( ${i18n_included} )
 import io.kvision.i18n.DefaultI18nManager
 import io.kvision.i18n.I18n
-import io.kvision.i18n.I18n.tr
+import io.kvision.i18n.tr
+#end
 import io.kvision.module
 import io.kvision.panel.root
+#if ( ${i18n_included} )
 import io.kvision.require
+#end
 import io.kvision.startApplication
 
 class App : Application() {
     override fun start() {
+#if ( ${i18n_included} )
         I18n.manager =
             DefaultI18nManager(
                 mapOf(
@@ -20,8 +25,13 @@ class App : Application() {
                 )
             )
 
+#end
         root("kvapp") {
+#if ( ${i18n_included} )
             div(tr("This is a localized message."))
+#else
+            div("Hello world")
+#end
             // TODO
         }
     }

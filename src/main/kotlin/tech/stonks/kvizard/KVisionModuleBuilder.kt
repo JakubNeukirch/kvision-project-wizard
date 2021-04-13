@@ -13,6 +13,13 @@ import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiManager
 import com.intellij.psi.impl.file.PsiDirectoryFactory
+import tech.stonks.kvizard.data.VersionApi
+import tech.stonks.kvizard.data.model.TemplateJooby
+import tech.stonks.kvizard.data.model.TemplateKtor
+import tech.stonks.kvizard.data.model.TemplateMicronaut
+import tech.stonks.kvizard.data.model.TemplateSpring
+import tech.stonks.kvizard.data.model.TemplateVertx
+import tech.stonks.kvizard.data.model.VersionData
 import tech.stonks.kvizard.generator.FrontendTreeGenerator
 import tech.stonks.kvizard.generator.JavalinTreeGenerator
 import tech.stonks.kvizard.generator.JoobyTreeGenerator
@@ -22,13 +29,14 @@ import tech.stonks.kvizard.generator.SpringTreeGenerator
 import tech.stonks.kvizard.generator.TreeGenerator
 import tech.stonks.kvizard.generator.VertxTreeGenerator
 import tech.stonks.kvizard.step.library_choice.LibraryChoiceStep
-import tech.stonks.kvizard.utils.KVisionDialogUtil
 import tech.stonks.kvizard.utils.RunConfigurationUtil
 import tech.stonks.kvizard.utils.backgroundTask
 import tech.stonks.kvizard.utils.runGradle
 import java.io.File
 
 class KVisionModuleBuilder : ModuleBuilder() {
+
+    val versionData by lazy { fetchVersionData() }
 
     companion object {
         val supportedProjectTypes = arrayOf(
@@ -46,6 +54,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
     var groupId: String = "com.example"
     var artifactId: String = "project"
     var compilerBackend: CompilerBackend = CompilerBackend.IR
+    var selectedModules: List<String> = listOf("kvision-bootstrap", "kvision-bootstrap-css")
 
     override fun setupRootModel(modifiableRootModel: ModifiableRootModel) {
         val root = createAndGetRoot() ?: return
@@ -64,7 +73,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
         val generator: TreeGenerator = createGenerator()
         modifiableRootModel.project.backgroundTask("Setting up project") {
             try {
-                generator.generate(root, artifactId, groupId, compilerBackend)
+                generator.generate(root, artifactId, groupId, compilerBackend, selectedModules, versionData)
             } catch (ex: Exception) {
             }
             installGradleWrapper(modifiableRootModel.project)
@@ -74,7 +83,6 @@ class KVisionModuleBuilder : ModuleBuilder() {
                 runCompileMetadata(modifiableRootModel.project)
                 RunConfigurationUtil.createFullstackConfiguration(modifiableRootModel.project)
             }
-            KVisionDialogUtil.showNewsDialog()
         }
     }
 
@@ -83,7 +91,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
     }
 
     private fun installGradleWrapper(project: Project) {
-        project.runGradle("wrapper --gradle-version 6.8.1 --distribution-type all")
+        project.runGradle("wrapper --gradle-version 6.8.3 --distribution-type all")
     }
 
     private fun createGenerator(): TreeGenerator {
@@ -109,5 +117,24 @@ class KVisionModuleBuilder : ModuleBuilder() {
 
     override fun getCustomOptionsStep(context: WizardContext?, parentDisposable: Disposable?): ModuleWizardStep {
         return LibraryChoiceStep(this)
+    }
+
+    private fun fetchVersionData(): VersionData {
+        return try {
+            VersionApi.create().getVersionData().blockingGet()
+        } catch (ex: Exception) {
+            VersionData(
+                kVision = "4.3.0",
+                kotlin = "1.4.32",
+                serialization = "1.1.0",
+                coroutines = "1.4.3",
+                templateJooby = TemplateJooby("2.9.5"),
+                templateKtor = TemplateKtor("1.5.2"),
+                templateMicronaut = TemplateMicronaut("2.4.2"),
+                templateSpring = TemplateSpring(springBoot = "2.4.4"),
+                templateVertx = TemplateVertx(vertxPlugin = "1.1.3"),
+                modules = emptyList()
+            )
+        }
     }
 }

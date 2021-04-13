@@ -2,12 +2,6 @@ package tech.stonks.kvizard.generator
 
 import com.intellij.openapi.vfs.VirtualFile
 import tech.stonks.kvizard.CompilerBackend
-import tech.stonks.kvizard.data.VersionApi
-import tech.stonks.kvizard.data.model.TemplateJooby
-import tech.stonks.kvizard.data.model.TemplateKtor
-import tech.stonks.kvizard.data.model.TemplateMicronaut
-import tech.stonks.kvizard.data.model.TemplateSpring
-import tech.stonks.kvizard.data.model.TemplateVertx
 import tech.stonks.kvizard.data.model.VersionData
 import tech.stonks.kvizard.utils.TemplateAttributes
 import tech.stonks.kvizard.utils.build
@@ -80,14 +74,21 @@ abstract class TreeGenerator(
     private val frontendTestFiles: Array<String> = arrayOf("AppSpec.kt"),
     private val ideaFiles: Array<String> = arrayOf("gradle.xml"),
 ) {
-    fun generate(root: VirtualFile, artifactId: String, groupId: String, compilerBackend: CompilerBackend) {
+    fun generate(
+        root: VirtualFile,
+        artifactId: String,
+        groupId: String,
+        compilerBackend: CompilerBackend,
+        modules: List<String>,
+        versionData: VersionData
+    ) {
         try {
             val packageSegments = groupId
                 .split(".")
                 .toMutableList()
                 .apply { add(artifactId) }
                 .toList()
-            val attrs = generateAttributes(artifactId, groupId, compilerBackend)
+            val attrs = generateAttributes(artifactId, groupId, compilerBackend, modules, versionData, isFrontendOnly)
             root.build {
                 dir("src") {
                     if (!isFrontendOnly) {
@@ -159,14 +160,16 @@ abstract class TreeGenerator(
                             frontendWebFiles.forEach { fileName -> file(fileName, "frontend_web_$fileName", attrs) }
 
                         }
-                        dir("resources") {
-                            dir("i18n") {
-                                frontendResourcesFiles.forEach { fileName ->
-                                    file(
-                                        fileName,
-                                        "frontend_resources_$fileName",
-                                        attrs
-                                    )
+                        if (modules.contains("kvision-i18n")) {
+                            dir("resources") {
+                                dir("i18n") {
+                                    frontendResourcesFiles.forEach { fileName ->
+                                        file(
+                                            fileName,
+                                            "frontend_resources_$fileName",
+                                            attrs
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -216,9 +219,11 @@ abstract class TreeGenerator(
     private fun generateAttributes(
         artifactId: String,
         groupId: String,
-        compilerBackend: CompilerBackend
-    ): Map<String, String> {
-        val versionData = getVersionData()
+        compilerBackend: CompilerBackend,
+        modules: List<String>,
+        versionData: VersionData,
+        isFrontendOnly: Boolean
+    ): Map<String, Any> {
         return mapOf(
             TemplateAttributes.ARTIFACT_ID to artifactId,
             TemplateAttributes.GROUP_ID to groupId,
@@ -232,25 +237,10 @@ abstract class TreeGenerator(
             "micronaut_version" to versionData.templateMicronaut.micronaut,
             "spring_boot_version" to versionData.templateSpring.springBoot,
             "vertx_plugin_version" to versionData.templateVertx.vertxPlugin,
-            "compiler_backend" to compilerBackend.name.toLowerCase()
+            "compiler_backend" to compilerBackend.name.toLowerCase(),
+            "selected_modules" to modules,
+            "i18n_included" to modules.contains("kvision-i18n"),
+            "frontend_only" to isFrontendOnly
         )
-    }
-
-    private fun getVersionData(): VersionData {
-        return try {
-            VersionApi.create().getVersionData().blockingGet()
-        } catch (ex: Exception) {
-            VersionData(
-                kVision = "4.0.0",
-                kotlin = "1.4.30",
-                serialization = "1.1.0-RC",
-                coroutines = "1.4.2",
-                templateJooby = TemplateJooby("2.9.5"),
-                templateKtor = TemplateKtor("1.5.1"),
-                templateMicronaut = TemplateMicronaut("2.3.2"),
-                templateSpring = TemplateSpring(springBoot = "2.4.2"),
-                templateVertx = TemplateVertx(vertxPlugin = "1.1.3")
-            )
-        }
     }
 }

@@ -20,7 +20,9 @@ data class VersionData(
     @SerializedName("template-spring-boot")
     val templateSpring: TemplateSpring,
     @SerializedName("template-vertx")
-    val templateVertx: TemplateVertx
+    val templateVertx: TemplateVertx,
+    @SerializedName("modules")
+    val modules: List<Module>
 )
 
 data class TemplateJooby(
@@ -46,4 +48,13 @@ data class TemplateSpring(
 data class TemplateVertx(
     @SerializedName("vertx-plugin")
     val vertxPlugin: String
+)
+
+data class Module(
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("description")
+    val description: String,
+    @SerializedName("excludes")
+    val excludes: List<String>?
 )
