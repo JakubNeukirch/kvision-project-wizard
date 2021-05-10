@@ -91,7 +91,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
     }
 
     private fun installGradleWrapper(project: Project) {
-        project.runGradle("wrapper --gradle-version 6.8.3 --distribution-type all")
+        project.runGradle("wrapper --gradle-version 6.9 --distribution-type all")
     }
 
     private fun createGenerator(): TreeGenerator {
@@ -124,14 +124,14 @@ class KVisionModuleBuilder : ModuleBuilder() {
             VersionApi.create().getVersionData().blockingGet()
         } catch (ex: Exception) {
             VersionData(
-                kVision = "4.3.0",
-                kotlin = "1.4.32",
-                serialization = "1.1.0",
-                coroutines = "1.4.3",
-                templateJooby = TemplateJooby("2.9.5"),
-                templateKtor = TemplateKtor("1.5.2"),
-                templateMicronaut = TemplateMicronaut("2.4.2"),
-                templateSpring = TemplateSpring(springBoot = "2.4.4"),
+                kVision = "4.5.0",
+                kotlin = "1.5.0",
+                serialization = "1.2.0",
+                coroutines = "1.5.0-RC",
+                templateJooby = TemplateJooby("2.9.6"),
+                templateKtor = TemplateKtor("1.5.4"),
+                templateMicronaut = TemplateMicronaut("2.5.1"),
+                templateSpring = TemplateSpring(springBoot = "2.4.5"),
                 templateVertx = TemplateVertx(vertxPlugin = "1.1.3"),
                 modules = emptyList()
             )
