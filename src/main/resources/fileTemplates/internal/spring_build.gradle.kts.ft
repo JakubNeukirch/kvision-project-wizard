@@ -7,7 +7,7 @@ import org.springframework.boot.gradle.tasks.run.BootRun
 
 plugins {
     val kotlinVersion: String by System.getProperties()
-    id("kotlinx-serialization") version kotlinVersion
+    kotlin("plugin.serialization") version kotlinVersion
     kotlin("multiplatform") version kotlinVersion
     id("io.spring.dependency-management") version System.getProperty("dependencyManagementPluginVersion")
     id("org.springframework.boot") version System.getProperty("springBootVersion")
