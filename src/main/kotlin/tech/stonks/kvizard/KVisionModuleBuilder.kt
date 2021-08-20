@@ -55,6 +55,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
     var artifactId: String = "project"
     var compilerBackend: CompilerBackend = CompilerBackend.IR
     var selectedModules: List<String> = listOf("kvision-bootstrap", "kvision-bootstrap-css")
+    var selectedInitializers: List<String> = listOf("BootstrapModule", "BootstrapCssModule")
 
     override fun setupRootModel(modifiableRootModel: ModifiableRootModel) {
         val root = createAndGetRoot() ?: return
@@ -73,7 +74,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
         val generator: TreeGenerator = createGenerator()
         modifiableRootModel.project.backgroundTask("Setting up project") {
             try {
-                generator.generate(root, artifactId, groupId, compilerBackend, selectedModules, versionData)
+                generator.generate(root, artifactId, groupId, compilerBackend, selectedModules, selectedInitializers, versionData)
             } catch (ex: Exception) {
             }
             installGradleWrapper(modifiableRootModel.project)
@@ -91,7 +92,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
     }
 
     private fun installGradleWrapper(project: Project) {
-        project.runGradle("wrapper --gradle-version 7.0.2 --distribution-type all")
+        project.runGradle("wrapper --gradle-version 7.2 --distribution-type all")
     }
 
     private fun createGenerator(): TreeGenerator {
@@ -124,14 +125,14 @@ class KVisionModuleBuilder : ModuleBuilder() {
             VersionApi.create().getVersionData().blockingGet()
         } catch (ex: Exception) {
             VersionData(
-                kVision = "4.7.0",
-                kotlin = "1.5.10",
+                kVision = "5.0.0",
+                kotlin = "1.5.21",
                 serialization = "1.2.1",
-                coroutines = "1.5.0",
-                templateJooby = TemplateJooby("2.9.6"),
-                templateKtor = TemplateKtor("1.5.4"),
-                templateMicronaut = TemplateMicronaut("2.5.4"),
-                templateSpring = TemplateSpring(springBoot = "2.5.0"),
+                coroutines = "1.5.1",
+                templateJooby = TemplateJooby("2.10.0"),
+                templateKtor = TemplateKtor("1.6.2"),
+                templateMicronaut = TemplateMicronaut("3.0.0"),
+                templateSpring = TemplateSpring(springBoot = "2.5.4"),
                 templateVertx = TemplateVertx(vertxPlugin = "1.1.3"),
                 modules = emptyList()
             )

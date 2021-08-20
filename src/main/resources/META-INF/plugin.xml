@@ -4,6 +4,13 @@
     <name>KVision Project Wizard</name>
     <vendor email="jakub.neukirch@stonks.tech" url="https://stonks.tech">Stonks.tech</vendor>
     <change-notes>
+        &lt;i&gt;Version 0.3.0:&lt;/i&gt;
+        &lt;ul&gt;
+            &lt;li&gt;Upgrade to KVision 5.0.0&lt;/li&gt;
+            &lt;li&gt;Upgrade to Kotlin 1.5.21&lt;/li&gt;
+            &lt;li&gt;Upgrade to IntelliJ IDEA 2021.2&lt;/li&gt;
+        &lt;/ul&gt;
+
         &lt;i&gt;Version 0.2.7:&lt;/i&gt;
         &lt;ul&gt;
             &lt;li&gt;Upgrade to KVision 4.7.0&lt;/li&gt;

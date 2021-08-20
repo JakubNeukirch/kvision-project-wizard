@@ -12,6 +12,7 @@ class LibraryChoiceStep(private val _builder: KVisionModuleBuilder) : ModuleWiza
             _builder.artifactId,
             _builder.compilerBackend,
             _builder.selectedModules,
+            _builder.selectedInitializers,
             _builder.versionData.modules
         ).apply {
             onChanged = {
@@ -30,5 +31,6 @@ class LibraryChoiceStep(private val _builder: KVisionModuleBuilder) : ModuleWiza
         _builder.artifactId = _view.artifactId
         _builder.compilerBackend = _view.compilerBackend
         _builder.selectedModules = _view.selectedModules
+        _builder.selectedInitializers = _view.selectedInitializers
     }
 }

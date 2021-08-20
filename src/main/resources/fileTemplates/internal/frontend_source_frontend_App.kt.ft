@@ -1,6 +1,10 @@
 package ${PACKAGE_NAME}
 
 import io.kvision.Application
+import io.kvision.CoreModule
+#foreach( ${initializer} in ${selected_initializers} )
+import io.kvision.${initializer}
+#end
 import io.kvision.html.div
 #if ( ${i18n_included} )
 import io.kvision.i18n.DefaultI18nManager
@@ -38,5 +42,12 @@ class App : Application() {
 }
 
 fun main() {
-    startApplication(::App, module.hot)
+    startApplication(
+        ::App,
+        module.hot,
+#foreach( ${initializer} in ${selected_initializers} )
+        ${initializer},
+#end
+        CoreModule
+    )
 }

@@ -1,8 +1,10 @@
 package ${PACKAGE_NAME}
 
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import io.kvision.Application
+import io.kvision.CoreModule
+#foreach( ${initializer} in ${selected_initializers} )
+import io.kvision.${initializer}
+#end
 import io.kvision.html.Span
 #if ( ${i18n_included} )
 import io.kvision.i18n.DefaultI18nManager
@@ -14,6 +16,12 @@ import io.kvision.panel.root
 import io.kvision.require
 #end
 import io.kvision.startApplication
+import kotlinx.browser.window
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.launch
+
+val AppScope = CoroutineScope(window.asCoroutineDispatcher())
 
 class App : Application() {
 
@@ -30,7 +38,7 @@ class App : Application() {
 #end
         val root = root("kvapp") {
         }
-        GlobalScope.launch {
+        AppScope.launch {
             val pingResult = Model.ping("Hello world from client!")
             root.add(Span(pingResult))
         }
@@ -38,5 +46,12 @@ class App : Application() {
 }
 
 fun main() {
-    startApplication(::App, module.hot)
+    startApplication(
+        ::App,
+        module.hot,
+#foreach( ${initializer} in ${selected_initializers} )
+        ${initializer},
+#end
+        CoreModule
+    )
 }

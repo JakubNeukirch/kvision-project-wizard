@@ -56,5 +56,7 @@ data class Module(
     @SerializedName("description")
     val description: String,
     @SerializedName("excludes")
-    val excludes: List<String>?
+    val excludes: List<String>?,
+    @SerializedName("initializer")
+    val initializer: String?
 )

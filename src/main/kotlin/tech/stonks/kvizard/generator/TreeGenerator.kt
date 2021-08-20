@@ -8,6 +8,7 @@ import tech.stonks.kvizard.utils.build
 import tech.stonks.kvizard.utils.dir
 import tech.stonks.kvizard.utils.file
 import tech.stonks.kvizard.utils.packages
+import java.util.*
 
 /**
  * Base class for building KVision project.
@@ -80,6 +81,7 @@ abstract class TreeGenerator(
         groupId: String,
         compilerBackend: CompilerBackend,
         modules: List<String>,
+        initializers: List<String>,
         versionData: VersionData
     ) {
         try {
@@ -88,7 +90,7 @@ abstract class TreeGenerator(
                 .toMutableList()
                 .apply { add(artifactId) }
                 .toList()
-            val attrs = generateAttributes(artifactId, groupId, compilerBackend, modules, versionData, isFrontendOnly)
+            val attrs = generateAttributes(artifactId, groupId, compilerBackend, modules, initializers, versionData, isFrontendOnly)
             root.build {
                 dir("src") {
                     if (!isFrontendOnly) {
@@ -221,6 +223,7 @@ abstract class TreeGenerator(
         groupId: String,
         compilerBackend: CompilerBackend,
         modules: List<String>,
+        initializers: List<String>,
         versionData: VersionData,
         isFrontendOnly: Boolean
     ): Map<String, Any> {
@@ -237,8 +240,9 @@ abstract class TreeGenerator(
             "micronaut_version" to versionData.templateMicronaut.micronaut,
             "spring_boot_version" to versionData.templateSpring.springBoot,
             "vertx_plugin_version" to versionData.templateVertx.vertxPlugin,
-            "compiler_backend" to compilerBackend.name.toLowerCase(),
+            "compiler_backend" to compilerBackend.name.lowercase(Locale.getDefault()),
             "selected_modules" to modules,
+            "selected_initializers" to initializers,
             "i18n_included" to modules.contains("kvision-i18n"),
             "frontend_only" to isFrontendOnly
         )
