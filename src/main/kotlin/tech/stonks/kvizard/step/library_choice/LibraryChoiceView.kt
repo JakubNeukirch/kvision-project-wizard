@@ -27,6 +27,7 @@ class LibraryChoiceView(
     var artifactId: String,
     var compilerBackend: CompilerBackend,
     var selectedModules: List<String>,
+    var selectedInitializers: List<String>,
     val modules: List<Module>
 ) : JPanel() {
 
@@ -97,6 +98,7 @@ class LibraryChoiceView(
                         }
                     }
                     selectedModules = modules.filter { isItemSelected(it) }.map { it.name }
+                    selectedInitializers = modules.filter { isItemSelected(it) }.mapNotNull { it.initializer }.distinct()
                     onChanged()
                 }
             }
