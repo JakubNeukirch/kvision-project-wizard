@@ -107,9 +107,9 @@ class LibraryChoiceView(
                 preferredSize = Dimension(570, 400)
             })
             add(Box.createRigidArea(Dimension(0, 20)))
-            add(JButton("Check Kotlin.News").apply {
+            add(JButton("Check KVision Website").apply {
                 this.addActionListener {
-                    BrowserUtil.browse("https://kotlin.news")
+                    BrowserUtil.browse("https://kvision.io")
                 }
             })
         }

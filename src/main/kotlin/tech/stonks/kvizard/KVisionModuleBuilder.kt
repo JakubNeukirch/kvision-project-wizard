@@ -81,18 +81,18 @@ class KVisionModuleBuilder : ModuleBuilder() {
             if (projectType == KVisionProjectType.FRONTEND_ONLY) {
                 RunConfigurationUtil.createFrontendConfiguration(modifiableRootModel.project)
             } else {
-                runCompileMetadata(modifiableRootModel.project)
+                runGenerateSources(modifiableRootModel.project)
                 RunConfigurationUtil.createFullstackConfiguration(modifiableRootModel.project)
             }
         }
     }
 
-    private fun runCompileMetadata(project: Project) {
-        project.runGradle("compileKotlinMetadata")
+    private fun runGenerateSources(project: Project) {
+        project.runGradle("generateKVisionSources")
     }
 
     private fun installGradleWrapper(project: Project) {
-        project.runGradle("wrapper --gradle-version 7.2 --distribution-type all")
+        project.runGradle("wrapper --gradle-version 7.4.2 --distribution-type all")
     }
 
     private fun createGenerator(): TreeGenerator {
@@ -125,15 +125,15 @@ class KVisionModuleBuilder : ModuleBuilder() {
             VersionApi.create().getVersionData().blockingGet()
         } catch (ex: Exception) {
             VersionData(
-                kVision = "5.0.0",
-                kotlin = "1.5.21",
-                serialization = "1.2.1",
-                coroutines = "1.5.1",
-                templateJooby = TemplateJooby("2.10.0"),
-                templateKtor = TemplateKtor("1.6.2"),
-                templateMicronaut = TemplateMicronaut("3.0.0"),
-                templateSpring = TemplateSpring(springBoot = "2.5.4"),
-                templateVertx = TemplateVertx(vertxPlugin = "1.1.3"),
+                kVision = "5.9.0",
+                kotlin = "1.6.20",
+                serialization = "1.3.2",
+                coroutines = "1.6.1",
+                templateJooby = TemplateJooby("2.13.0"),
+                templateKtor = TemplateKtor("2.0.0"),
+                templateMicronaut = TemplateMicronaut("3.4.2"),
+                templateSpring = TemplateSpring(springBoot = "2.6.6"),
+                templateVertx = TemplateVertx(vertxPlugin = "1.3.0"),
                 modules = emptyList()
             )
         }
