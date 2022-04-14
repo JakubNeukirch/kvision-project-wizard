@@ -30,6 +30,9 @@ val mainClassName = "io.ktor.server.netty.EngineMain"
 kotlin {
     jvm("backend") {
         compilations.all {
+            java {
+                targetCompatibility = JavaVersion.VERSION_1_8
+            }
             kotlinOptions {
                 jvmTarget = "1.8"
                 freeCompilerArgs = listOf("-Xjsr305=strict")
@@ -80,7 +83,8 @@ kotlin {
                 implementation(kotlin("stdlib-jdk8"))
                 implementation(kotlin("reflect"))
                 implementation("io.ktor:ktor-server-netty:$ktorVersion")
-                implementation("io.ktor:ktor-auth:$ktorVersion")
+                implementation("io.ktor:ktor-server-auth:$ktorVersion")
+                implementation("io.ktor:ktor-server-compression:$ktorVersion")
                 implementation("ch.qos.logback:logback-classic:$logbackVersion")
             }
         }
