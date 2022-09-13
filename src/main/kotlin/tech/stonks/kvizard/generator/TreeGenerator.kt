@@ -40,8 +40,7 @@ abstract class TreeGenerator(
     ),
     private val rootFiles: Array<String> = arrayOf(
         ".gettext.json",
-        ".gitignore",
-        "system.properties"
+        ".gitignore"
     ),
     private val webpackFiles: Array<String> = arrayOf(
         "bootstrap.js",

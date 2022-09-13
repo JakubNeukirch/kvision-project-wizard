@@ -1,5 +1,6 @@
 package ${PACKAGE_NAME}
 
+@Suppress("ACTUAL_WITHOUT_EXPECT")
 actual class PingService : IPingService {
 
     override suspend fun ping(message: String): String {

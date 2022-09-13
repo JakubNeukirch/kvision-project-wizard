@@ -1,4 +1,4 @@
-javaVersion=1.8
+javaVersion=11
 #Plugins
 systemProp.kotlinVersion=${kotlin_version}
 serializationVersion=${serialization_version}

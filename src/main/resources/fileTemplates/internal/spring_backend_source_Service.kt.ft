@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service
 
 @Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@Suppress("ACTUAL_WITHOUT_EXPECT")
 actual class PingService : IPingService {
 
     override suspend fun ping(message: String): String {

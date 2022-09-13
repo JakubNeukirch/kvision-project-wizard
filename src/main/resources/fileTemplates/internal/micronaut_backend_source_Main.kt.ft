@@ -1,14 +1,15 @@
 package ${PACKAGE_NAME}
 
+import io.kvision.remote.getAllServiceManagers
+import io.kvision.remote.KVManagers
 import io.micronaut.context.annotation.Bean
 import io.micronaut.context.annotation.Factory
 import io.micronaut.runtime.Micronaut.build
-import io.kvision.remote.KVManagers
 
 @Factory
 class KVApplication {
     @Bean
-    fun getManagers() = KVManagers(listOf(PingServiceManager))
+    fun getManagers() = KVManagers(getAllServiceManagers())
 }
 
 fun main(args: Array<String>) {

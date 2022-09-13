@@ -1,9 +1,16 @@
 <idea-plugin>
-    <idea-version since-build="203.5981"/>
+    <idea-version since-build="221"/>
     <id>kvision.project.wizard</id>
     <name>KVision Project Wizard</name>
     <vendor email="jakub.neukirch@stonks.tech" url="https://stonks.tech">Stonks.tech</vendor>
     <change-notes>
+        &lt;i&gt;Version 0.5.0:&lt;/i&gt;
+        &lt;ul&gt;
+            &lt;li&gt;Upgrade to KVision 5.15.0&lt;/li&gt;
+            &lt;li&gt;Upgrade to IntelliJ IDEA 2022.1.4&lt;/li&gt;
+            &lt;li&gt;Add new Ktor/Koin fullstack project type&lt;/li&gt;
+        &lt;/ul&gt;
+
         &lt;i&gt;Version 0.4.0:&lt;/i&gt;
         &lt;ul&gt;
             &lt;li&gt;Upgrade to KVision 5.9.0&lt;/li&gt;
