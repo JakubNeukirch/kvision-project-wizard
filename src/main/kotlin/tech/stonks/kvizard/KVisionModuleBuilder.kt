@@ -23,6 +23,7 @@ import tech.stonks.kvizard.data.model.VersionData
 import tech.stonks.kvizard.generator.FrontendTreeGenerator
 import tech.stonks.kvizard.generator.JavalinTreeGenerator
 import tech.stonks.kvizard.generator.JoobyTreeGenerator
+import tech.stonks.kvizard.generator.KtorKoinTreeGenerator
 import tech.stonks.kvizard.generator.KtorTreeGenerator
 import tech.stonks.kvizard.generator.MicronautTreeGenerator
 import tech.stonks.kvizard.generator.SpringTreeGenerator
@@ -41,6 +42,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
     companion object {
         val supportedProjectTypes = arrayOf(
             KVisionProjectType.FRONTEND_ONLY,
+            KVisionProjectType.KTOR_KOIN,
             KVisionProjectType.KTOR,
             KVisionProjectType.SPRING_BOOT,
             KVisionProjectType.JAVALIN,
@@ -81,23 +83,19 @@ class KVisionModuleBuilder : ModuleBuilder() {
             if (projectType == KVisionProjectType.FRONTEND_ONLY) {
                 RunConfigurationUtil.createFrontendConfiguration(modifiableRootModel.project)
             } else {
-                runGenerateSources(modifiableRootModel.project)
                 RunConfigurationUtil.createFullstackConfiguration(modifiableRootModel.project)
             }
         }
     }
 
-    private fun runGenerateSources(project: Project) {
-        project.runGradle("generateKVisionSources")
-    }
-
     private fun installGradleWrapper(project: Project) {
-        project.runGradle("wrapper --gradle-version 7.4.2 --distribution-type all")
+        project.runGradle("wrapper --gradle-version 7.5.1 --distribution-type all")
     }
 
     private fun createGenerator(): TreeGenerator {
         return when (projectType) {
             KVisionProjectType.FRONTEND_ONLY -> FrontendTreeGenerator()
+            KVisionProjectType.KTOR_KOIN -> KtorKoinTreeGenerator()
             KVisionProjectType.KTOR -> KtorTreeGenerator()
             KVisionProjectType.SPRING_BOOT -> SpringTreeGenerator()
             KVisionProjectType.JAVALIN -> JavalinTreeGenerator()
@@ -125,14 +123,14 @@ class KVisionModuleBuilder : ModuleBuilder() {
             VersionApi.create().getVersionData().blockingGet()
         } catch (ex: Exception) {
             VersionData(
-                kVision = "5.9.0",
-                kotlin = "1.6.20",
-                serialization = "1.3.2",
-                coroutines = "1.6.1",
-                templateJooby = TemplateJooby("2.13.0"),
-                templateKtor = TemplateKtor("2.0.0"),
-                templateMicronaut = TemplateMicronaut("3.4.2"),
-                templateSpring = TemplateSpring(springBoot = "2.6.6"),
+                kVision = "5.15.0",
+                kotlin = "1.7.10",
+                serialization = "1.4.0",
+                coroutines = "1.6.4",
+                templateJooby = TemplateJooby("2.16.1"),
+                templateKtor = TemplateKtor("2.1.1"),
+                templateMicronaut = TemplateMicronaut("3.6.3"),
+                templateSpring = TemplateSpring(springBoot = "2.7.3"),
                 templateVertx = TemplateVertx(vertxPlugin = "1.3.0"),
                 modules = emptyList()
             )

@@ -2,7 +2,7 @@ javaVersion=1.8
 #Plugins
 systemProp.kotlinVersion=${kotlin_version}
 serializationVersion=${serialization_version}
-systemProp.dependencyManagementPluginVersion=1.0.9.RELEASE
+systemProp.dependencyManagementPluginVersion=1.0.12.RELEASE
 systemProp.springBootVersion=${spring_boot_version}
 #Dependencies
 systemProp.kvisionVersion=${kvision_version}

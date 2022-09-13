@@ -1,11 +1,11 @@
 plugins {
-    id 'org.jetbrains.intellij' version '1.5.2'
+    id 'org.jetbrains.intellij' version '1.9.0'
     id 'org.jetbrains.kotlin.jvm' version '1.6.20'
     id 'idea'
 }
 
 group 'tech.stonks'
-version '0.4.0'
+version '0.5.0'
 
 repositories {
     mavenCentral()
@@ -17,7 +17,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.google.code.gson:gson:2.9.0'
-    implementation 'io.reactivex.rxjava3:rxjava:3.1.4'
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.5'
     implementation 'io.reactivex.rxjava3:rxkotlin:3.0.1'
 }
 
@@ -32,7 +32,7 @@ compileKotlin {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version = '2022.1'
+    version = '2022.1.4'
     plugins = ['gradle', 'java', 'org.jetbrains.kotlin']
     updateSinceUntilBuild = false
 }

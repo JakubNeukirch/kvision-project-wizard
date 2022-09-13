@@ -31,7 +31,8 @@ class KVisionModuleType : ModuleType<KVisionModuleBuilder>("KVISION_WIZARD") {
 
 enum class KVisionProjectType(val displayName: String) {
     FRONTEND_ONLY("Frontend project"),
-    KTOR("Ktor fullstack project"),
+    KTOR_KOIN("Ktor/Koin fullstack project"),
+    KTOR("Ktor/Guice fullstack project"),
     SPRING_BOOT("Spring Boot fullstack project"),
     JAVALIN("Javalin fullstack project"),
     JOOBY("Jooby fullstack project"),

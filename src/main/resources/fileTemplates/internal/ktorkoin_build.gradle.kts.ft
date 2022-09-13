@@ -21,31 +21,28 @@ repositories {
 // Versions
 val kotlinVersion: String by System.getProperties()
 val kvisionVersion: String by System.getProperties()
-val slf4jVersion: String by project
+val ktorVersion: String by project
+val logbackVersion: String by project
 
 val webDir = file("src/frontendMain/web")
-val mainClassName = "${GROUP_ID}.${ARTIFACT_ID}.MainKt"
+val mainClassName = "io.ktor.server.netty.EngineMain"
 
 kotlin {
     jvm("backend") {
-        withJava()
         compilations.all {
             java {
-                targetCompatibility = JavaVersion.VERSION_11
+                targetCompatibility = JavaVersion.VERSION_1_8
             }
             kotlinOptions {
-                jvmTarget = "11"
+                jvmTarget = "1.8"
                 freeCompilerArgs = listOf("-Xjsr305=strict")
             }
         }
     }
     js("frontend") {
         browser {
-            commonWebpackConfig {
-                outputFileName = "main.bundle.js"
-                this.showProgress
-            }
             runTask {
+                outputFileName = "main.bundle.js"
                 sourceMaps = false
                 devServer = KotlinWebpackConfig.DevServer(
                     open = false,
@@ -56,6 +53,9 @@ kotlin {
                     ),
                     static = mutableListOf("$buildDir/processedResources/frontend/main")
                 )
+            }
+            webpackTask {
+                outputFileName = "main.bundle.js"
             }
             testTask {
                 useKarma {
@@ -68,7 +68,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api("io.kvision:kvision-server-javalin:$kvisionVersion")
+                api("io.kvision:kvision-server-ktor-koin:$kvisionVersion")
             }
             kotlin.srcDir("build/generated-src/common")
         }
@@ -82,7 +82,10 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-jdk8"))
                 implementation(kotlin("reflect"))
-                implementation("org.slf4j:slf4j-simple:$slf4jVersion")
+                implementation("io.ktor:ktor-server-netty:$ktorVersion")
+                implementation("io.ktor:ktor-server-auth:$ktorVersion")
+                implementation("io.ktor:ktor-server-compression:$ktorVersion")
+                implementation("ch.qos.logback:logback-classic:$logbackVersion")
             }
         }
         val backendTest by getting {
@@ -109,6 +112,7 @@ kotlin {
         }
     }
 }
+
 afterEvaluate {
     tasks {
         create("frontendArchive", Jar::class).apply {
@@ -140,7 +144,7 @@ afterEvaluate {
             duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         }
         getByName("backendJar").group = "package"
-        create("shadowJar", Jar::class).apply {
+        create("jar", Jar::class).apply {
             dependsOn("frontendArchive", "backendJar")
             group = "package"
             manifest {
@@ -164,9 +168,6 @@ afterEvaluate {
             inputs.files(dependencies)
             outputs.file(archiveFile)
             duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-        }
-        getByName("jar", Jar::class).apply {
-            dependsOn("shadowJar")
         }
         create("backendRun", JavaExec::class) {
             dependsOn("compileKotlinBackend")
