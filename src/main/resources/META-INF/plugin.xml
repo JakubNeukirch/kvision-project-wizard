@@ -4,6 +4,11 @@
     <name>KVision Project Wizard</name>
     <vendor email="jakub.neukirch@stonks.tech" url="https://stonks.tech">Stonks.tech</vendor>
     <change-notes>
+        &lt;i&gt;Version 0.5.1:&lt;/i&gt;
+        &lt;ul&gt;
+            &lt;li&gt;Upgrade to KVision 5.15.1&lt;/li&gt;
+        &lt;/ul&gt;
+
         &lt;i&gt;Version 0.5.0:&lt;/i&gt;
         &lt;ul&gt;
             &lt;li&gt;Upgrade to KVision 5.15.0&lt;/li&gt;
