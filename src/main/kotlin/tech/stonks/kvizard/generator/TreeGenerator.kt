@@ -47,7 +47,6 @@ abstract class TreeGenerator(
         "css.js",
         "file.js",
         "handlebars.js",
-        "jquery.js",
         "moment.js"
     ),
     private val webpackCustomFiles: Array<String> = arrayOf(
