@@ -1,13 +1,13 @@
-javaVersion=1.8
+javaVersion=17
 #Plugins
 systemProp.kotlinVersion=${kotlin_version}
 serializationVersion=${serialization_version}
-systemProp.dependencyManagementPluginVersion=1.0.12.RELEASE
+systemProp.dependencyManagementPluginVersion=1.1.0
 systemProp.springBootVersion=${spring_boot_version}
 #Dependencies
 systemProp.kvisionVersion=${kvision_version}
 coroutinesVersion=${coroutines_version}
 
 kotlin.mpp.stability.nowarn=true
-kotlin.js.compiler=${compiler_backend}
+kotlin.js.compiler=ir
 org.gradle.jvmargs=-Xmx2g

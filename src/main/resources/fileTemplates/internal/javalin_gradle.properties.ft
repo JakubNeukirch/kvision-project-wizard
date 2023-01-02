@@ -1,11 +1,11 @@
-javaVersion=11
+javaVersion=17
 #Plugins
 systemProp.kotlinVersion=${kotlin_version}
 serializationVersion=${serialization_version}
 #Dependencies
 systemProp.kvisionVersion=${kvision_version}
-slf4jVersion=1.7.28
+slf4jVersion=2.0.6
 
 kotlin.mpp.stability.nowarn=true
-kotlin.js.compiler=${compiler_backend}
+kotlin.js.compiler=ir
 org.gradle.jvmargs=-Xmx2g

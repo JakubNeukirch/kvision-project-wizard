@@ -13,7 +13,6 @@ group = "${GROUP_ID}"
 
 repositories {
     mavenCentral()
-    jcenter()
     mavenLocal()
 }
 
@@ -26,8 +25,10 @@ val webDir = file("src/main/web")
 kotlin {
     js {
         browser {
-            runTask {
+            commonWebpackConfig {
                 outputFileName = "main.bundle.js"
+            }
+            runTask {
                 sourceMaps = false
                 devServer = KotlinWebpackConfig.DevServer(
                     open = false,
@@ -38,9 +39,6 @@ kotlin {
                     ),
                     static = mutableListOf("$buildDir/processedResources/js/main")
                 )
-            }
-            webpackTask {
-                outputFileName = "main.bundle.js"
             }
             testTask {
                 useKarma {

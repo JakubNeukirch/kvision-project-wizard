@@ -1,11 +1,11 @@
 plugins {
-    id 'org.jetbrains.intellij' version '1.9.0'
-    id 'org.jetbrains.kotlin.jvm' version '1.6.20'
+    id 'org.jetbrains.intellij' version '1.11.0'
+    id 'org.jetbrains.kotlin.jvm' version '1.7.22'
     id 'idea'
 }
 
 group 'tech.stonks'
-version '0.5.1'
+version '0.6.0'
 
 repositories {
     mavenCentral()
@@ -21,18 +21,18 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxkotlin:3.0.1'
 }
 
-sourceCompatibility = 11
-targetCompatibility = 11
+sourceCompatibility = 17
+targetCompatibility = 17
 
 compileKotlin {
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version = '2022.1.4'
+    version = '2022.3.1'
     plugins = ['gradle', 'java', 'org.jetbrains.kotlin']
     updateSinceUntilBuild = false
 }

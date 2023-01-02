@@ -39,8 +39,3 @@ enum class KVisionProjectType(val displayName: String) {
     MICRONAUT("Micronaut fullstack project"),
     VERTX("Vert.x fullstack project");
 }
-
-enum class CompilerBackend(val displayName: String) {
-    IR("IR"),
-    LEGACY("Legacy")
-}

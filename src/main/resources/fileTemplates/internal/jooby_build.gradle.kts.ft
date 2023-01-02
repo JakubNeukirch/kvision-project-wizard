@@ -16,7 +16,6 @@ group = "${GROUP_ID}"
 
 repositories {
     mavenCentral()
-    jcenter()
     mavenLocal()
 }
 
@@ -33,16 +32,21 @@ kotlin {
     jvm("backend") {
         withJava()
         compilations.all {
+            java {
+                targetCompatibility = JavaVersion.VERSION_17
+            }
             kotlinOptions {
-                jvmTarget = "1.8"
+                jvmTarget = "17"
                 freeCompilerArgs = listOf("-Xjsr305=strict")
             }
         }
     }
     js("frontend") {
         browser {
-            runTask {
+            commonWebpackConfig {
                 outputFileName = "main.bundle.js"
+            }
+            runTask {
                 sourceMaps = false
                 devServer = KotlinWebpackConfig.DevServer(
                     open = false,
@@ -53,9 +57,6 @@ kotlin {
                     ),
                     static = mutableListOf("$buildDir/processedResources/frontend/main")
                 )
-            }
-            webpackTask {
-                outputFileName = "main.bundle.js"
             }
             testTask {
                 useKarma {
@@ -70,7 +71,6 @@ kotlin {
             dependencies {
                 api("io.kvision:kvision-server-jooby:$kvisionVersion")
             }
-            kotlin.srcDir("build/generated-src/common")
         }
         val commonTest by getting {
             dependencies {
@@ -80,7 +80,6 @@ kotlin {
         }
         val backendMain by getting {
             dependencies {
-                implementation(kotlin("stdlib-jdk8"))
                 implementation(kotlin("reflect"))
                 implementation("io.jooby:jooby-netty:$joobyVersion")
                 implementation("io.jooby:jooby-hikari:$joobyVersion")
@@ -101,7 +100,6 @@ kotlin {
                 implementation("io.kvision:${module}:$kvisionVersion")
 #end
             }
-            kotlin.srcDir("build/generated-src/frontend")
         }
         val frontendTest by getting {
             dependencies {
@@ -114,7 +112,7 @@ kotlin {
 
 tasks {
     joobyRun {
-        mainClassName = mainClassNameVal
+        mainClass = mainClassNameVal
         restartExtensions = listOf("conf", "properties", "class")
         compileExtensions = listOf("java", "kt")
         port = 8080
@@ -127,7 +125,7 @@ afterEvaluate {
             group = "package"
             archiveAppendix.set("frontend")
             val distribution =
-                project.tasks.getByName("frontendBrowserProductionWebpack", KotlinWebpack::class).destinationDirectory!!
+                project.tasks.getByName("frontendBrowserProductionWebpack", KotlinWebpack::class).destinationDirectory
             from(distribution) {
                 include("*.*")
             }

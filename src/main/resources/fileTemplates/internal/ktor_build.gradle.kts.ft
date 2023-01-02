@@ -14,7 +14,6 @@ group = "${GROUP_ID}"
 
 repositories {
     mavenCentral()
-    jcenter()
     mavenLocal()
 }
 
@@ -31,18 +30,20 @@ kotlin {
     jvm("backend") {
         compilations.all {
             java {
-                targetCompatibility = JavaVersion.VERSION_1_8
+                targetCompatibility = JavaVersion.VERSION_17
             }
             kotlinOptions {
-                jvmTarget = "1.8"
+                jvmTarget = "17"
                 freeCompilerArgs = listOf("-Xjsr305=strict")
             }
         }
     }
     js("frontend") {
         browser {
-            runTask {
+            commonWebpackConfig {
                 outputFileName = "main.bundle.js"
+            }
+            runTask {
                 sourceMaps = false
                 devServer = KotlinWebpackConfig.DevServer(
                     open = false,
@@ -53,9 +54,6 @@ kotlin {
                     ),
                     static = mutableListOf("$buildDir/processedResources/frontend/main")
                 )
-            }
-            webpackTask {
-                outputFileName = "main.bundle.js"
             }
             testTask {
                 useKarma {
@@ -70,7 +68,6 @@ kotlin {
             dependencies {
                 api("io.kvision:kvision-server-ktor:$kvisionVersion")
             }
-            kotlin.srcDir("build/generated-src/common")
         }
         val commonTest by getting {
             dependencies {
@@ -80,7 +77,6 @@ kotlin {
         }
         val backendMain by getting {
             dependencies {
-                implementation(kotlin("stdlib-jdk8"))
                 implementation(kotlin("reflect"))
                 implementation("io.ktor:ktor-server-netty:$ktorVersion")
                 implementation("io.ktor:ktor-server-auth:$ktorVersion")
@@ -102,7 +98,6 @@ kotlin {
                 implementation("io.kvision:${module}:$kvisionVersion")
 #end
             }
-            kotlin.srcDir("build/generated-src/frontend")
         }
         val frontendTest by getting {
             dependencies {
@@ -120,7 +115,7 @@ afterEvaluate {
             group = "package"
             archiveAppendix.set("frontend")
             val distribution =
-                project.tasks.getByName("frontendBrowserProductionWebpack", KotlinWebpack::class).destinationDirectory!!
+                project.tasks.getByName("frontendBrowserProductionWebpack", KotlinWebpack::class).destinationDirectory
             from(distribution) {
                 include("*.*")
             }
@@ -172,7 +167,7 @@ afterEvaluate {
         create("backendRun", JavaExec::class) {
             dependsOn("compileKotlinBackend")
             group = "run"
-            main = mainClassName
+            mainClass.set(mainClassName)
             classpath =
                 configurations["backendRuntimeClasspath"] + project.tasks["compileKotlinBackend"].outputs.files +
                         project.tasks["backendProcessResources"].outputs.files
