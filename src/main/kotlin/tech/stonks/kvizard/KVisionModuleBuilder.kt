@@ -55,8 +55,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
     var projectType: KVisionProjectType = KVisionProjectType.FRONTEND_ONLY
     var groupId: String = "com.example"
     var artifactId: String = "project"
-    var compilerBackend: CompilerBackend = CompilerBackend.IR
-    var selectedModules: List<String> = listOf("kvision-bootstrap", "kvision-bootstrap-css")
+    var selectedModules: List<String> = listOf("kvision-bootstrap")
     var selectedInitializers: List<String> = listOf("BootstrapModule", "BootstrapCssModule")
 
     override fun setupRootModel(modifiableRootModel: ModifiableRootModel) {
@@ -76,7 +75,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
         val generator: TreeGenerator = createGenerator()
         modifiableRootModel.project.backgroundTask("Setting up project") {
             try {
-                generator.generate(root, artifactId, groupId, compilerBackend, selectedModules, selectedInitializers, versionData)
+                generator.generate(root, artifactId, groupId, selectedModules, selectedInitializers, versionData)
             } catch (ex: Exception) {
             }
             installGradleWrapper(modifiableRootModel.project)
@@ -89,7 +88,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
     }
 
     private fun installGradleWrapper(project: Project) {
-        project.runGradle("wrapper --gradle-version 7.5.1 --distribution-type all")
+        project.runGradle("wrapper --gradle-version 7.6 --distribution-type all")
     }
 
     private fun createGenerator(): TreeGenerator {
@@ -115,7 +114,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
     }
 
     override fun getCustomOptionsStep(context: WizardContext?, parentDisposable: Disposable?): ModuleWizardStep {
-        return LibraryChoiceStep(this)
+        return LibraryChoiceStep(this, parentDisposable)
     }
 
     private fun fetchVersionData(): VersionData {
@@ -123,14 +122,14 @@ class KVisionModuleBuilder : ModuleBuilder() {
             VersionApi.create().getVersionData().blockingGet()
         } catch (ex: Exception) {
             VersionData(
-                kVision = "5.15.0",
-                kotlin = "1.7.10",
-                serialization = "1.4.0",
+                kVision = "6.0.1",
+                kotlin = "1.8.0",
+                serialization = "1.4.1",
                 coroutines = "1.6.4",
                 templateJooby = TemplateJooby("2.16.1"),
-                templateKtor = TemplateKtor("2.1.1"),
-                templateMicronaut = TemplateMicronaut("3.6.3"),
-                templateSpring = TemplateSpring(springBoot = "2.7.3"),
+                templateKtor = TemplateKtor("2.2.1"),
+                templateMicronaut = TemplateMicronaut("3.8.0"),
+                templateSpring = TemplateSpring(springBoot = "3.0.1"),
                 templateVertx = TemplateVertx(vertxPlugin = "1.3.0"),
                 modules = emptyList()
             )

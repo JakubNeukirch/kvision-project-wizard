@@ -1,14 +1,12 @@
 package tech.stonks.kvizard.generator
 
 import com.intellij.openapi.vfs.VirtualFile
-import tech.stonks.kvizard.CompilerBackend
 import tech.stonks.kvizard.data.model.VersionData
 import tech.stonks.kvizard.utils.TemplateAttributes
 import tech.stonks.kvizard.utils.build
 import tech.stonks.kvizard.utils.dir
 import tech.stonks.kvizard.utils.file
 import tech.stonks.kvizard.utils.packages
-import java.util.*
 
 /**
  * Base class for building KVision project.
@@ -46,8 +44,7 @@ abstract class TreeGenerator(
         "bootstrap.js",
         "css.js",
         "file.js",
-        "handlebars.js",
-        "moment.js"
+        "handlebars.js"
     ),
     private val webpackCustomFiles: Array<String> = arrayOf(
         "webpack.js"
@@ -77,7 +74,6 @@ abstract class TreeGenerator(
         root: VirtualFile,
         artifactId: String,
         groupId: String,
-        compilerBackend: CompilerBackend,
         modules: List<String>,
         initializers: List<String>,
         versionData: VersionData
@@ -88,7 +84,7 @@ abstract class TreeGenerator(
                 .toMutableList()
                 .apply { add(artifactId) }
                 .toList()
-            val attrs = generateAttributes(artifactId, groupId, compilerBackend, modules, initializers, versionData, isFrontendOnly)
+            val attrs = generateAttributes(artifactId, groupId, modules, initializers, versionData, isFrontendOnly)
             root.build {
                 dir("src") {
                     if (!isFrontendOnly) {
@@ -219,7 +215,6 @@ abstract class TreeGenerator(
     private fun generateAttributes(
         artifactId: String,
         groupId: String,
-        compilerBackend: CompilerBackend,
         modules: List<String>,
         initializers: List<String>,
         versionData: VersionData,
@@ -238,7 +233,6 @@ abstract class TreeGenerator(
             "micronaut_version" to versionData.templateMicronaut.micronaut,
             "spring_boot_version" to versionData.templateSpring.springBoot,
             "vertx_plugin_version" to versionData.templateVertx.vertxPlugin,
-            "compiler_backend" to compilerBackend.name.lowercase(Locale.getDefault()),
             "selected_modules" to modules,
             "selected_initializers" to initializers,
             "i18n_included" to modules.contains("kvision-i18n"),
