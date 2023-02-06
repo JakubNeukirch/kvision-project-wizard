@@ -122,14 +122,14 @@ class KVisionModuleBuilder : ModuleBuilder() {
             VersionApi.create().getVersionData().blockingGet()
         } catch (ex: Exception) {
             VersionData(
-                kVision = "6.0.1",
-                kotlin = "1.8.0",
+                kVision = "6.2.0",
+                kotlin = "1.8.10",
                 serialization = "1.4.1",
                 coroutines = "1.6.4",
                 templateJooby = TemplateJooby("2.16.1"),
-                templateKtor = TemplateKtor("2.2.1"),
-                templateMicronaut = TemplateMicronaut("3.8.0"),
-                templateSpring = TemplateSpring(springBoot = "3.0.1"),
+                templateKtor = TemplateKtor("2.2.3"),
+                templateMicronaut = TemplateMicronaut("3.8.3"),
+                templateSpring = TemplateSpring(springBoot = "3.0.2"),
                 templateVertx = TemplateVertx(vertxPlugin = "1.3.0"),
                 modules = emptyList()
             )
