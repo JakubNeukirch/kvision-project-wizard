@@ -1,11 +1,10 @@
 javaVersion=17
 #Plugins
 systemProp.kotlinVersion=${kotlin_version}
-serializationVersion=${serialization_version}
 #Dependencies
 systemProp.kvisionVersion=${kvision_version}
 systemProp.joobyVersion=${jooby_version}
-logbackVersion=1.4.5
+logbackVersion=1.4.8
 
 kotlin.mpp.stability.nowarn=true
 kotlin.js.compiler=ir

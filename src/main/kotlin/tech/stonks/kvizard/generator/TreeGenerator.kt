@@ -226,7 +226,6 @@ abstract class TreeGenerator(
             TemplateAttributes.PACKAGE_NAME to "${groupId}.${artifactId}",
             "kotlin_version" to versionData.kotlin,
             "ktor_version" to versionData.templateKtor.ktor,
-            "serialization_version" to versionData.serialization,
             "kvision_version" to versionData.kVision,
             "coroutines_version" to versionData.coroutines,
             "jooby_version" to versionData.templateJooby.jooby,
