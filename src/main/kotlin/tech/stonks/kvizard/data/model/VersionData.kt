@@ -9,8 +9,6 @@ data class VersionData(
     val kotlin: String,
     @SerializedName("coroutines")
     val coroutines: String,
-    @SerializedName("serialization")
-    val serialization: String,
     @SerializedName("template-jooby")
     val templateJooby: TemplateJooby,
     @SerializedName("template-ktor")

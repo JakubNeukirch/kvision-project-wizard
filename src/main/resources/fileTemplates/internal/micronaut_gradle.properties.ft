@@ -1,9 +1,8 @@
 javaVersion=17
 #Plugins
 systemProp.kotlinVersion=${kotlin_version}
-serializationVersion=${serialization_version}
 systemProp.micronautVersion=${micronaut_version}
-systemProp.shadowVersion=7.1.2
+systemProp.shadowVersion=8.1.1
 #Dependencies
 systemProp.kvisionVersion=${kvision_version}
 coroutinesVersion=${coroutines_version}

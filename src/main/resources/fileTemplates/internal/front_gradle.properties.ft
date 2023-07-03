@@ -1,7 +1,6 @@
 javaVersion=17
 #Plugins
 systemProp.kotlinVersion=${kotlin_version}
-serializationVersion=${serialization_version}
 #Dependencies
 systemProp.kvisionVersion=${kvision_version}
 kotlin.js.compiler=ir

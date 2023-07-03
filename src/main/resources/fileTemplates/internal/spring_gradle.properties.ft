@@ -1,7 +1,6 @@
 javaVersion=17
 #Plugins
 systemProp.kotlinVersion=${kotlin_version}
-serializationVersion=${serialization_version}
 systemProp.dependencyManagementPluginVersion=1.1.0
 systemProp.springBootVersion=${spring_boot_version}
 #Dependencies
