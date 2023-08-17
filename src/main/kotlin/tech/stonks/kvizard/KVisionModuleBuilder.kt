@@ -5,6 +5,7 @@ import com.intellij.ide.util.projectWizard.ModuleWizardStep
 import com.intellij.ide.util.projectWizard.WizardContext
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.application.invokeLater
 import com.intellij.openapi.module.ModuleType
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ModifiableRootModel
@@ -13,6 +14,8 @@ import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiManager
 import com.intellij.psi.impl.file.PsiDirectoryFactory
+import org.jetbrains.plugins.gradle.service.project.GradleAutoImportAware
+import org.jetbrains.plugins.gradle.service.project.open.linkAndRefreshGradleProject
 import tech.stonks.kvizard.data.VersionApi
 import tech.stonks.kvizard.data.model.TemplateJooby
 import tech.stonks.kvizard.data.model.TemplateKtor
@@ -23,6 +26,7 @@ import tech.stonks.kvizard.data.model.VersionData
 import tech.stonks.kvizard.generator.FrontendTreeGenerator
 import tech.stonks.kvizard.generator.JavalinTreeGenerator
 import tech.stonks.kvizard.generator.JoobyTreeGenerator
+import tech.stonks.kvizard.generator.KtorKoinAnnotTreeGenerator
 import tech.stonks.kvizard.generator.KtorKoinTreeGenerator
 import tech.stonks.kvizard.generator.KtorTreeGenerator
 import tech.stonks.kvizard.generator.MicronautTreeGenerator
@@ -38,19 +42,6 @@ import java.io.File
 class KVisionModuleBuilder : ModuleBuilder() {
 
     val versionData by lazy { fetchVersionData() }
-
-    companion object {
-        val supportedProjectTypes = arrayOf(
-            KVisionProjectType.FRONTEND_ONLY,
-            KVisionProjectType.KTOR_KOIN,
-            KVisionProjectType.KTOR,
-            KVisionProjectType.SPRING_BOOT,
-            KVisionProjectType.JAVALIN,
-            KVisionProjectType.JOOBY,
-            KVisionProjectType.MICRONAUT,
-            KVisionProjectType.VERTX
-        )
-    }
 
     var projectType: KVisionProjectType = KVisionProjectType.FRONTEND_ONLY
     var groupId: String = "com.example"
@@ -78,23 +69,24 @@ class KVisionModuleBuilder : ModuleBuilder() {
                 generator.generate(root, artifactId, groupId, selectedModules, selectedInitializers, versionData)
             } catch (ex: Exception) {
             }
-            installGradleWrapper(modifiableRootModel.project)
             if (projectType == KVisionProjectType.FRONTEND_ONLY) {
                 RunConfigurationUtil.createFrontendConfiguration(modifiableRootModel.project)
             } else {
                 RunConfigurationUtil.createFullstackConfiguration(modifiableRootModel.project)
             }
+            GradleAutoImportAware()
+            invokeLater {
+                val projectFilePath = root.canonicalPath + "/build.gradle.kts"
+                linkAndRefreshGradleProject(projectFilePath, modifiableRootModel.project)
+            }
         }
-    }
-
-    private fun installGradleWrapper(project: Project) {
-        project.runGradle("wrapper --gradle-version 8.2 --distribution-type all")
     }
 
     private fun createGenerator(): TreeGenerator {
         return when (projectType) {
             KVisionProjectType.FRONTEND_ONLY -> FrontendTreeGenerator()
             KVisionProjectType.KTOR_KOIN -> KtorKoinTreeGenerator()
+            KVisionProjectType.KTOR_KOIN_ANNOT -> KtorKoinAnnotTreeGenerator()
             KVisionProjectType.KTOR -> KtorTreeGenerator()
             KVisionProjectType.SPRING_BOOT -> SpringTreeGenerator()
             KVisionProjectType.JAVALIN -> JavalinTreeGenerator()
@@ -122,13 +114,13 @@ class KVisionModuleBuilder : ModuleBuilder() {
             VersionApi.create().getVersionData().blockingGet()
         } catch (ex: Exception) {
             VersionData(
-                kVision = "6.6.0",
-                kotlin = "1.8.22",
-                coroutines = "1.7.2",
-                templateJooby = TemplateJooby("3.0.0.M11"),
-                templateKtor = TemplateKtor("2.3.2"),
-                templateMicronaut = TemplateMicronaut("3.9.4"),
-                templateSpring = TemplateSpring(springBoot = "3.1.1"),
+                kVision = "7.0.0",
+                kotlin = "1.9.0",
+                coroutines = "1.7.3",
+                templateJooby = TemplateJooby("3.0.2"),
+                templateKtor = TemplateKtor(ktor = "2.3.3", koinAnnotations = "1.2.2"),
+                templateMicronaut = TemplateMicronaut(micronaut = "4.0.3", micronautPlugins = "4.0.2"),
+                templateSpring = TemplateSpring(springBoot = "3.1.2"),
                 templateVertx = TemplateVertx(vertxPlugin = "1.3.0"),
                 modules = emptyList()
             )

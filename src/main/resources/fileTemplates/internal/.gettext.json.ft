@@ -29,15 +29,11 @@
       }
     ],
     "glob": {
-      "pattern": "src/**/*.kt"
+      "pattern": "src/jsMain/**/*.kt"
     }
   },
   "headers": {
     "Language": ""
   },
-#if ( ${frontend_only} )
-  "output": "src/main/resources/i18n/messages.pot"
-#else
-  "output": "src/frontendMain/resources/i18n/messages.pot"
-#end
+  "output": "src/jsMain/resources/i18n/messages.pot"
 }

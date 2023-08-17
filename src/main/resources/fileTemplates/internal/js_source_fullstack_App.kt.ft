@@ -16,12 +16,12 @@ import io.kvision.panel.root
 import io.kvision.require
 #end
 import io.kvision.startApplication
-import kotlinx.browser.window
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
-val AppScope = CoroutineScope(window.asCoroutineDispatcher())
+val AppScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
 
 class App : Application() {
 

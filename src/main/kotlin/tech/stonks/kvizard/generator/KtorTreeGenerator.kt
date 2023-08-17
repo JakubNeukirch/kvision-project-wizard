@@ -2,11 +2,11 @@ package tech.stonks.kvizard.generator
 
 class KtorTreeGenerator: TreeGenerator(
     "ktor",
-    backendResourcesFiles = arrayOf(
+    jvmResourcesFiles = arrayOf(
         "application.conf",
         "logback.xml"
     ),
-    backendFiles = arrayOf(
+    jvmFiles = arrayOf(
         "Main.kt",
         "Service.kt"
     )

@@ -58,13 +58,13 @@ object RunConfigurationUtil {
         runManager.addConfiguration(
             RunnerAndConfigurationSettingsImpl(
                 RunManagerImpl.getInstanceImpl(project),
-                KVisionConfigurationFactory("backendRun").createTemplateConfiguration(project)
+                KVisionConfigurationFactory("jvmRun").createTemplateConfiguration(project)
             )
         )
         runManager.addConfiguration(
             RunnerAndConfigurationSettingsImpl(
                 RunManagerImpl.getInstanceImpl(project),
-                KVisionConfigurationFactory("frontendRun", "-t").createTemplateConfiguration(project)
+                KVisionConfigurationFactory("jsRun", "-t").createTemplateConfiguration(project)
             )
         )
         runManager.setOrder(RunnerComparator())

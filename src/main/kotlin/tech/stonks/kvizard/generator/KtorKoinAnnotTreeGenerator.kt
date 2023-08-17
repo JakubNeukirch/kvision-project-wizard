@@ -1,7 +1,7 @@
 package tech.stonks.kvizard.generator
 
-class KtorKoinTreeGenerator: TreeGenerator(
-    "ktorkoin",
+class KtorKoinAnnotTreeGenerator: TreeGenerator(
+    "ktorkoinannot",
     jvmResourcesFiles = arrayOf(
         "application.conf",
         "logback.xml"

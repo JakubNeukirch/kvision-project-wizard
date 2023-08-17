@@ -12,13 +12,13 @@ import tech.stonks.kvizard.utils.packages
  * Base class for building KVision project.
  * File name of template should look like: <project_type>_<directory>_<source_type>_<filename>.ft
  *  project_type - used only in backend depending files (that means: backend source dir, build.gradle)
- *  directory - options: frontend, backend - if destination dir is root, leave blank
+ *  directory - options: js, jvm - if destination dir is root, leave blank
  *  source_type - options: source, resources, test - if none of this, leave blank
  *  filename - destined file name, for example for source code it would be "MainApp.kt"
  * Examples:
- *  - ktor_backend_source_Main.kt.ft
- *  - ktor_backend_resources_application.conf.ft
- *  - frontend_test_AppSpec.kt.ft
+ *  - ktor_jvm_source_Main.kt.ft
+ *  - ktor_jvm_resources_application.conf.ft
+ *  - js_test_AppSpec.kt.ft
  * @constructor accepts arrays of file names to be generated - those are not template file names,
  * standard names like = Main.kt or application.conf. Based on them template file names are constructed
  */
@@ -28,9 +28,9 @@ abstract class TreeGenerator(
      */
     private val templateName: String,
     private val isFrontendOnly: Boolean = false,
-    private val backendResourcesFiles: Array<String> = arrayOf(),
-    private val backendResourcesAssetsFiles: Array<String> = arrayOf(),
-    private val backendFiles: Array<String> = arrayOf(),
+    private val jvmResourcesFiles: Array<String> = arrayOf(),
+    private val jvmResourcesAssetsFiles: Array<String> = arrayOf(),
+    private val jvmFiles: Array<String> = arrayOf(),
     private val gradleFile: Array<String> = arrayOf(
         "build.gradle.kts",
         "gradle.properties",
@@ -38,37 +38,38 @@ abstract class TreeGenerator(
     ),
     private val rootFiles: Array<String> = arrayOf(
         ".gettext.json",
-        ".gitignore"
+        ".gitignore",
+        "gradlew",
+        "gradlew.bat",
     ),
     private val webpackFiles: Array<String> = arrayOf(
         "bootstrap.js",
         "css.js",
         "file.js",
-        "handlebars.js"
-    ),
-    private val webpackCustomFiles: Array<String> = arrayOf(
+        "handlebars.js",
         "webpack.js"
     ),
     private val commonFiles: Array<String> = arrayOf(
         "Service.kt"
     ),
-    private val frontendSourceFrontendFiles: Array<String> = arrayOf(
+    private val jsSourceFrontendFiles: Array<String> = arrayOf(
         "App.kt"
     ),
-    private val frontendSourceFullstackFiles: Array<String> = arrayOf(
+    private val jsSourceFullstackFiles: Array<String> = arrayOf(
         "App.kt",
         "Model.kt"
     ),
-    private val frontendWebFiles: Array<String> = arrayOf(
+    private val jsWebFiles: Array<String> = arrayOf(
         "index.html"
     ),
-    private val frontendResourcesFiles: Array<String> = arrayOf(
+    private val jsResourcesFiles: Array<String> = arrayOf(
         "messages.pot",
         "messages-en.po",
         "messages-pl.po"
     ),
-    private val frontendTestFiles: Array<String> = arrayOf("AppSpec.kt"),
+    private val jsTestFiles: Array<String> = arrayOf("AppSpec.kt"),
     private val ideaFiles: Array<String> = arrayOf("gradle.xml"),
+    private val gradleWrapperFiles: Array<String> = arrayOf("gradle-wrapper.jar", "gradle-wrapper.properties")
 ) {
     fun generate(
         root: VirtualFile,
@@ -88,32 +89,32 @@ abstract class TreeGenerator(
             root.build {
                 dir("src") {
                     if (!isFrontendOnly) {
-                        dir("backendMain") {
+                        dir("jvmMain") {
                             dir("kotlin") {
                                 packages(packageSegments) {
-                                    backendFiles.forEach { fileName ->
+                                    jvmFiles.forEach { fileName ->
                                         file(
                                             fileName,
-                                            "${templateName}_backend_source_$fileName",
+                                            "${templateName}_jvm_source_$fileName",
                                             attrs
                                         )
                                     }
                                 }
                             }
                             dir("resources") {
-                                backendResourcesFiles.forEach { fileName ->
+                                jvmResourcesFiles.forEach { fileName ->
                                     file(
                                         fileName,
-                                        "${templateName}_backend_resources_$fileName",
+                                        "${templateName}_jvm_resources_$fileName",
                                         attrs
                                     )
                                 }
-                                if (backendResourcesAssetsFiles.isNotEmpty()) {
+                                if (jvmResourcesAssetsFiles.isNotEmpty()) {
                                     dir("assets") {
-                                        backendResourcesAssetsFiles.forEach { fileName ->
+                                        jvmResourcesAssetsFiles.forEach { fileName ->
                                             file(
                                                 fileName,
-                                                "${templateName}_backend_resources_assets_$fileName",
+                                                "${templateName}_jvm_resources_assets_$fileName",
                                                 attrs
                                             )
                                         }
@@ -129,23 +130,22 @@ abstract class TreeGenerator(
                             }
                         }
                     }
-                    val frontendMain = if (isFrontendOnly) "main" else "frontendMain"
-                    dir(frontendMain) {
+                    dir("jsMain") {
                         dir("kotlin") {
                             packages(packageSegments) {
                                 if (isFrontendOnly) {
-                                    frontendSourceFrontendFiles.forEach { fileName ->
+                                    jsSourceFrontendFiles.forEach { fileName ->
                                         file(
                                             fileName,
-                                            "frontend_source_frontend_$fileName",
+                                            "js_source_frontend_$fileName",
                                             attrs
                                         )
                                     }
                                 } else {
-                                    frontendSourceFullstackFiles.forEach { fileName ->
+                                    jsSourceFullstackFiles.forEach { fileName ->
                                         file(
                                             fileName,
-                                            "frontend_source_fullstack_$fileName",
+                                            "js_source_fullstack_$fileName",
                                             attrs
                                         )
                                     }
@@ -153,16 +153,16 @@ abstract class TreeGenerator(
                             }
                         }
                         dir("web") {
-                            frontendWebFiles.forEach { fileName -> file(fileName, "frontend_web_$fileName", attrs) }
+                            jsWebFiles.forEach { fileName -> file(fileName, "js_web_$fileName", attrs) }
 
                         }
                         if (modules.contains("kvision-i18n")) {
                             dir("resources") {
                                 dir("i18n") {
-                                    frontendResourcesFiles.forEach { fileName ->
+                                    jsResourcesFiles.forEach { fileName ->
                                         file(
                                             fileName,
-                                            "frontend_resources_$fileName",
+                                            "js_resources_$fileName",
                                             attrs
                                         )
                                     }
@@ -170,19 +170,17 @@ abstract class TreeGenerator(
                             }
                         }
                     }
-                    val frontendTest = if (isFrontendOnly) "test" else "frontendTest"
-                    dir(frontendTest) {
+                    dir("jsTest") {
                         dir("kotlin") {
                             dir("test") {
                                 packages(packageSegments) {
-                                    frontendTestFiles.forEach { fileName ->
+                                    jsTestFiles.forEach { fileName ->
                                         file(
                                             fileName,
-                                            "frontend_test_$fileName",
+                                            "js_test_$fileName",
                                             attrs
                                         )
                                     }
-
                                 }
                             }
                         }
@@ -190,6 +188,14 @@ abstract class TreeGenerator(
                 }
                 dir("gradle") {
                     dir("wrapper") {
+                        gradleWrapperFiles.forEach { fileName ->
+                            file(
+                                fileName,
+                                "wrapper_$fileName",
+                                attrs,
+                                binary = true
+                            )
+                        }
                     }
                 }
                 dir(".idea") {
@@ -197,13 +203,17 @@ abstract class TreeGenerator(
                 }
                 dir("webpack.config.d") {
                     webpackFiles.forEach { fileName -> file(fileName, "webpack_${fileName}", attrs) }
-                    val customPrefix = if (isFrontendOnly) "frontend" else "fullstack"
-                    webpackCustomFiles.forEach { fileName ->
-                        file(fileName, "webpack_${customPrefix}_${fileName}", attrs)
-                    }
                 }
                 gradleFile.forEach { fileName -> file(fileName, "${templateName}_${fileName}", attrs) }
-                rootFiles.forEach { fileName -> file(fileName, fileName, attrs) }
+                rootFiles.forEach { fileName ->
+                    file(
+                        fileName,
+                        fileName,
+                        attrs,
+                        binary = (fileName == "gradlew" || fileName == "gradlew.bat"),
+                        executable = (fileName == "gradlew")
+                    )
+                }
             }
             root.refresh(false, true)
         } catch (ex: Exception) {
@@ -226,10 +236,12 @@ abstract class TreeGenerator(
             TemplateAttributes.PACKAGE_NAME to "${groupId}.${artifactId}",
             "kotlin_version" to versionData.kotlin,
             "ktor_version" to versionData.templateKtor.ktor,
+            "koin_annotations_version" to versionData.templateKtor.koinAnnotations,
             "kvision_version" to versionData.kVision,
             "coroutines_version" to versionData.coroutines,
             "jooby_version" to versionData.templateJooby.jooby,
             "micronaut_version" to versionData.templateMicronaut.micronaut,
+            "micronaut_plugins_version" to versionData.templateMicronaut.micronautPlugins,
             "spring_boot_version" to versionData.templateSpring.springBoot,
             "vertx_plugin_version" to versionData.templateVertx.vertxPlugin,
             "selected_modules" to modules,
