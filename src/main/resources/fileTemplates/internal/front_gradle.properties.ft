@@ -3,4 +3,3 @@ javaVersion=17
 systemProp.kotlinVersion=${kotlin_version}
 #Dependencies
 systemProp.kvisionVersion=${kvision_version}
-kotlin.js.compiler=ir

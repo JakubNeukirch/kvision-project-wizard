@@ -9,9 +9,9 @@ import com.intellij.openapi.util.text.StringUtil
 import com.intellij.ui.CheckBoxList
 import com.intellij.ui.DocumentAdapter
 import com.intellij.ui.components.JBScrollPane
-import tech.stonks.kvizard.KVisionModuleBuilder
 import tech.stonks.kvizard.KVisionProjectType
 import tech.stonks.kvizard.data.model.Module
+import tech.stonks.kvizard.supportedProjectTypes
 import tech.stonks.kvizard.utils.setOnTextChangedListener
 import java.awt.Dimension
 import java.awt.FlowLayout
@@ -48,7 +48,7 @@ class LibraryChoiceView(
             layout = BoxLayout(this, BoxLayout.Y_AXIS)
             alignmentX = JComponent.LEFT_ALIGNMENT
             add(JLabel("Project type:").apply { alignmentX = LEFT_ALIGNMENT })
-            add(ComboBox(KVisionModuleBuilder.supportedProjectTypes.map { it.displayName }.toTypedArray()).apply {
+            add(ComboBox(supportedProjectTypes.map { it.displayName }.toTypedArray()).apply {
                 alignmentX = LEFT_ALIGNMENT
                 setMinimumAndPreferredWidth(250)
                 addItemListener { event: java.awt.event.ItemEvent ->

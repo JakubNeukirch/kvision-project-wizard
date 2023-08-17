@@ -30,12 +30,17 @@ data class TemplateJooby(
 
 data class TemplateKtor(
     @SerializedName("ktor")
-    val ktor: String
+    val ktor: String,
+
+    @SerializedName("koin-annotations")
+    val koinAnnotations: String
 )
 
 data class TemplateMicronaut(
     @SerializedName("micronaut")
-    val micronaut: String
+    val micronaut: String,
+    @SerializedName("micronaut-plugins")
+    val micronautPlugins: String
 )
 
 data class TemplateSpring(

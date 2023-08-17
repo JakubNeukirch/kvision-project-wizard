@@ -32,6 +32,7 @@ class KVisionModuleType : ModuleType<KVisionModuleBuilder>("KVISION_WIZARD") {
 enum class KVisionProjectType(val displayName: String) {
     FRONTEND_ONLY("Frontend project"),
     KTOR_KOIN("Ktor/Koin fullstack project"),
+    KTOR_KOIN_ANNOT("Ktor/Koin/Annotations fullstack project"),
     KTOR("Ktor/Guice fullstack project"),
     SPRING_BOOT("Spring Boot fullstack project"),
     JAVALIN("Javalin fullstack project"),
@@ -39,3 +40,15 @@ enum class KVisionProjectType(val displayName: String) {
     MICRONAUT("Micronaut fullstack project"),
     VERTX("Vert.x fullstack project");
 }
+
+val supportedProjectTypes = arrayOf(
+    KVisionProjectType.FRONTEND_ONLY,
+    KVisionProjectType.KTOR_KOIN,
+    KVisionProjectType.KTOR_KOIN_ANNOT,
+    KVisionProjectType.KTOR,
+    KVisionProjectType.SPRING_BOOT,
+    KVisionProjectType.JAVALIN,
+    KVisionProjectType.JOOBY,
+    KVisionProjectType.MICRONAUT,
+    KVisionProjectType.VERTX
+)

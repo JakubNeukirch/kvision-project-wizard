@@ -1,9 +1,17 @@
 <idea-plugin>
-    <idea-version since-build="231"/>
+    <idea-version since-build="232"/>
     <id>kvision.project.wizard</id>
     <name>KVision Project Wizard</name>
     <vendor email="jakub.neukirch@stonks.tech" url="https://stonks.tech">Stonks.tech</vendor>
     <change-notes>
+        &lt;i&gt;Version 0.8.0:&lt;/i&gt;
+        &lt;ul&gt;
+            &lt;li&gt;Upgrade to KVision 7.0.0&lt;/li&gt;
+            &lt;li&gt;Upgrade to IntelliJ IDEA 2023.2&lt;/li&gt;
+            &lt;li&gt;Add new Ktor/Koin/Annotations project type&lt;/li&gt;
+            &lt;li&gt;Use embedded gradle wrapper&lt;/li&gt;
+        &lt;/ul&gt;
+
         &lt;i&gt;Version 0.7.0:&lt;/i&gt;
         &lt;ul&gt;
             &lt;li&gt;Upgrade to KVision 6.6.0&lt;/li&gt;

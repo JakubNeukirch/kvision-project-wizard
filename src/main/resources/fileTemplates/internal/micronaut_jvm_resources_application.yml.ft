@@ -1,0 +1,10 @@
+micronaut:
+  application:
+    name: ${ARTIFACT_ID}
+  router:
+    static-resources:
+      default:
+        enabled: true
+        mapping: "/**"
+        paths:
+          - classpath:public

@@ -21,6 +21,7 @@ repositories {
 val kotlinVersion: String by System.getProperties()
 val kvisionVersion: String by System.getProperties()
 val ktorVersion: String by project
+val koinAnnotationsVersion: String by project
 val logbackVersion: String by project
 
 val mainClassName = "io.ktor.server.netty.EngineMain"
@@ -83,6 +84,7 @@ kotlin {
                 implementation("io.ktor:ktor-server-netty:$ktorVersion")
                 implementation("io.ktor:ktor-server-auth:$ktorVersion")
                 implementation("io.ktor:ktor-server-compression:$ktorVersion")
+                implementation("io.insert-koin:koin-annotations:$koinAnnotationsVersion")
                 implementation("ch.qos.logback:logback-classic:$logbackVersion")
             }
         }
@@ -105,6 +107,18 @@ kotlin {
                 implementation(kotlin("test-js"))
                 implementation("io.kvision:kvision-testutils:$kvisionVersion")
             }
+        }
+    }
+}
+
+dependencies {
+    add("kspJvm", "io.insert-koin:koin-ksp-compiler:$koinAnnotationsVersion")
+}
+
+afterEvaluate {
+    tasks {
+        getByName("kspKotlinJvm").apply {
+            dependsOn("kspCommonMainKotlinMetadata")
         }
     }
 }

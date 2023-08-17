@@ -5,6 +5,7 @@ import com.intellij.ide.fileTemplates.FileTemplateManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.plugins.gradle.action.GradleExecuteTaskAction
+import tech.stonks.kvizard.KVisionModuleBuilder
 import java.io.File
 
 fun File.dir(name: String, body: File.() -> Unit = {}) {
@@ -27,13 +28,27 @@ fun VirtualFile.build(body: File.() -> Unit = {}) {
     File(this.path).body()
 }
 
-fun File.file(name: String, templateName: String, attributes: Map<String, Any> = emptyMap()) {
+fun File.file(
+    name: String,
+    templateName: String,
+    attributes: Map<String, Any> = emptyMap(),
+    binary: Boolean = false,
+    executable: Boolean = false
+) {
     val file = File(this, name)
     if (!file.exists()) {
         file.createNewFile()
     }
-    val data = getTemplateData(templateName, attributes)
-    file.writeText(data)
+    if (!binary) {
+        val data = getTemplateData(templateName, attributes)
+        file.writeText(data)
+    } else {
+        val data = getBinaryData(templateName)
+        file.writeBytes(data)
+    }
+    if (executable) {
+        file.setExecutable(true)
+    }
 }
 
 private fun getTemplateData(templateName: String, attributes: Map<String, Any> = emptyMap()): String {
@@ -45,6 +60,13 @@ private fun getTemplateData(templateName: String, attributes: Map<String, Any> =
     } else {
         template.getText(attributes)
     }
+}
+
+private fun getBinaryData(templateName: String): ByteArray {
+    KVisionModuleBuilder::class.java.getResourceAsStream("/fileTemplates/internal/$templateName")
+        .use { stream ->
+            return stream!!.readBytes()
+        }
 }
 
 fun Project.runGradle(command: String) {

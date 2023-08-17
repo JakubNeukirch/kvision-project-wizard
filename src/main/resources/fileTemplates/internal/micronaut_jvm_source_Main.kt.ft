@@ -4,7 +4,7 @@ import io.kvision.remote.getAllServiceManagers
 import io.kvision.remote.KVManagers
 import io.micronaut.context.annotation.Bean
 import io.micronaut.context.annotation.Factory
-import io.micronaut.runtime.Micronaut.build
+import io.micronaut.runtime.Micronaut.run
 
 @Factory
 class KVApplication {
@@ -13,8 +13,5 @@ class KVApplication {
 }
 
 fun main(args: Array<String>) {
-    build()
-        .args(*args)
-        .packages("${PACKAGE_NAME}")
-        .start()
+    run(*args)
 }
