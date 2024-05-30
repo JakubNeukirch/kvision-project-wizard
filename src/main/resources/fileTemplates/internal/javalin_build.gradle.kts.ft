@@ -40,10 +40,10 @@ kotlin {
     }
     js(IR) {
         browser {
-            commonWebpackConfig(Action {
+            commonWebpackConfig {
                 outputFileName = "main.bundle.js"
-            })
-            runTask(Action {
+            }
+            runTask {
                 sourceMaps = false
                 devServer = KotlinWebpackConfig.DevServer(
                     open = false,
@@ -55,12 +55,12 @@ kotlin {
                     ),
                     static = mutableListOf("${layout.buildDirectory.asFile.get()}/processedResources/js/main")
                 )
-            })
-            testTask(Action {
+            }
+            testTask {
                 useKarma {
                     useChromeHeadless()
                 }
-            })
+            }
         }
         binaries.executable()
     }

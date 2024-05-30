@@ -53,7 +53,7 @@ class LibraryChoiceView(
                 setMinimumAndPreferredWidth(250)
                 addItemListener { event: java.awt.event.ItemEvent ->
                     if (event.stateChange == java.awt.event.ItemEvent.SELECTED) {
-                        projectType = KVisionProjectType.values().find { it.displayName == event.item }!!
+                        projectType = KVisionProjectType.entries.find { it.displayName == event.item }!!
                         onChanged()
                     }
                 }
