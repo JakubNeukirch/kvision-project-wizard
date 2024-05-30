@@ -12,7 +12,7 @@ fun Project.backgroundTask(
     background: Boolean = false,
     callback: (indicator: ProgressIndicator) -> Unit
 ) {
-    ProgressManager.getInstance().run(object : Task.Backgroundable(this, name, cancellable, { background }) {
+    ProgressManager.getInstance().run(object : Task.Backgroundable(this, name, cancellable) {
         override fun shouldStartInBackground() = background
 
         override fun run(indicator: ProgressIndicator) {
