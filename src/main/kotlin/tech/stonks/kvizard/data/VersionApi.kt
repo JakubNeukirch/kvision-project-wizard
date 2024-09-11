@@ -9,7 +9,7 @@ import tech.stonks.kvizard.data.model.VersionData
 
 interface VersionApi {
 
-    @GET("versions7.json")
+    @GET("versions8.json")
     fun getVersionData(): Single<VersionData>
 
     companion object {

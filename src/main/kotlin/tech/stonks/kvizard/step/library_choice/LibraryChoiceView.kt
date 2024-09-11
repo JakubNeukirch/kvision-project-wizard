@@ -15,7 +15,6 @@ import tech.stonks.kvizard.supportedProjectTypes
 import tech.stonks.kvizard.utils.setOnTextChangedListener
 import java.awt.Dimension
 import java.awt.FlowLayout
-import java.util.function.Supplier
 import javax.swing.Box
 import javax.swing.BoxLayout
 import javax.swing.JButton
@@ -67,7 +66,7 @@ class LibraryChoiceView(
                     onChanged()
                 }
             })
-            ComponentValidator(parentDisposable!!).withValidator(Supplier<ValidationInfo> {
+            ComponentValidator(parentDisposable!!).withValidator {
                 val groupIdValue = groupTextField.text
                 if (StringUtil.isNotEmpty(groupIdValue)) {
                     if (validateGroupName(groupIdValue)) {
@@ -81,7 +80,7 @@ class LibraryChoiceView(
                 } else {
                     ValidationInfo("Value is required", groupTextField)
                 }
-            }).installOn(groupTextField)
+            }.installOn(groupTextField)
             groupTextField.document.addDocumentListener(object : DocumentAdapter() {
                 override fun textChanged(e: DocumentEvent) {
                     ComponentValidator.getInstance(groupTextField).ifPresent { v: ComponentValidator -> v.revalidate() }
@@ -96,7 +95,7 @@ class LibraryChoiceView(
                     onChanged()
                 }
             })
-            ComponentValidator(parentDisposable).withValidator(Supplier<ValidationInfo> {
+            ComponentValidator(parentDisposable).withValidator {
                 val artifactIdValue = artifactTextField.text
                 if (StringUtil.isNotEmpty(artifactIdValue)) {
                     if (validateArtifactName(artifactIdValue)) {
@@ -110,7 +109,7 @@ class LibraryChoiceView(
                 } else {
                     ValidationInfo("Value is required", artifactTextField)
                 }
-            }).installOn(artifactTextField)
+            }.installOn(artifactTextField)
             artifactTextField.document.addDocumentListener(object : DocumentAdapter() {
                 override fun textChanged(e: DocumentEvent) {
                     ComponentValidator.getInstance(artifactTextField)

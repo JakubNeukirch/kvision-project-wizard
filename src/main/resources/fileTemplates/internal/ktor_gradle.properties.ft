@@ -4,7 +4,7 @@ systemProp.kotlinVersion=${kotlin_version}
 #Dependencies
 systemProp.kvisionVersion=${kvision_version}
 ktorVersion=${ktor_version}
-logbackVersion=1.5.6
+logbackVersion=1.5.8
 
 kotlin.mpp.stability.nowarn=true
 org.gradle.jvmargs=-Xmx2g
