@@ -40,7 +40,10 @@ abstract class TreeGenerator(
         ".gettext.json",
         ".gitignore",
         "gradlew",
-        "gradlew.bat",
+        "gradlew.bat"
+    ),
+    private val mdFiles: Array<String> = arrayOf(
+        "README.md"
     ),
     private val webpackFiles: Array<String> = arrayOf(
         "bootstrap.js",
@@ -215,6 +218,7 @@ abstract class TreeGenerator(
                         executable = (fileName == "gradlew")
                     )
                 }
+                mdFiles.forEach { fileName -> file(fileName, "${templateName}_${fileName}", attrs) }
             }
             root.refresh(false, true)
         } catch (ex: Exception) {
