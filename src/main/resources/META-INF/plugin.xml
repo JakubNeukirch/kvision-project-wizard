@@ -1,9 +1,15 @@
 <idea-plugin>
-    <idea-version since-build="241"/>
     <id>kvision.project.wizard</id>
     <name>KVision Project Wizard</name>
     <vendor email="jakub.neukirch@stonks.tech" url="https://stonks.tech">Stonks.tech</vendor>
     <change-notes>
+        &lt;i&gt;Version 0.9.0:&lt;/i&gt;
+        &lt;ul&gt;
+            &lt;li&gt;Upgrade to KVision 8.0.0&lt;/li&gt;
+            &lt;li&gt;Upgrade to IntelliJ IDEA 2024.2.1&lt;/li&gt;
+            &lt;li&gt;Upgrade embedded gradle wrapper to 8.10&lt;/li&gt;
+        &lt;/ul&gt;
+
         &lt;i&gt;Version 0.8.1:&lt;/i&gt;
         &lt;ul&gt;
             &lt;li&gt;Upgrade to KVision 7.5.1&lt;/li&gt;

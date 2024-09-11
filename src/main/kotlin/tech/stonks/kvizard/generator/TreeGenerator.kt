@@ -47,6 +47,7 @@ abstract class TreeGenerator(
         "css.js",
         "file.js",
         "handlebars.js",
+        "proxy.js",
         "webpack.js"
     ),
     private val commonFiles: Array<String> = arrayOf(

@@ -16,3 +16,4 @@ hs_err_pid*
 # local project files
 .*/
 build/
+.intellijPlatform/

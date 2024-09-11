@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
     val kotlinVersion: String by System.getProperties()
@@ -7,7 +7,7 @@ plugins {
     val vertxPluginVersion: String by System.getProperties()
     id("io.vertx.vertx-plugin") version vertxPluginVersion
     val shadowVersion: String by System.getProperties()
-    id("com.github.johnrengelman.shadow") version shadowVersion
+    id("com.gradleup.shadow") version shadowVersion
     val kvisionVersion: String by System.getProperties()
     id("io.kvision") version kvisionVersion
 }
@@ -29,29 +29,16 @@ kotlin {
     jvmToolchain(17)
     jvm {
         withJava()
-        compilations.all {
-            kotlinOptions {
-                freeCompilerArgs = listOf("-Xjsr305=strict")
-            }
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions {
+            freeCompilerArgs = listOf("-Xjsr305=strict")
         }
     }
     js(IR) {
         browser {
             commonWebpackConfig {
                 outputFileName = "main.bundle.js"
-            }
-            runTask {
                 sourceMaps = false
-                devServer = KotlinWebpackConfig.DevServer(
-                    open = false,
-                    port = 3000,
-                    proxy = mutableMapOf(
-                        "/kv/*" to "http://localhost:8080",
-                        "/kvsse/*" to "http://localhost:8080",
-                        "/kvws/*" to mapOf("target" to "ws://localhost:8080", "ws" to true)
-                    ),
-                    static = mutableListOf("${layout.buildDirectory.asFile.get()}/processedResources/js/main")
-                )
             }
             testTask {
                 useKarma {
