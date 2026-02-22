@@ -74,7 +74,7 @@ abstract class TreeGenerator(
     ),
     private val jsResourcesTailwindcssFiles: Array<String> = arrayOf(
         "tailwind.config.js",
-        "tailwind.twcss"
+        "tailwind.css"
     ),
     private val jsTestFiles: Array<String> = arrayOf("AppSpec.kt"),
     private val ideaFiles: Array<String> = arrayOf("gradle.xml"),
