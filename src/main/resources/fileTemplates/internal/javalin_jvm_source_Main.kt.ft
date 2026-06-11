@@ -9,10 +9,10 @@ import io.kvision.remote.registerRemoteTypes
 
 fun main() {
     registerRemoteTypes()
-    Javalin.create().start(8080).apply {
-        initRpc {
+    Javalin.create { config ->
+        config.initRpc {
             registerService<IPingService> { PingService() }
         }
-        getAllServiceManagers().forEach { applyRoutes(it) }
-    }
+        getAllServiceManagers().forEach { config.applyRoutes(it) }
+    }.start(8080)
 }

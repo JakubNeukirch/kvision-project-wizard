@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-
 plugins {
     val kotlinVersion: String by System.getProperties()
     kotlin("plugin.serialization") version kotlinVersion
@@ -23,14 +21,13 @@ val kiluaRpcVersion: String by System.getProperties()
 extra["mainClassName"] = "${GROUP_ID}.${ARTIFACT_ID}.MainKt"
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(25)
     jvm {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
         }
     }
-    js(IR) {
+    js {
         browser {
             useEsModules()
             commonWebpackConfig {

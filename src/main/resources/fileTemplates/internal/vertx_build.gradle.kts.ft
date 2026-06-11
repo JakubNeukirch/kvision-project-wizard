@@ -23,9 +23,8 @@ val logbackVersion: String by project
 extra["mainClassName"] = "${PACKAGE_NAME}.MainVerticle"
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(25)
     jvm {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
         }
@@ -35,7 +34,7 @@ kotlin {
             args(project.extra["mainClassName"]!!)
         }
     }
-    js(IR) {
+    js {
         browser {
             useEsModules()
             commonWebpackConfig {
