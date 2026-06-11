@@ -23,9 +23,8 @@ val logbackVersion: String by project
 val mainClassName = "${GROUP_ID}.${ARTIFACT_ID}.MainKt"
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(25)
     jvm {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
         }
@@ -34,7 +33,7 @@ kotlin {
             mainClass.set(mainClassName)
         }
     }
-    js(IR) {
+    js {
         browser {
             useEsModules()
             commonWebpackConfig {

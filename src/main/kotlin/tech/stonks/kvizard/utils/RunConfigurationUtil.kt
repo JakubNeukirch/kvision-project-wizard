@@ -46,7 +46,7 @@ object RunConfigurationUtil {
         runManager.addConfiguration(
             RunnerAndConfigurationSettingsImpl(
                 RunManagerImpl.getInstanceImpl(project),
-                KVisionConfigurationFactory("run", "-t").createTemplateConfiguration(project)
+                KVisionConfigurationFactory("jsBrowserDevelopmentRun", "-t").createTemplateConfiguration(project)
             )
         )
         runManager.setOrder(RunnerComparator())
@@ -64,7 +64,7 @@ object RunConfigurationUtil {
         runManager.addConfiguration(
             RunnerAndConfigurationSettingsImpl(
                 RunManagerImpl.getInstanceImpl(project),
-                KVisionConfigurationFactory("jsRun", "-t").createTemplateConfiguration(project)
+                KVisionConfigurationFactory("jsBrowserDevelopmentRun", "-t").createTemplateConfiguration(project)
             )
         )
         runManager.setOrder(RunnerComparator())
