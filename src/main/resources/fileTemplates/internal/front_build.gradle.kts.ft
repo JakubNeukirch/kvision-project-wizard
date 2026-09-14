@@ -14,8 +14,8 @@ val kvisionVersion: String by System.getProperties()
 
 kotlin {
     js {
+        useEsModules()
         browser {
-            useEsModules()
             commonWebpackConfig {
                 outputFileName = "main.bundle.js"
                 sourceMaps = false

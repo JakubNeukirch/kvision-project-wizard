@@ -22,6 +22,7 @@ import tech.stonks.kvizard.data.VersionApi
 import tech.stonks.kvizard.data.model.TemplateJooby
 import tech.stonks.kvizard.data.model.TemplateKtor
 import tech.stonks.kvizard.data.model.TemplateMicronaut
+import tech.stonks.kvizard.data.model.TemplateQuarkus
 import tech.stonks.kvizard.data.model.TemplateSpring
 import tech.stonks.kvizard.data.model.VersionData
 import tech.stonks.kvizard.generator.FrontendTreeGenerator
@@ -29,6 +30,7 @@ import tech.stonks.kvizard.generator.JavalinTreeGenerator
 import tech.stonks.kvizard.generator.JoobyTreeGenerator
 import tech.stonks.kvizard.generator.KtorTreeGenerator
 import tech.stonks.kvizard.generator.MicronautTreeGenerator
+import tech.stonks.kvizard.generator.QuarkusTreeGenerator
 import tech.stonks.kvizard.generator.SpringTreeGenerator
 import tech.stonks.kvizard.generator.TreeGenerator
 import tech.stonks.kvizard.generator.VertxTreeGenerator
@@ -90,6 +92,7 @@ class KVisionModuleBuilder : ModuleBuilder() {
             KVisionProjectType.JAVALIN -> JavalinTreeGenerator()
             KVisionProjectType.JOOBY -> JoobyTreeGenerator()
             KVisionProjectType.MICRONAUT -> MicronautTreeGenerator()
+            KVisionProjectType.QUARKUS -> QuarkusTreeGenerator()
             KVisionProjectType.VERTX -> VertxTreeGenerator()
         }
     }
@@ -112,16 +115,17 @@ class KVisionModuleBuilder : ModuleBuilder() {
             VersionApi.create().getVersionData().blockingGet()
         } catch (ex: Exception) {
             VersionData(
-                kvision = "9.6.0",
-                kotlin = "2.4.0",
+                kvision = "9.7.0",
+                kotlin = "2.4.20",
                 coroutines = "1.11.0",
-                ksp = "2.3.9",
-                kiluaRpc = "0.0.45",
-                logback = "1.5.34",
-                templateJooby = TemplateJooby("4.5.2"),
-                templateKtor = TemplateKtor(ktor = "3.5.0"),
-                templateMicronaut = TemplateMicronaut(micronaut = "5.0.2", micronautPlugins = "5.0.0"),
-                templateSpring = TemplateSpring(springBoot = "4.1.0"),
+                ksp = "2.3.12",
+                kiluaRpc = "0.0.46",
+                logback = "1.6.3",
+                templateJooby = TemplateJooby("4.5.4"),
+                templateKtor = TemplateKtor(ktor = "3.5.2"),
+                templateMicronaut = TemplateMicronaut(micronaut = "5.1.5", micronautPlugins = "5.0.2"),
+                templateSpring = TemplateSpring(springBoot = "4.1.1"),
+                templateQuarkus = TemplateQuarkus(quarkus = "3.39.3"),
                 modules = emptyList()
             )
         }

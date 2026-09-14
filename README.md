@@ -8,6 +8,7 @@ Supported project types:
 * Jooby fullstack project
 * Micronaut fullstack project
 * Vert.x fullstack project
+* Quarkus fullstack project
  
  ## Contribution
 You can contribute new project types:

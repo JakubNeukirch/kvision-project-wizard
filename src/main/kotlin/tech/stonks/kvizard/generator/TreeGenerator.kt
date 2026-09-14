@@ -29,6 +29,7 @@ abstract class TreeGenerator(
     private val templateName: String,
     private val isFrontendOnly: Boolean = false,
     private val jvmResourcesFiles: Array<String> = arrayOf(),
+    private val jvmResourcesMetaFiles: Array<String> = arrayOf(),
     private val jvmResourcesAssetsFiles: Array<String> = arrayOf(),
     private val jvmFiles: Array<String> = arrayOf(),
     private val gradleFile: Array<String> = arrayOf(
@@ -80,6 +81,8 @@ abstract class TreeGenerator(
     private val ideaFiles: Array<String> = arrayOf("gradle.xml"),
     private val gradleWrapperFiles: Array<String> = arrayOf("gradle-wrapper.jar", "gradle-wrapper.properties"),
     private val subApplicationFiles: Array<String> = arrayOf(),
+    private val subApplicationSourceFiles: Array<String> = arrayOf(),
+    private val subApplicationResourcesFiles: Array<String> = arrayOf()
 ) {
     fun generate(
         root: VirtualFile,
@@ -118,6 +121,17 @@ abstract class TreeGenerator(
                                         "${templateName}_jvm_resources_$fileName",
                                         attrs
                                     )
+                                }
+                                if (jvmResourcesMetaFiles.isNotEmpty()) {
+                                    dir("META-INF") {
+                                        jvmResourcesMetaFiles.forEach { fileName ->
+                                            file(
+                                                fileName,
+                                                "${templateName}_jvm_resources_meta_$fileName",
+                                                attrs
+                                            )
+                                        }
+                                    }
                                 }
                                 if (jvmResourcesAssetsFiles.isNotEmpty()) {
                                     dir("assets") {
@@ -244,6 +258,36 @@ abstract class TreeGenerator(
                                 attrs
                             )
                         }
+                        if (subApplicationSourceFiles.isNotEmpty()) {
+                            dir("src") {
+                                dir("main") {
+                                    dir("kotlin") {
+                                        subApplicationSourceFiles.forEach { fileName ->
+                                            file(
+                                                fileName,
+                                                "${templateName}_application_source_$fileName",
+                                                attrs
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if (subApplicationResourcesFiles.isNotEmpty()) {
+                            dir("src") {
+                                dir("main") {
+                                    dir("resources") {
+                                        subApplicationResourcesFiles.forEach { fileName ->
+                                            file(
+                                                fileName,
+                                                "${templateName}_application_resources_$fileName",
+                                                attrs
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -277,6 +321,7 @@ abstract class TreeGenerator(
             "micronaut_version" to versionData.templateMicronaut.micronaut,
             "micronaut_plugins_version" to versionData.templateMicronaut.micronautPlugins,
             "spring_boot_version" to versionData.templateSpring.springBoot,
+            "quarkus_version" to versionData.templateQuarkus.quarkus,
             "selected_modules" to modules,
             "selected_initializers" to initializers,
             "i18n_included" to modules.contains("kvision-i18n"),
