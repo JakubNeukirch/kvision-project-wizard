@@ -2,8 +2,7 @@ systemProp.kotlinVersion=${kotlin_version}
 systemProp.kspVersion=${ksp_version}
 systemProp.kiluaRpcVersion=${kilua_rpc_version}
 systemProp.kvisionVersion=${kvision_version}
-systemProp.micronautPluginsVersion=${micronaut_plugins_version}
-micronautVersion=${micronaut_version}
+quarkusVersion=${quarkus_version}
 
 org.gradle.jvmargs=-Xmx2g
 org.gradle.parallel=true

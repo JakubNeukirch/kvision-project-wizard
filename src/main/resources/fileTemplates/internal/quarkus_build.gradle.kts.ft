@@ -1,9 +1,8 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-
 plugins {
     val kotlinVersion: String by System.getProperties()
     kotlin("plugin.serialization") version kotlinVersion
     kotlin("multiplatform") version kotlinVersion
+    kotlin("plugin.allopen") version kotlinVersion
     val kspVersion: String by System.getProperties()
     id("com.google.devtools.ksp") version kspVersion
     val kiluaRpcVersion: String by System.getProperties()
@@ -18,19 +17,13 @@ group = "${GROUP_ID}"
 // Versions
 val kvisionVersion: String by System.getProperties()
 val kiluaRpcVersion: String by System.getProperties()
-val logbackVersion = project.property("logbackVersion") as String
-
-val mainClassName = "${GROUP_ID}.${ARTIFACT_ID}.MainKt"
+val quarkusVersion = project.property("quarkusVersion") as String
 
 kotlin {
     jvmToolchain(25)
     jvm {
         compilerOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
-        }
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        mainRun {
-            mainClass.set(mainClassName)
         }
     }
     js {
@@ -54,7 +47,7 @@ kotlin {
     sourceSets {
         getByName("commonMain") {
             dependencies {
-                implementation("dev.kilua:kilua-rpc-javalin:$kiluaRpcVersion")
+                implementation("dev.kilua:kilua-rpc-quarkus:$kiluaRpcVersion")
                 implementation("io.kvision:kvision-common-remote:$kvisionVersion")
             }
         }
@@ -66,7 +59,14 @@ kotlin {
         }
         getByName("jvmMain") {
             dependencies {
-                implementation("ch.qos.logback:logback-classic:$logbackVersion")
+                implementation(kotlin("reflect"))
+                implementation(project.dependencies.platform("io.quarkus.platform:quarkus-bom:$quarkusVersion"))
+                implementation("io.quarkus:quarkus-rest")
+                implementation("io.quarkus:quarkus-kotlin")
+                implementation("io.quarkus:quarkus-rest-kotlin-serialization")
+                implementation("io.quarkus:quarkus-vertx-http")
+                implementation("io.quarkus:quarkus-arc")
+                implementation("io.quarkus:quarkus-config-yaml")
             }
         }
         getByName("jvmTest") {
@@ -78,9 +78,9 @@ kotlin {
         getByName("jsMain") {
             dependencies {
                 implementation("io.kvision:kvision:$kvisionVersion")
-#foreach( ${module} in ${selected_modules} )
-                implementation("io.kvision:${module}:$kvisionVersion")
-#end
+                #foreach( ${module} in ${selected_modules} )
+                    implementation("io.kvision:${module}:$kvisionVersion")
+                #end
             }
         }
         getByName("jsTest") {

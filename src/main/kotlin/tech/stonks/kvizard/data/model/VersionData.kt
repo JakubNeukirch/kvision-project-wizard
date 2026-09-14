@@ -23,6 +23,8 @@ data class VersionData(
     val templateMicronaut: TemplateMicronaut,
     @SerializedName("template-spring-boot")
     val templateSpring: TemplateSpring,
+    @SerializedName("template-quarkus")
+    val templateQuarkus: TemplateQuarkus,
     @SerializedName("modules")
     val modules: List<Module>
 )
@@ -47,6 +49,11 @@ data class TemplateMicronaut(
 data class TemplateSpring(
     @SerializedName("spring-boot")
     val springBoot: String
+)
+
+data class TemplateQuarkus(
+    @SerializedName("quarkus")
+    val quarkus: String
 )
 
 data class Module(

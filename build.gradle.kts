@@ -1,11 +1,11 @@
 plugins {
-    id("org.jetbrains.intellij.platform") version "2.16.0"
-    id("org.jetbrains.kotlin.jvm") version "2.4.0"
+    id("org.jetbrains.intellij.platform") version "2.19.0"
+    id("org.jetbrains.kotlin.jvm") version "2.4.20"
     id("idea")
 }
 
 group = "tech.stonks"
-version = "0.11.0"
+version = "0.12.0"
 
 repositories {
     mavenCentral()
@@ -23,7 +23,7 @@ dependencies {
     implementation("io.reactivex.rxjava3:rxjava:3.1.12")
     implementation("io.reactivex.rxjava3:rxkotlin:3.0.1")
     intellijPlatform {
-        intellijIdea("2026.1.3")
+        intellijIdea("2026.2.2")
         bundledPlugin("com.intellij.java")
         bundledPlugin("com.intellij.gradle")
         bundledPlugin("org.jetbrains.kotlin")

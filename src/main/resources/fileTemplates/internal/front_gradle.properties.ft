@@ -4,3 +4,4 @@ systemProp.kvisionVersion=${kvision_version}
 org.gradle.parallel=true
 org.gradle.caching=true
 org.gradle.configuration-cache=true
+kotlin.js.yarn=false

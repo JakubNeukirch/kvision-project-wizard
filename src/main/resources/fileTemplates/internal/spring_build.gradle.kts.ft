@@ -28,8 +28,8 @@ kotlin {
         }
     }
     js {
+        useEsModules()
         browser {
-            useEsModules()
             commonWebpackConfig {
                 outputFileName = "main.bundle.js"
                 sourceMaps = false
@@ -46,19 +46,19 @@ kotlin {
         }
     }
     sourceSets {
-        val commonMain by getting {
+        getByName("commonMain") {
             dependencies {
                 implementation("dev.kilua:kilua-rpc-spring-boot:$kiluaRpcVersion")
                 implementation("io.kvision:kvision-common-remote:$kvisionVersion")
             }
         }
-        val commonTest by getting {
+        getByName("commonTest") {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
             }
         }
-        val jvmMain by getting {
+        getByName("jvmMain") {
             dependencies {
                 implementation(kotlin("reflect"))
                 implementation(project.dependencies.platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
@@ -67,14 +67,14 @@ kotlin {
                 implementation("org.springframework.boot:spring-boot-starter-security")
             }
         }
-        val jvmTest by getting {
+        getByName("jvmTest") {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
                 implementation("org.springframework.boot:spring-boot-starter-test")
             }
         }
-        val jsMain by getting {
+        getByName("jsMain") {
             dependencies {
                 implementation("io.kvision:kvision:$kvisionVersion")
 #foreach( ${module} in ${selected_modules} )
@@ -82,7 +82,7 @@ kotlin {
 #end
             }
         }
-        val jsTest by getting {
+        getByName("jsTest") {
             dependencies {
                 implementation(kotlin("test-js"))
                 implementation("io.kvision:kvision-testutils:$kvisionVersion")

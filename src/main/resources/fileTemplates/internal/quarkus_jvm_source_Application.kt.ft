@@ -1,0 +1,13 @@
+package ${PACKAGE_NAME}
+
+import dev.kilua.rpc.RpcManagers
+import dev.kilua.rpc.getAllServiceManagers
+import jakarta.enterprise.context.ApplicationScoped
+import jakarta.enterprise.inject.Produces
+
+@ApplicationScoped
+class Application {
+    @Produces
+    @ApplicationScoped
+    fun getManagers() = RpcManagers(getAllServiceManagers())
+}

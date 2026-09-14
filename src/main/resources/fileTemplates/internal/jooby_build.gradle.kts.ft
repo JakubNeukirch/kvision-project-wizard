@@ -21,7 +21,7 @@ group = "${GROUP_ID}"
 val kvisionVersion: String by System.getProperties()
 val kiluaRpcVersion: String by System.getProperties()
 val joobyVersion: String by System.getProperties()
-val logbackVersion: String by project
+val logbackVersion = project.property("logbackVersion") as String
 
 val mainClassNameVal = "${GROUP_ID}.${ARTIFACT_ID}.MainKt"
 
@@ -37,8 +37,8 @@ kotlin {
         }
     }
     js {
+        useEsModules()
         browser {
-            useEsModules()
             commonWebpackConfig {
                 outputFileName = "main.bundle.js"
                 sourceMaps = false
@@ -55,31 +55,31 @@ kotlin {
         }
     }
     sourceSets {
-        val commonMain by getting {
+        getByName("commonMain") {
             dependencies {
                 implementation("dev.kilua:kilua-rpc-jooby:$kiluaRpcVersion")
                 implementation("io.kvision:kvision-common-remote:$kvisionVersion")
             }
         }
-        val commonTest by getting {
+        getByName("commonTest") {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
             }
         }
-        val jvmMain by getting {
+        getByName("jvmMain") {
             dependencies {
                 implementation("io.jooby:jooby-netty:$joobyVersion")
                 implementation("ch.qos.logback:logback-classic:$logbackVersion")
             }
         }
-        val jvmTest by getting {
+        getByName("jvmTest") {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
             }
         }
-        val jsMain by getting {
+        getByName("jsMain") {
             dependencies {
                 implementation("io.kvision:kvision:$kvisionVersion")
 #foreach( ${module} in ${selected_modules} )
@@ -87,7 +87,7 @@ kotlin {
 #end
             }
         }
-        val jsTest by getting {
+        getByName("jsTest") {
             dependencies {
                 implementation(kotlin("test-js"))
                 implementation("io.kvision:kvision-testutils:$kvisionVersion")

@@ -1,0 +1,12 @@
+plugins {
+    kotlin("jvm")
+    id("io.quarkus")
+}
+
+val quarkusVersion = project.property("quarkusVersion") as String
+
+dependencies {
+    implementation(rootProject)
+    implementation(enforcedPlatform("io.quarkus.platform:quarkus-bom:$quarkusVersion"))
+    implementation("io.quarkus:quarkus-core")
+}

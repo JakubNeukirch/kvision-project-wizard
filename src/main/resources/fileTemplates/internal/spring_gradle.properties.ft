@@ -7,3 +7,4 @@ org.gradle.jvmargs=-Xmx2g
 org.gradle.parallel=true
 org.gradle.caching=true
 org.gradle.configuration-cache=true
+kotlin.js.yarn=false
